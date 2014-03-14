@@ -27,8 +27,8 @@
 	}
 	else
 	{
-		// If we didn't find a match, simply append the menu item
-		// at the end rather than not displaying it at all.
+		// If we didn't find a match, append the menu items
+		// at the end rather than not displaying them at all.
 		[self xctt_addItems:items];
 	}
 }
