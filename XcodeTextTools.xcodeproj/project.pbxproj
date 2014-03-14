@@ -1,0 +1,289 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4C2868AD18D331B7006C780C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2868AC18D331B7006C780C /* AppKit.framework */; };
+		4C2868AF18D331B7006C780C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2868AE18D331B7006C780C /* Foundation.framework */; };
+		4C2868B518D331B7006C780C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C2868B318D331B7006C780C /* InfoPlist.strings */; };
+		4C2868B818D331B7006C780C /* XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2868B718D331B7006C780C /* XcodeTextTools.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4C2868A918D331B7006C780C /* XcodeTextTools.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeTextTools.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C2868AC18D331B7006C780C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		4C2868AE18D331B7006C780C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4C2868B218D331B7006C780C /* XcodeTextTools-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XcodeTextTools-Info.plist"; sourceTree = "<group>"; };
+		4C2868B418D331B7006C780C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4C2868B618D331B7006C780C /* XcodeTextTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XcodeTextTools.h; sourceTree = "<group>"; };
+		4C2868B718D331B7006C780C /* XcodeTextTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XcodeTextTools.m; sourceTree = "<group>"; };
+		4C2868B918D331B7006C780C /* XcodeTextTools-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XcodeTextTools-Prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4C2868A618D331B7006C780C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C2868AD18D331B7006C780C /* AppKit.framework in Frameworks */,
+				4C2868AF18D331B7006C780C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4C2868A018D331B7006C780C = {
+			isa = PBXGroup;
+			children = (
+				4C2868B018D331B7006C780C /* XcodeTextTools */,
+				4C2868AB18D331B7006C780C /* Frameworks */,
+				4C2868AA18D331B7006C780C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4C2868AA18D331B7006C780C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4C2868A918D331B7006C780C /* XcodeTextTools.xcplugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4C2868AB18D331B7006C780C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C2868AC18D331B7006C780C /* AppKit.framework */,
+				4C2868AE18D331B7006C780C /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4C2868B018D331B7006C780C /* XcodeTextTools */ = {
+			isa = PBXGroup;
+			children = (
+				4C2868B618D331B7006C780C /* XcodeTextTools.h */,
+				4C2868B718D331B7006C780C /* XcodeTextTools.m */,
+				4C2868B118D331B7006C780C /* Supporting Files */,
+			);
+			path = XcodeTextTools;
+			sourceTree = "<group>";
+		};
+		4C2868B118D331B7006C780C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C2868B218D331B7006C780C /* XcodeTextTools-Info.plist */,
+				4C2868B318D331B7006C780C /* InfoPlist.strings */,
+				4C2868B918D331B7006C780C /* XcodeTextTools-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4C2868A818D331B7006C780C /* XcodeTextTools */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C2868BC18D331B7006C780C /* Build configuration list for PBXNativeTarget "XcodeTextTools" */;
+			buildPhases = (
+				4C2868A518D331B7006C780C /* Sources */,
+				4C2868A618D331B7006C780C /* Frameworks */,
+				4C2868A718D331B7006C780C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XcodeTextTools;
+			productName = XcodeTextTools;
+			productReference = 4C2868A918D331B7006C780C /* XcodeTextTools.xcplugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4C2868A118D331B7006C780C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Michaël Fortin";
+			};
+			buildConfigurationList = 4C2868A418D331B7006C780C /* Build configuration list for PBXProject "XcodeTextTools" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4C2868A018D331B7006C780C;
+			productRefGroup = 4C2868AA18D331B7006C780C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4C2868A818D331B7006C780C /* XcodeTextTools */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4C2868A718D331B7006C780C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C2868B518D331B7006C780C /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4C2868A518D331B7006C780C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C2868B818D331B7006C780C /* XcodeTextTools.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4C2868B318D331B7006C780C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C2868B418D331B7006C780C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4C2868BA18D331B7006C780C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		4C2868BB18D331B7006C780C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4C2868BD18D331B7006C780C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(HOME)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XcodeTextTools/XcodeTextTools-Prefix.pch";
+				INFOPLIST_FILE = "XcodeTextTools/XcodeTextTools-Info.plist";
+				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xcplugin;
+			};
+			name = Debug;
+		};
+		4C2868BE18D331B7006C780C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(HOME)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XcodeTextTools/XcodeTextTools-Prefix.pch";
+				INFOPLIST_FILE = "XcodeTextTools/XcodeTextTools-Info.plist";
+				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xcplugin;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4C2868A418D331B7006C780C /* Build configuration list for PBXProject "XcodeTextTools" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C2868BA18D331B7006C780C /* Debug */,
+				4C2868BB18D331B7006C780C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C2868BC18D331B7006C780C /* Build configuration list for PBXNativeTarget "XcodeTextTools" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C2868BD18D331B7006C780C /* Debug */,
+				4C2868BE18D331B7006C780C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4C2868A118D331B7006C780C /* Project object */;
+}
