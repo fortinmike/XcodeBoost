@@ -11,6 +11,9 @@
 		4C2868AF18D331B7006C780C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2868AE18D331B7006C780C /* Foundation.framework */; };
 		4C2868B518D331B7006C780C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C2868B318D331B7006C780C /* InfoPlist.strings */; };
 		4C2868B818D331B7006C780C /* XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2868B718D331B7006C780C /* XcodeTextTools.m */; };
+		4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC525018D380B800E88C70 /* MFPluginController.m */; };
+		4CD521EA18D384360025F2A1 /* NSMenu+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD521E918D384360025F2A1 /* NSMenu+XcodeTextTools.m */; };
+		4CD521ED18D384EC0025F2A1 /* NSArray+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD521EC18D384EC0025F2A1 /* NSArray+XcodeTextTools.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,12 @@
 		4C2868B618D331B7006C780C /* XcodeTextTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XcodeTextTools.h; sourceTree = "<group>"; };
 		4C2868B718D331B7006C780C /* XcodeTextTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XcodeTextTools.m; sourceTree = "<group>"; };
 		4C2868B918D331B7006C780C /* XcodeTextTools-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XcodeTextTools-Prefix.pch"; sourceTree = "<group>"; };
+		4CAC524F18D380B800E88C70 /* MFPluginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPluginController.h; sourceTree = "<group>"; };
+		4CAC525018D380B800E88C70 /* MFPluginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPluginController.m; sourceTree = "<group>"; };
+		4CD521E818D384360025F2A1 /* NSMenu+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMenu+XcodeTextTools.h"; sourceTree = "<group>"; };
+		4CD521E918D384360025F2A1 /* NSMenu+XcodeTextTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMenu+XcodeTextTools.m"; sourceTree = "<group>"; };
+		4CD521EB18D384EC0025F2A1 /* NSArray+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+XcodeTextTools.h"; sourceTree = "<group>"; };
+		4CD521EC18D384EC0025F2A1 /* NSArray+XcodeTextTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+XcodeTextTools.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +77,9 @@
 			children = (
 				4C2868B618D331B7006C780C /* XcodeTextTools.h */,
 				4C2868B718D331B7006C780C /* XcodeTextTools.m */,
+				4CD521E718D384240025F2A1 /* Categories */,
+				4CAC524E18D380A000E88C70 /* Logic */,
+				4CEBB15818D37F6C0091E9FC /* ClassDumps */,
 				4C2868B118D331B7006C780C /* Supporting Files */,
 			);
 			path = XcodeTextTools;
@@ -81,6 +93,33 @@
 				4C2868B918D331B7006C780C /* XcodeTextTools-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4CAC524E18D380A000E88C70 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				4CAC524F18D380B800E88C70 /* MFPluginController.h */,
+				4CAC525018D380B800E88C70 /* MFPluginController.m */,
+			);
+			name = Logic;
+			sourceTree = "<group>";
+		};
+		4CD521E718D384240025F2A1 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				4CD521EB18D384EC0025F2A1 /* NSArray+XcodeTextTools.h */,
+				4CD521EC18D384EC0025F2A1 /* NSArray+XcodeTextTools.m */,
+				4CD521E818D384360025F2A1 /* NSMenu+XcodeTextTools.h */,
+				4CD521E918D384360025F2A1 /* NSMenu+XcodeTextTools.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		4CEBB15818D37F6C0091E9FC /* ClassDumps */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ClassDumps;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,6 +185,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C2868B818D331B7006C780C /* XcodeTextTools.m in Sources */,
+				4CD521EA18D384360025F2A1 /* NSMenu+XcodeTextTools.m in Sources */,
+				4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */,
+				4CD521ED18D384EC0025F2A1 /* NSArray+XcodeTextTools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +324,7 @@
 				4C2868BE18D331B7006C780C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
