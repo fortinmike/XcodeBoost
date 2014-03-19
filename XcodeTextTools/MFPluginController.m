@@ -40,16 +40,23 @@
 - (NSMenuItem *)createTextToolsMenuItem
 {
 	NSMenu *submenu = [[NSMenu alloc] init];
-	[submenu addItem:[[NSMenuItem alloc] initWithTitle:@"Cut Line" action:nil keyEquivalent:@""]];
-	[submenu addItem:[[NSMenuItem alloc] initWithTitle:@"Copy Line" action:nil keyEquivalent:@""]];
-	[submenu addItem:[[NSMenuItem alloc] initWithTitle:@"Paste Line" action:nil keyEquivalent:@""]];
-	[submenu addItem:[[NSMenuItem alloc] initWithTitle:@"Duplicate Line" action:nil keyEquivalent:@""]];
-	[submenu addItem:[[NSMenuItem alloc] initWithTitle:@"Delete Line" action:nil keyEquivalent:@""]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Cut Line" action:@selector(cutLine_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Copy Line" action:@selector(copyLine_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Paste Line" action:@selector(pasteLine_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Line" action:@selector(duplicateLine_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Delete Line" action:@selector(deleteLine_clicked:)]];
 	
 	NSMenuItem *textToolsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Text Tools" action:NULL keyEquivalent:@""];
 	[textToolsMenuItem setSubmenu:submenu];
 	
 	return textToolsMenuItem;
+}
+
+- (NSMenuItem *)createMenuItemWithTitle:(NSString *)title action:(SEL)action
+{
+	NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:title action:action keyEquivalent:@""];
+	[item setTarget:self];
+	return item;
 }
 
 - (void)registerForNotifications
@@ -63,6 +70,33 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark Action Methods
+
+- (void)cutLine_clicked:(id)sender
+{
+	[[NSAlert alertWithMessageText:@"Cut Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+}
+
+- (void)copyLine_clicked:(id)sender
+{
+	[[NSAlert alertWithMessageText:@"Copy Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+}
+
+- (void)pasteLine_clicked:(id)sender
+{
+	[[NSAlert alertWithMessageText:@"Paste Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+}
+
+- (void)duplicateLine_clicked:(id)sender
+{
+	[[NSAlert alertWithMessageText:@"Duplicate Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+}
+
+- (void)deleteLine_clicked:(id)sender
+{
+	[[NSAlert alertWithMessageText:@"Delete Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
 }
 
 #pragma mark Notifications
