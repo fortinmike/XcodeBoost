@@ -8,6 +8,7 @@
 
 #import "MFPluginController.h"
 #import "NSMenu+XcodeTextTools.h"
+#import "NSString+XcodeTextTools.h"
 #import "IDEKit.h"
 
 @implementation MFPluginController
@@ -103,7 +104,26 @@
 
 - (void)highlightSelection_clicked:(id)sender
 {
-	[[NSAlert alertWithMessageText:@"Highlight Selection" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	NSTextStorage *textStorage = [_activeTextView textStorage];
+	
+	NSColor *color = [NSColor greenColor];
+	
+	// TODO: Find selected string(s) (selection can have multiple ranges) and highlight
+	//       occurences in a different color for each range
+	
+	// TODO: Use associated objects to store a text tools info instance to store currently
+	//       used colors for highlighting on the NSTextView and more!
+	
+	// TODO: Implement clearing of highlights
+	
+	NSString *selection = @"NS";
+	NSArray *ranges = [[textStorage string] xctt_rangesOfString:selection];
+	
+	for (NSValue *rangeValue in ranges)
+	{
+		NSRange range = [rangeValue rangeValue];
+		[textStorage addAttribute:NSBackgroundColorAttributeName value:color range:range];
+	}
 }
 
 #pragma mark Notifications
