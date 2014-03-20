@@ -50,6 +50,7 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Delete Line" action:@selector(deleteLine_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of Selection" action:@selector(highlightSelection_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Remove Highlighting" action:@selector(removeHighlighting_clicked:)]];
 	
 	NSMenuItem *textToolsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Text Tools" action:NULL keyEquivalent:@""];
 	[textToolsMenuItem setSubmenu:submenu];
@@ -104,7 +105,15 @@
 
 - (void)highlightSelection_clicked:(id)sender
 {
+	if (!_activeTextView) return;
+	
 	NSTextStorage *textStorage = [_activeTextView textStorage];
+	
+	if (!textStorage)
+	{
+		[[NSAlert alertWithMessageText:[NSString stringWithFormat:@"No text storage! TV: %@", _activeTextView] defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+		return;
+	}
 	
 	NSColor *color = [NSColor greenColor];
 	
@@ -124,6 +133,19 @@
 		NSRange range = [rangeValue rangeValue];
 		[textStorage addAttribute:NSBackgroundColorAttributeName value:color range:range];
 	}
+}
+
+- (void)removeHighlighting_clicked:(id)sender
+{
+	if (!_activeTextView) return;
+	
+	NSTextStorage *textStorage = [_activeTextView textStorage];
+	NSRange documentRange = NSMakeRange(0, [[textStorage string] length]);
+	
+	[textStorage enumerateAttribute:NSBackgroundColorAttributeName inRange:documentRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop)
+	{
+		[textStorage removeAttribute:NSBackgroundColorAttributeName range:range];
+	}];
 }
 
 #pragma mark Notifications
