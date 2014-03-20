@@ -25,6 +25,8 @@
 		4C2868B618D331B7006C780C /* XcodeTextTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XcodeTextTools.h; sourceTree = "<group>"; };
 		4C2868B718D331B7006C780C /* XcodeTextTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XcodeTextTools.m; sourceTree = "<group>"; };
 		4C2868B918D331B7006C780C /* XcodeTextTools-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XcodeTextTools-Prefix.pch"; sourceTree = "<group>"; };
+		4C9B4AA418DA735300619EF9 /* IDEEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDEEditor.h; path = "Class-Dumps/IDEKit/IDEEditor.h"; sourceTree = SOURCE_ROOT; };
+		4C9B4AA518DA736900619EF9 /* IDEEditorContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDEEditorContext.h; path = "Class-Dumps/IDEKit/IDEEditorContext.h"; sourceTree = SOURCE_ROOT; };
 		4CAC524F18D380B800E88C70 /* MFPluginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPluginController.h; sourceTree = "<group>"; };
 		4CAC525018D380B800E88C70 /* MFPluginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPluginController.m; sourceTree = "<group>"; };
 		4CD521E818D384360025F2A1 /* NSMenu+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMenu+XcodeTextTools.h"; sourceTree = "<group>"; };
@@ -79,7 +81,7 @@
 				4C2868B718D331B7006C780C /* XcodeTextTools.m */,
 				4CD521E718D384240025F2A1 /* Categories */,
 				4CAC524E18D380A000E88C70 /* Logic */,
-				4CEBB15818D37F6C0091E9FC /* ClassDumps */,
+				4CEBB15818D37F6C0091E9FC /* Class-Dumps */,
 				4C2868B118D331B7006C780C /* Supporting Files */,
 			);
 			path = XcodeTextTools;
@@ -115,11 +117,13 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		4CEBB15818D37F6C0091E9FC /* ClassDumps */ = {
+		4CEBB15818D37F6C0091E9FC /* Class-Dumps */ = {
 			isa = PBXGroup;
 			children = (
+				4C9B4AA418DA735300619EF9 /* IDEEditor.h */,
+				4C9B4AA518DA736900619EF9 /* IDEEditorContext.h */,
 			);
-			name = ClassDumps;
+			name = "Class-Dumps";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
