@@ -61,10 +61,8 @@
 
 - (void)registerForNotifications
 {
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(activeEditorContextDidChange:)
-												 name:@"IDEEditorAreaLastActiveEditorContextDidChangeNotification"
-											   object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activeEditorContextDidChange:)
+												 name:@"IDEEditorAreaLastActiveEditorContextDidChangeNotification" object:nil];
 }
 
 - (void)dealloc
