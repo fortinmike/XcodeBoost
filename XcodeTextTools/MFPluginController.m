@@ -82,49 +82,76 @@
 
 - (void)cutLine_clicked:(id)sender
 {
-	[[_activeTextView manipulator] cutLine];
+	[[[self currentSourceTextView] manipulator] cutLine];
 }
 
 - (void)copyLine_clicked:(id)sender
 {
-	[[_activeTextView manipulator] copyLine];
+	[[[self currentSourceTextView] manipulator] copyLine];
 }
 
 - (void)pasteLine_clicked:(id)sender
 {
-	[[_activeTextView manipulator] pasteLine];
+	[[[self currentSourceTextView] manipulator] pasteLine];
 }
 
 - (void)duplicateLine_clicked:(id)sender
 {
-	[[_activeTextView manipulator] duplicateLine];
+	[[[self currentSourceTextView] manipulator] duplicateLine];
 }
 
 - (void)deleteLine_clicked:(id)sender
 {
-	[[_activeTextView manipulator] deleteLine];
+	[[[self currentSourceTextView] manipulator] deleteLine];
 }
 
 #pragma mark Highlighting Action Methods
 
 - (void)highlightSelection_clicked:(id)sender
 {
-	[[_activeTextView manipulator] highlightSelection];
+	[[[self currentSourceTextView] manipulator] highlightSelection];
 }
 
 - (void)removeHighlighting_clicked:(id)sender
 {
-	[[_activeTextView manipulator] removeHighlighting];
+	[[[self currentSourceTextView] manipulator] removeHighlighting];
 }
 
 #pragma mark Selection Action Methods
 
 - (void)expandSelection_clicked:(id)sender
 {
-	[[_activeTextView manipulator] expandSelection];
+	[[[self currentSourceTextView] manipulator] expandSelection];
 }
 
-#pragma mark Notifications
+#pragma mark Implementation
+
+- (IDEEditor *)currentEditor
+{
+	NSWindowController *currentWindowController = [[NSApp keyWindow] windowController];
+	if ([currentWindowController isKindOfClass:NSClassFromString(@"IDEWorkspaceWindowController")])
+	{
+		IDEWorkspaceWindowController *workspaceController = (IDEWorkspaceWindowController *)currentWindowController;
+		IDEEditorArea *editorArea = [workspaceController editorArea];
+		IDEEditorContext *editorContext = [editorArea lastActiveEditorContext];
+		return [editorContext editor];
+	}
+	return nil;
+}
+
+- (DVTSourceTextView *)currentSourceTextView
+{
+	IDEEditor *currentEditor = [self currentEditor];
+	
+	[self currentEditor];
+    if ([currentEditor isKindOfClass:NSClassFromString(@"IDESourceCodeEditor")])
+        return (DVTSourceTextView *)[(id)currentEditor textView];
+    
+    if ([currentEditor isKindOfClass:NSClassFromString(@"IDESourceCodeComparisonEditor")])
+        return [(id)currentEditor performSelector:NSSelectorFromString(@"keyTextView")];
+    
+    return nil;
+}
 
 - (void)activeEditorContextDidChange:(NSNotification *)notification
 {
