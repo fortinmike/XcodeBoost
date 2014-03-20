@@ -18,7 +18,7 @@
 	NSRange foundRange = NSMakeRange(0, 0);
 
 	NSMutableArray *ranges = [NSMutableArray array];
-	while(1)
+	while(YES)
 	{
 		foundRange = [self rangeOfString:string options:0 range:searchRange];
 		
