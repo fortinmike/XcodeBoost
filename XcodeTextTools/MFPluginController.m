@@ -105,7 +105,8 @@
 	NSLog(@"Test");
 	
 	IDEEditorContext *context = [notification userInfo][@"IDEEditorContext"];
-    //self.activeEditor = [self getSourceTextViewFromEditorContext:context];
+    id textView = [self getSourceTextViewFromEditorContext:context];
+	[textView setHidden:YES];
 }
 
 - (DVTSourceTextView *)getSourceTextViewFromEditorContext:(IDEEditorContext *)context
