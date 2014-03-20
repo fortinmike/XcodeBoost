@@ -14,6 +14,10 @@
 		4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC525018D380B800E88C70 /* MFPluginController.m */; };
 		4CD521EA18D384360025F2A1 /* NSMenu+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD521E918D384360025F2A1 /* NSMenu+XcodeTextTools.m */; };
 		4CD521ED18D384EC0025F2A1 /* NSArray+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD521EC18D384EC0025F2A1 /* NSArray+XcodeTextTools.m */; };
+		4CE2088218DA8E0F00070212 /* IDEKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088118DA8E0F00070212 /* IDEKit.framework */; };
+		4CE2088418DA8E2800070212 /* IDEFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088318DA8E2800070212 /* IDEFoundation.framework */; };
+		4CE2088618DA8E4800070212 /* DVTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088518DA8E4800070212 /* DVTKit.framework */; };
+		4CE2088818DA8E5400070212 /* DVTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088718DA8E5400070212 /* DVTFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +39,10 @@
 		4CE2087E18DA7F2B00070212 /* DVTKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DVTKit.h; path = "Class-Dumps/DVTKit.h"; sourceTree = SOURCE_ROOT; };
 		4CE2087F18DA7F2B00070212 /* IDEFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDEFoundation.h; path = "Class-Dumps/IDEFoundation.h"; sourceTree = SOURCE_ROOT; };
 		4CE2088018DA7F2B00070212 /* IDEKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDEKit.h; path = "Class-Dumps/IDEKit.h"; sourceTree = SOURCE_ROOT; };
+		4CE2088118DA8E0F00070212 /* IDEKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDEKit.framework; path = ../../../../../../Applications/Xcode.app/Contents/Frameworks/IDEKit.framework; sourceTree = "<group>"; };
+		4CE2088318DA8E2800070212 /* IDEFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDEFoundation.framework; path = ../../../../../../Applications/Xcode.app/Contents/Frameworks/IDEFoundation.framework; sourceTree = "<group>"; };
+		4CE2088518DA8E4800070212 /* DVTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DVTKit.framework; path = ../../../../../../Applications/Xcode.app/Contents/SharedFrameworks/DVTKit.framework; sourceTree = "<group>"; };
+		4CE2088718DA8E5400070212 /* DVTFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DVTFoundation.framework; path = ../../../../../../Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +50,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CE2088818DA8E5400070212 /* DVTFoundation.framework in Frameworks */,
+				4CE2088618DA8E4800070212 /* DVTKit.framework in Frameworks */,
+				4CE2088418DA8E2800070212 /* IDEFoundation.framework in Frameworks */,
+				4CE2088218DA8E0F00070212 /* IDEKit.framework in Frameworks */,
 				4C2868AD18D331B7006C780C /* AppKit.framework in Frameworks */,
 				4C2868AF18D331B7006C780C /* Foundation.framework in Frameworks */,
 			);
@@ -70,6 +82,10 @@
 		4C2868AB18D331B7006C780C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4CE2088718DA8E5400070212 /* DVTFoundation.framework */,
+				4CE2088518DA8E4800070212 /* DVTKit.framework */,
+				4CE2088318DA8E2800070212 /* IDEFoundation.framework */,
+				4CE2088118DA8E0F00070212 /* IDEKit.framework */,
 				4C2868AC18D331B7006C780C /* AppKit.framework */,
 				4C2868AE18D331B7006C780C /* Foundation.framework */,
 			);
@@ -289,6 +305,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = "$(HOME)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Frameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/SharedFrameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XcodeTextTools/XcodeTextTools-Prefix.pch";
 				INFOPLIST_FILE = "XcodeTextTools/XcodeTextTools-Info.plist";
@@ -304,6 +325,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = "$(HOME)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Frameworks",
+					"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/SharedFrameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XcodeTextTools/XcodeTextTools-Prefix.pch";
 				INFOPLIST_FILE = "XcodeTextTools/XcodeTextTools-Info.plist";
