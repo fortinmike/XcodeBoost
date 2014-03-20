@@ -96,4 +96,16 @@
 	}];
 }
 
+#pragma mark Selection
+
+- (void)expandSelection
+{
+	// TODO: Expand selection by considering [] and {}
+	// TODO: Handle the case where the selection contains [ (for example).
+	// [[NSAlert alertWithMessage^^^Text:[NSStri^^^ng stringWithFormat:@"No text storage! TV: %@", _textView] defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	// Should select [NSAlert ... ] because the matching [ from the left of the selection is the one that closes NSAlert.
+	
+	[[NSAlert alertWithMessageText:@"Expand Selection" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+}
+
 @end

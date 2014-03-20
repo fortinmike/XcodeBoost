@@ -51,6 +51,8 @@
 	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of Selection" action:@selector(highlightSelection_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove Highlighting" action:@selector(removeHighlighting_clicked:)]];
+	[submenu addItem:[NSMenuItem separatorItem]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Expand Selection" action:@selector(expandSelection_clicked:)]];
 	
 	NSMenuItem *textToolsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Text Tools" action:NULL keyEquivalent:@""];
 	[textToolsMenuItem setSubmenu:submenu];
@@ -76,7 +78,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark Action Methods
+#pragma mark Line Manipulation Action Methods
 
 - (void)cutLine_clicked:(id)sender
 {
@@ -103,6 +105,8 @@
 	[[_activeTextView manipulator] deleteLine];
 }
 
+#pragma mark Highlighting Action Methods
+
 - (void)highlightSelection_clicked:(id)sender
 {
 	[[_activeTextView manipulator] highlightSelection];
@@ -111,6 +115,13 @@
 - (void)removeHighlighting_clicked:(id)sender
 {
 	[[_activeTextView manipulator] removeHighlighting];
+}
+
+#pragma mark Selection Action Methods
+
+- (void)expandSelection_clicked:(id)sender
+{
+	[[_activeTextView manipulator] expandSelection];
 }
 
 #pragma mark Notifications

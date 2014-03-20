@@ -25,4 +25,8 @@
 - (void)highlightSelection;
 - (void)removeHighlighting;
 
+#pragma mark Selection
+
+- (void)expandSelection;
+
 @end
