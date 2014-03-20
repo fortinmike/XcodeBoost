@@ -25,14 +25,16 @@
 		4C2868B618D331B7006C780C /* XcodeTextTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XcodeTextTools.h; sourceTree = "<group>"; };
 		4C2868B718D331B7006C780C /* XcodeTextTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XcodeTextTools.m; sourceTree = "<group>"; };
 		4C2868B918D331B7006C780C /* XcodeTextTools-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XcodeTextTools-Prefix.pch"; sourceTree = "<group>"; };
-		4C9B4AA418DA735300619EF9 /* IDEEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDEEditor.h; path = "Class-Dumps/IDEKit/IDEEditor.h"; sourceTree = SOURCE_ROOT; };
-		4C9B4AA518DA736900619EF9 /* IDEEditorContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDEEditorContext.h; path = "Class-Dumps/IDEKit/IDEEditorContext.h"; sourceTree = SOURCE_ROOT; };
 		4CAC524F18D380B800E88C70 /* MFPluginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPluginController.h; sourceTree = "<group>"; };
 		4CAC525018D380B800E88C70 /* MFPluginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPluginController.m; sourceTree = "<group>"; };
 		4CD521E818D384360025F2A1 /* NSMenu+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMenu+XcodeTextTools.h"; sourceTree = "<group>"; };
 		4CD521E918D384360025F2A1 /* NSMenu+XcodeTextTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMenu+XcodeTextTools.m"; sourceTree = "<group>"; };
 		4CD521EB18D384EC0025F2A1 /* NSArray+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+XcodeTextTools.h"; sourceTree = "<group>"; };
 		4CD521EC18D384EC0025F2A1 /* NSArray+XcodeTextTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+XcodeTextTools.m"; sourceTree = "<group>"; };
+		4CE2087D18DA7F2B00070212 /* DVTFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DVTFoundation.h; path = "Class-Dumps/DVTFoundation.h"; sourceTree = SOURCE_ROOT; };
+		4CE2087E18DA7F2B00070212 /* DVTKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DVTKit.h; path = "Class-Dumps/DVTKit.h"; sourceTree = SOURCE_ROOT; };
+		4CE2087F18DA7F2B00070212 /* IDEFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDEFoundation.h; path = "Class-Dumps/IDEFoundation.h"; sourceTree = SOURCE_ROOT; };
+		4CE2088018DA7F2B00070212 /* IDEKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDEKit.h; path = "Class-Dumps/IDEKit.h"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,8 +122,10 @@
 		4CEBB15818D37F6C0091E9FC /* Class-Dumps */ = {
 			isa = PBXGroup;
 			children = (
-				4C9B4AA418DA735300619EF9 /* IDEEditor.h */,
-				4C9B4AA518DA736900619EF9 /* IDEEditorContext.h */,
+				4CE2087D18DA7F2B00070212 /* DVTFoundation.h */,
+				4CE2087E18DA7F2B00070212 /* DVTKit.h */,
+				4CE2087F18DA7F2B00070212 /* IDEFoundation.h */,
+				4CE2088018DA7F2B00070212 /* IDEKit.h */,
 			);
 			name = "Class-Dumps";
 			sourceTree = "<group>";

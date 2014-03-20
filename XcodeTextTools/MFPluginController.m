@@ -8,6 +8,7 @@
 
 #import "MFPluginController.h"
 #import "NSMenu+XcodeTextTools.h"
+#import "IDEKit.h"
 
 @implementation MFPluginController
 {
@@ -103,21 +104,21 @@
 {
 	NSLog(@"Test");
 	
-//	IDEEditorContext *context = [notification userInfo][@"IDEEditorContext"];
-//    self.activeEditor = [self getSourceTextViewFromEditorContext:context];
+	IDEEditorContext *context = [notification userInfo][@"IDEEditorContext"];
+    //self.activeEditor = [self getSourceTextViewFromEditorContext:context];
 }
 
-//- (DVTSourceTextView *)getSourceTextViewFromEditorContext:(IDEEditorContext *)context
-//{
-//    IDEEditor *editor = [context editor];
-//    NSScrollView *scrollView = [editor mainScrollView];
-//    NSClipView *clipView = [scrollView contentView];
-//    id documentView = [clipView documentView];
-//    if ([documentView isKindOfClass:[DVTSourceTextView class]]) {
-//        return documentView;
-//    } else {
-//        return nil;
-//    }
-//}
+- (DVTSourceTextView *)getSourceTextViewFromEditorContext:(IDEEditorContext *)context
+{
+    IDEEditor *editor = [context editor];
+    NSScrollView *scrollView = [editor mainScrollView];
+    NSClipView *clipView = [scrollView contentView];
+    id documentView = [clipView documentView];
+    if ([documentView isKindOfClass:[DVTSourceTextView class]]) {
+        return documentView;
+    } else {
+        return nil;
+    }
+}
 
 @end
