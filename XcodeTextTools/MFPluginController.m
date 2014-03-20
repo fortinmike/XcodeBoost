@@ -8,7 +8,7 @@
 
 #import "MFPluginController.h"
 #import "NSMenu+XcodeTextTools.h"
-#import "NSString+XcodeTextTools.h"
+#import "NSTextView+XcodeTextTools.h"
 #import "IDEKit.h"
 
 @implementation MFPluginController
@@ -80,72 +80,37 @@
 
 - (void)cutLine_clicked:(id)sender
 {
-	[_activeTextView setHidden:![_activeTextView isHidden]];
+	[[_activeTextView manipulator] cutLine];
 }
 
 - (void)copyLine_clicked:(id)sender
 {
-	[[NSAlert alertWithMessageText:@"Copy Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	[[_activeTextView manipulator] copyLine];
 }
 
 - (void)pasteLine_clicked:(id)sender
 {
-	[[NSAlert alertWithMessageText:@"Paste Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	[[_activeTextView manipulator] pasteLine];
 }
 
 - (void)duplicateLine_clicked:(id)sender
 {
-	[[NSAlert alertWithMessageText:@"Duplicate Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	[[_activeTextView manipulator] duplicateLine];
 }
 
 - (void)deleteLine_clicked:(id)sender
 {
-	[[NSAlert alertWithMessageText:@"Delete Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	[[_activeTextView manipulator] deleteLine];
 }
 
 - (void)highlightSelection_clicked:(id)sender
 {
-	if (!_activeTextView) return;
-	
-	NSTextStorage *textStorage = [_activeTextView textStorage];
-	
-	if (!textStorage)
-	{
-		[[NSAlert alertWithMessageText:[NSString stringWithFormat:@"No text storage! TV: %@", _activeTextView] defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
-		return;
-	}
-	
-	NSColor *color = [NSColor greenColor];
-	
-	// TODO: Find selected string(s) (selection can have multiple ranges) and highlight
-	//       occurences in a different color for each range
-	
-	// TODO: Use associated objects to store a text tools info instance to store currently
-	//       used colors for highlighting on the NSTextView and more!
-	
-	// TODO: Implement clearing of highlights
-	
-	NSString *selection = @"NS";
-	NSArray *ranges = [[textStorage string] xctt_rangesOfString:selection];
-	
-	for (NSValue *rangeValue in ranges)
-	{
-		NSRange range = [rangeValue rangeValue];
-		[textStorage addAttribute:NSBackgroundColorAttributeName value:color range:range];
-	}
+	[[_activeTextView manipulator] highlightSelection];
 }
 
 - (void)removeHighlighting_clicked:(id)sender
 {
-	if (!_activeTextView) return;
-	
-	NSTextStorage *textStorage = [_activeTextView textStorage];
-	NSRange documentRange = NSMakeRange(0, [[textStorage string] length]);
-	
-	[textStorage enumerateAttribute:NSBackgroundColorAttributeName inRange:documentRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop)
-	{
-		[textStorage removeAttribute:NSBackgroundColorAttributeName range:range];
-	}];
+	[[_activeTextView manipulator] removeHighlighting];
 }
 
 #pragma mark Notifications
