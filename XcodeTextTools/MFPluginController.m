@@ -13,6 +13,7 @@
 @implementation MFPluginController
 {
 	NSBundle *_pluginBundle;
+	NSTextView *_activeTextView;
 }
 
 #pragma mark Lifetime
@@ -75,7 +76,7 @@
 
 - (void)cutLine_clicked:(id)sender
 {
-	[[NSAlert alertWithMessageText:@"Cut Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	[_activeTextView setHidden:![_activeTextView isHidden]];
 }
 
 - (void)copyLine_clicked:(id)sender
@@ -102,11 +103,8 @@
 
 - (void)activeEditorContextDidChange:(NSNotification *)notification
 {
-	NSLog(@"Test");
-	
 	IDEEditorContext *context = [notification userInfo][@"IDEEditorContext"];
-    id textView = [self getSourceTextViewFromEditorContext:context];
-	[textView setHidden:YES];
+    _activeTextView = [self getSourceTextViewFromEditorContext:context];
 }
 
 - (DVTSourceTextView *)getSourceTextViewFromEditorContext:(IDEEditorContext *)context
@@ -114,12 +112,10 @@
     IDEEditor *editor = [context editor];
     NSScrollView *scrollView = [editor mainScrollView];
     NSClipView *clipView = [scrollView contentView];
+	
     id documentView = [clipView documentView];
-    if ([documentView isKindOfClass:[DVTSourceTextView class]]) {
-        return documentView;
-    } else {
-        return nil;
-    }
+    
+	return [documentView isKindOfClass:[DVTSourceTextView class]] ? documentView : nil;
 }
 
 @end
