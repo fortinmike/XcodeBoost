@@ -11,14 +11,13 @@
 
 @interface MFTextViewManipulator ()
 
+@property (readonly, unsafe_unretained) NSTextView *textView;
 @property (readonly) NSTextStorage *textStorage;
 
 @end
 
 @implementation MFTextViewManipulator
 {
-	__unsafe_unretained NSTextView *_textView;
-	
 	NSUInteger _highlightCount;
 	NSArray *_highlightColors;
 }
@@ -74,33 +73,34 @@
 
 - (void)highlightSelection
 {
-	// TODO: Find selected string(s) (selection can have multiple ranges) and highlight
-	//       occurences in a different color for each range
+	NSArray *selectedRanges = [self.textView selectedRanges];
 	
-	// TODO: Use associated objects to store a text tools info instance to store currently
-	//       used colors for highlighting on the NSTextView and more!
-	
-	// TODO: Implement clearing of highlights
-	
-	NSString *selection = @"NS";
-	NSArray *ranges = [[self.textStorage string] xctt_rangesOfString:selection];
-	
-	for (NSValue *rangeValue in ranges)
+	for (NSValue *selectedRange in selectedRanges)
 	{
-		NSRange range = [rangeValue rangeValue];
-		[self.textStorage addAttribute:NSBackgroundColorAttributeName value:_highlightColors[0] range:range];
+		NSString *selection = [[self.textView string] substringWithRange:[selectedRange rangeValue]];
+		NSArray *selectionRanges = [[self.textStorage string] xctt_rangesOfString:selection];
+		
+		for (NSValue *selectionRange in selectionRanges)
+		{
+			NSRange range = [selectionRange rangeValue];
+			[self.textStorage addAttribute:NSBackgroundColorAttributeName value:_highlightColors[_highlightCount] range:range];
+		}
+		
+		_highlightCount++;
 	}
 }
 
 - (void)removeHighlighting
 {
-	NSTextStorage *textStorage = [_textView textStorage];
+	NSTextStorage *textStorage = self.textStorage;
 	NSRange documentRange = NSMakeRange(0, [[textStorage string] length]);
 	
 	[textStorage enumerateAttribute:NSBackgroundColorAttributeName inRange:documentRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop)
 	{
 		[textStorage removeAttribute:NSBackgroundColorAttributeName range:range];
 	}];
+	
+	_highlightCount = 0;
 }
 
 #pragma mark Selection
@@ -119,7 +119,7 @@
 
 - (NSTextStorage *)textStorage
 {
-	return [_textView textStorage];
+	return [self.textView textStorage];
 }
 
 @end
