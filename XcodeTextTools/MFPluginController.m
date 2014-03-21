@@ -143,7 +143,6 @@
 {
 	IDEEditor *currentEditor = [self currentEditor];
 	
-	[self currentEditor];
     if ([currentEditor isKindOfClass:NSClassFromString(@"IDESourceCodeEditor")])
         return (DVTSourceTextView *)[(id)currentEditor textView];
     
