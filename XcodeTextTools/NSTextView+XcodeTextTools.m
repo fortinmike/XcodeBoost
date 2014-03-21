@@ -11,10 +11,16 @@
 
 @implementation NSTextView (XcodeTextTools)
 
+static NSString *kXCTTManipulatorKey = @"XCTTManipulator";
+
 - (MFTextViewManipulator *)manipulator
 {
-	MFTextViewManipulator *manipulator = [self xctt_associatedObjectForKey:@"XCTTManipulator"];
-	if (!manipulator) manipulator = [[MFTextViewManipulator alloc] initWithTextView:self];
+	MFTextViewManipulator *manipulator = [self xctt_associatedObjectForKey:kXCTTManipulatorKey];
+	if (!manipulator)
+	{
+		manipulator = [[MFTextViewManipulator alloc] initWithTextView:self];
+		[self xctt_setAssociatedObject:manipulator forKey:kXCTTManipulatorKey];
+	}
 	return manipulator;
 }
 
