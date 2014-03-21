@@ -9,9 +9,18 @@
 #import "MFTextViewManipulator.h"
 #import "NSString+XcodeTextTools.h"
 
+@interface MFTextViewManipulator ()
+
+@property (readonly) NSTextStorage *textStorage;
+
+@end
+
 @implementation MFTextViewManipulator
 {
 	__unsafe_unretained NSTextView *_textView;
+	
+	NSUInteger _highlightCount;
+	NSArray *_highlightColors;
 }
 
 #pragma mark Lifetime
@@ -22,8 +31,16 @@
 	if (self)
 	{
 		_textView = textView;
+		
+		[self setupHighlightColors];
 	}
 	return self;
+}
+
+- (void)setupHighlightColors
+{
+	_highlightColors = @[[NSColor greenColor], [NSColor orangeColor], [NSColor purpleColor],
+						 [NSColor blueColor], [NSColor brownColor], [NSColor redColor]];
 }
 
 #pragma mark Line Manipulation
@@ -57,16 +74,6 @@
 
 - (void)highlightSelection
 {
-	NSTextStorage *textStorage = [_textView textStorage];
-	
-	if (!textStorage)
-	{
-		[[NSAlert alertWithMessageText:[NSString stringWithFormat:@"No text storage! TV: %@", _textView] defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
-		return;
-	}
-	
-	NSColor *color = [NSColor greenColor];
-	
 	// TODO: Find selected string(s) (selection can have multiple ranges) and highlight
 	//       occurences in a different color for each range
 	
@@ -76,12 +83,12 @@
 	// TODO: Implement clearing of highlights
 	
 	NSString *selection = @"NS";
-	NSArray *ranges = [[textStorage string] xctt_rangesOfString:selection];
+	NSArray *ranges = [[self.textStorage string] xctt_rangesOfString:selection];
 	
 	for (NSValue *rangeValue in ranges)
 	{
 		NSRange range = [rangeValue rangeValue];
-		[textStorage addAttribute:NSBackgroundColorAttributeName value:color range:range];
+		[self.textStorage addAttribute:NSBackgroundColorAttributeName value:_highlightColors[0] range:range];
 	}
 }
 
@@ -106,6 +113,13 @@
 	// Should select [NSAlert ... ] because the matching [ from the left of the selection is the one that closes NSAlert.
 	
 	[[NSAlert alertWithMessageText:@"Expand Selection" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+}
+
+#pragma mark Accessor Overrides
+
+- (NSTextStorage *)textStorage
+{
+	return [_textView textStorage];
 }
 
 @end
