@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C0A53BD18DCE7EE00E82F1C /* NSColor+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A53BC18DCE7EE00E82F1C /* NSColor+XcodeTextTools.m */; };
 		4C2868AD18D331B7006C780C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2868AC18D331B7006C780C /* AppKit.framework */; };
 		4C2868AF18D331B7006C780C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2868AE18D331B7006C780C /* Foundation.framework */; };
 		4C2868B518D331B7006C780C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C2868B318D331B7006C780C /* InfoPlist.strings */; };
@@ -25,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C0A53BB18DCE7EE00E82F1C /* NSColor+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+XcodeTextTools.h"; sourceTree = "<group>"; };
+		4C0A53BC18DCE7EE00E82F1C /* NSColor+XcodeTextTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+XcodeTextTools.m"; sourceTree = "<group>"; };
 		4C2868A918D331B7006C780C /* XcodeTextTools.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeTextTools.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C2868AC18D331B7006C780C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		4C2868AE18D331B7006C780C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -152,6 +155,8 @@
 				4C44F68F18DAA6270061D68E /* NSTextView+XcodeTextTools.m */,
 				4C44F69118DAA7020061D68E /* NSObject+XcodeTextTools.h */,
 				4C44F69218DAA7020061D68E /* NSObject+XcodeTextTools.m */,
+				4C0A53BB18DCE7EE00E82F1C /* NSColor+XcodeTextTools.h */,
+				4C0A53BC18DCE7EE00E82F1C /* NSColor+XcodeTextTools.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -232,6 +237,7 @@
 			files = (
 				4C44F69318DAA7020061D68E /* NSObject+XcodeTextTools.m in Sources */,
 				4C2868B818D331B7006C780C /* XcodeTextTools.m in Sources */,
+				4C0A53BD18DCE7EE00E82F1C /* NSColor+XcodeTextTools.m in Sources */,
 				4CD521EA18D384360025F2A1 /* NSMenu+XcodeTextTools.m in Sources */,
 				4C44F69018DAA6270061D68E /* NSTextView+XcodeTextTools.m in Sources */,
 				4C44F68D18DAA56C0061D68E /* MFTextViewManipulator.m in Sources */,

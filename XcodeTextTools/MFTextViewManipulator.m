@@ -8,6 +8,7 @@
 
 #import "MFTextViewManipulator.h"
 #import "NSString+XcodeTextTools.h"
+#import "NSColor+XcodeTextTools.h"
 
 @interface MFTextViewManipulator ()
 
@@ -38,8 +39,9 @@
 
 - (void)setupHighlightColors
 {
-	_highlightColors = @[[NSColor greenColor], [NSColor orangeColor], [NSColor purpleColor],
-						 [NSColor blueColor], [NSColor brownColor], [NSColor redColor]];
+	_highlightColors = @[[NSColor greenColor], [NSColor orangeColor], [NSColor blueColor],
+						 [NSColor redColor], [NSColor purpleColor], [NSColor yellowColor],
+						 [NSColor brownColor]];
 }
 
 #pragma mark Line Manipulation
@@ -79,11 +81,12 @@
 	{
 		NSString *selection = [[self.textView string] substringWithRange:[selectedRange rangeValue]];
 		NSArray *selectionRanges = [[self.textStorage string] xctt_rangesOfString:selection];
+		NSColor *highlightColor = _highlightCount < [_highlightColors count] ? _highlightColors[_highlightCount] : [NSColor xctt_randomColor];
 		
 		for (NSValue *selectionRange in selectionRanges)
 		{
 			NSRange range = [selectionRange rangeValue];
-			[self.textStorage addAttribute:NSBackgroundColorAttributeName value:_highlightColors[_highlightCount] range:range];
+			[self.textStorage addAttribute:NSBackgroundColorAttributeName value:highlightColor range:range];
 		}
 		
 		_highlightCount++;
