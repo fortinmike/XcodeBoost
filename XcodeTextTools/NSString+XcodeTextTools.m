@@ -61,7 +61,8 @@ static NSRegularExpression *s_methodDefinitionRegex;
 - (NSString *)xctt_extractMethodDeclarations
 {
 	[self prepareMethodDefinitionRegex];
-	return [s_methodDefinitionRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length]) withTemplate:@"$1;"];
+	
+	return [s_methodDefinitionRegex stringByReplacingMatchesInString:self options:NSMatchingWithoutAnchoringBounds range:NSMakeRange(0, [self length]) withTemplate:@"$1;"];
 }
 
 #pragma mark Private Methods
