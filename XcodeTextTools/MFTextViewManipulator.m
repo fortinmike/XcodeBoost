@@ -120,12 +120,12 @@
 	NSRange finalSelectionRange = NSMakeRange(sourceRangeEnd + insertedStringLength - 1, 0);
 	
 	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd - 1, 0) replacementString:stringToInsert operation:^
-	 {
-		 [self.textStorage insertAttributedString:[stringToInsert xctt_attributedString] atIndex:sourceRangeEnd];
-		 [self.sourceTextView setSelectedRange:finalSelectionRange];
-		 
-		 if (reindent) [self.sourceTextView indentSelection:self];
-	 }];
+	{
+		[self.textStorage insertAttributedString:[stringToInsert xctt_attributedString] atIndex:sourceRangeEnd];
+		[self.sourceTextView setSelectedRange:finalSelectionRange];
+		
+		if (reindent) [self.sourceTextView indentSelection:self];
+	}];
 }
 
 #pragma mark Line Manipulation
