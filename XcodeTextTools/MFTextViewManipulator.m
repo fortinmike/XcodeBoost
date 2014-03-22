@@ -54,7 +54,7 @@
 	NSValue *selectedRange = [[self.sourceTextView selectedRanges] firstObject];
 	if (!selectedRange) return NSMakeRange(NSNotFound, 0);
 	
-	return [[self.sourceTextView string] lineRangeForRange:[selectedRange rangeValue]];
+	return [[self.textStorage string] lineRangeForRange:[selectedRange rangeValue]];
 }
 
 - (NSString *)selectedLinesString
@@ -163,7 +163,7 @@
 	
 	for (NSValue *selectedRange in selectedRanges)
 	{
-		NSString *selection = [[self.sourceTextView string] substringWithRange:[selectedRange rangeValue]];
+		NSString *selection = [[self.textStorage string] substringWithRange:[selectedRange rangeValue]];
 		NSArray *selectionRanges = [[self.textStorage string] xctt_rangesOfString:selection];
 		NSColor *highlightColor = _highlightCount < [_highlightColors count] ? _highlightColors[_highlightCount] : [NSColor xctt_randomColor];
 		
@@ -192,14 +192,19 @@
 
 #pragma mark Selection
 
-- (void)expandSelection
+- (void)selectMethods
 {
-	// TODO: Expand selection by considering [] and {}
-	// TODO: Handle the case where the selection contains [ (for example).
-	// [[NSAlert alertWithMessage^^^Text:[NSStri^^^ng stringWithFormat:@"No text storage! TV: %@", _textView] defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
-	// Should select [NSAlert ... ] because the matching [ from the left of the selection is the one that closes NSAlert.
+	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];
 	
-	[[NSAlert alertWithMessageText:@"Expand Selection" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	NSMutableArray *rangesToSelect = [NSMutableArray array];
+	for (NSValue *methodDefinitionRange in methodDefinitionRanges)
+	{
+		NSRange intersection = NSIntersectionRange([methodDefinitionRange rangeValue], [self selectedLinesRange]);
+		if (intersection.length > 0) [rangesToSelect addObject:methodDefinitionRange];
+	}
+	
+	if ([rangesToSelect count] > 0)
+		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
 }
 
 #pragma mark Accessor Overrides

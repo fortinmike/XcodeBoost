@@ -12,8 +12,8 @@
 @implementation NSString (XcodeTextTools)
 
 static BOOL s_regexesPrepared;
-static NSRegularExpression *s_methodDefinitionRegex;
-static NSRegularExpression *s_methodDeclarationExtractionRegex;
+static NSRegularExpression *s_singleMethodDefinitionRegex;
+static NSRegularExpression *s_methodDefinitionsRegex;
 
 #pragma mark Creating Instances
 
@@ -56,7 +56,7 @@ static NSRegularExpression *s_methodDeclarationExtractionRegex;
 - (BOOL)xctt_startsWithMethodDefinition
 {
 	[self prepareRegexes];
-	NSUInteger numberOfMatches = [s_methodDefinitionRegex numberOfMatchesInString:self options:0 range:[self xctt_range]];
+	NSUInteger numberOfMatches = [s_singleMethodDefinitionRegex numberOfMatchesInString:self options:0 range:[self xctt_range]];
 	return numberOfMatches == 1;
 }
 
@@ -64,11 +64,20 @@ static NSRegularExpression *s_methodDeclarationExtractionRegex;
 {
 	[self prepareRegexes];
 	
-	NSString *declarations = [s_methodDeclarationExtractionRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length])
+	NSString *declarations = [s_methodDefinitionsRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length])
 																					 withTemplate:@"$1;"];
 	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
 	return trimmedDeclarations;
+}
+
+- (NSArray *)xctt_methodDefinitionRanges
+{
+	[self prepareRegexes];
+	
+	NSArray *matches = [s_methodDefinitionsRegex matchesInString:self options:0 range:[self xctt_range]];
+	
+	return [self rangesForMatches:matches];
 }
 
 #pragma mark Private Methods
@@ -77,14 +86,25 @@ static NSRegularExpression *s_methodDeclarationExtractionRegex;
 {
 	if (!s_regexesPrepared)
 	{
-		s_methodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:@"^[-\\+] ?\\(.+?\\).*(\\n?)\\{(.*\\n)+?(\\n?)\\}"
-																			options:0 error:nil];
+		NSString *methodDefinitionsPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}";
+		s_methodDefinitionsRegex = [NSRegularExpression regularExpressionWithPattern:methodDefinitionsPattern options:0 error:nil];
 		
-		s_methodDeclarationExtractionRegex = [NSRegularExpression regularExpressionWithPattern:@"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}"
-																					   options:0 error:nil];
+		NSString *startsWithMethodDefinitionPattern = [@"^" stringByAppendingString:methodDefinitionsPattern];
+		s_singleMethodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:startsWithMethodDefinitionPattern options:0 error:nil];
 		
 		s_regexesPrepared = YES;
 	}
+}
+
+- (NSArray *)rangesForMatches:(NSArray *)matches
+{
+	NSMutableArray *ranges = [NSMutableArray array];
+	for (NSTextCheckingResult *match in matches)
+	{
+		NSRange matchRange = [match range];
+		[ranges addObject:[NSValue valueWithRange:matchRange]];
+	}
+	return ranges;
 }
 
 @end

@@ -23,5 +23,6 @@
 
 - (BOOL)xctt_startsWithMethodDefinition;
 - (NSString *)xctt_extractMethodDeclarations;
+- (NSArray *)xctt_methodDefinitionRanges;
 
 @end

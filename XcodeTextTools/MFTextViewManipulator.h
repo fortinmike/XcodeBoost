@@ -30,6 +30,6 @@
 
 #pragma mark Selection
 
-- (void)expandSelection;
+- (void)selectMethods;
 
 @end

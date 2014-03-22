@@ -52,10 +52,10 @@
 	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Paste Method Declarations" action:@selector(pasteMethodDeclarations_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Select Method(s)" action:@selector(selectMethods_clicked:)]];
+	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of Selection" action:@selector(highlightSelection_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove Highlighting" action:@selector(removeHighlighting_clicked:)]];
-	[submenu addItem:[NSMenuItem separatorItem]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Expand Selection" action:@selector(expandSelection_clicked:)]];
 	
 	NSMenuItem *textToolsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Text Tools" action:NULL keyEquivalent:@""];
 	[textToolsMenuItem setSubmenu:submenu];
@@ -132,9 +132,9 @@
 
 #pragma mark Selection Action Methods
 
-- (void)expandSelection_clicked:(id)sender
+- (void)selectMethods_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] expandSelection];
+	[[[self currentSourceTextView] manipulator] selectMethods];
 }
 
 #pragma mark Implementation
