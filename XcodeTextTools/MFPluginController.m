@@ -8,7 +8,7 @@
 
 #import "MFPluginController.h"
 #import "NSMenu+XcodeTextTools.h"
-#import "NSTextView+XcodeTextTools.h"
+#import "DVTSourceTextView+XcodeTextTools.h"
 #import "IDEKit.h"
 
 @implementation MFPluginController

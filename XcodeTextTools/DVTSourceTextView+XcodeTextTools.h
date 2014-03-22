@@ -1,5 +1,5 @@
 //
-//  NSTextView+XcodeTextTools.h
+//  DVTSourceTextView+XcodeTextTools.h
 //  XcodeTextTools
 //
 //  Created by Michaël Fortin on 2014-03-20.
@@ -8,8 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MFTextViewManipulator.h"
+#import "DVTKit.h"
 
-@interface NSTextView (XcodeTextTools)
+@interface DVTSourceTextView (XcodeTextTools)
 
 - (MFTextViewManipulator *)manipulator;
 

@@ -13,7 +13,7 @@
 		4C2868B518D331B7006C780C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C2868B318D331B7006C780C /* InfoPlist.strings */; };
 		4C2868B818D331B7006C780C /* XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2868B718D331B7006C780C /* XcodeTextTools.m */; };
 		4C44F68D18DAA56C0061D68E /* MFTextViewManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68C18DAA56C0061D68E /* MFTextViewManipulator.m */; };
-		4C44F69018DAA6270061D68E /* NSTextView+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68F18DAA6270061D68E /* NSTextView+XcodeTextTools.m */; };
+		4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeTextTools.m */; };
 		4C44F69318DAA7020061D68E /* NSObject+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F69218DAA7020061D68E /* NSObject+XcodeTextTools.m */; };
 		4C4A8DB218DD0F7200256B20 /* XcodeTextToolsFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A8DB118DD0F7200256B20 /* XcodeTextToolsFoundation.m */; };
 		4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC525018D380B800E88C70 /* MFPluginController.m */; };
@@ -40,8 +40,8 @@
 		4C2868B918D331B7006C780C /* XcodeTextTools-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XcodeTextTools-Prefix.pch"; sourceTree = "<group>"; };
 		4C44F68B18DAA56C0061D68E /* MFTextViewManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFTextViewManipulator.h; sourceTree = "<group>"; };
 		4C44F68C18DAA56C0061D68E /* MFTextViewManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFTextViewManipulator.m; sourceTree = "<group>"; };
-		4C44F68E18DAA6270061D68E /* NSTextView+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextView+XcodeTextTools.h"; sourceTree = "<group>"; };
-		4C44F68F18DAA6270061D68E /* NSTextView+XcodeTextTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextView+XcodeTextTools.m"; sourceTree = "<group>"; };
+		4C44F68E18DAA6270061D68E /* DVTSourceTextView+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DVTSourceTextView+XcodeTextTools.h"; sourceTree = "<group>"; };
+		4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeTextTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DVTSourceTextView+XcodeTextTools.m"; sourceTree = "<group>"; };
 		4C44F69118DAA7020061D68E /* NSObject+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+XcodeTextTools.h"; sourceTree = "<group>"; };
 		4C44F69218DAA7020061D68E /* NSObject+XcodeTextTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XcodeTextTools.m"; sourceTree = "<group>"; };
 		4C4A8DB018DD0F7200256B20 /* XcodeTextToolsFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XcodeTextToolsFoundation.h; sourceTree = "<group>"; };
@@ -165,8 +165,8 @@
 				4C44F69218DAA7020061D68E /* NSObject+XcodeTextTools.m */,
 				4CBBA80318DA9CB600C48649 /* NSString+XcodeTextTools.h */,
 				4CBBA80418DA9CB600C48649 /* NSString+XcodeTextTools.m */,
-				4C44F68E18DAA6270061D68E /* NSTextView+XcodeTextTools.h */,
-				4C44F68F18DAA6270061D68E /* NSTextView+XcodeTextTools.m */,
+				4C44F68E18DAA6270061D68E /* DVTSourceTextView+XcodeTextTools.h */,
+				4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeTextTools.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -250,7 +250,7 @@
 				4C0A53BD18DCE7EE00E82F1C /* NSColor+XcodeTextTools.m in Sources */,
 				4C4A8DB218DD0F7200256B20 /* XcodeTextToolsFoundation.m in Sources */,
 				4CD521EA18D384360025F2A1 /* NSMenu+XcodeTextTools.m in Sources */,
-				4C44F69018DAA6270061D68E /* NSTextView+XcodeTextTools.m in Sources */,
+				4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeTextTools.m in Sources */,
 				4C44F68D18DAA56C0061D68E /* MFTextViewManipulator.m in Sources */,
 				4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */,
 				4CB7D0A618DD311D00087503 /* NSAlert+XcodeTextTools.m in Sources */,
