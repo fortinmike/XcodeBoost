@@ -74,10 +74,10 @@
 	}];
 }
 
-- (NSArray *)rangesFullyOrPartiallyContainedInSelectionFromRanges:(NSArray *)sourceRanges
+- (NSArray *)rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter
 {
 	NSMutableArray *rangesOverlappingSelection = [NSMutableArray array];
-	for (NSValue *methodDefinitionRange in sourceRanges)
+	for (NSValue *methodDefinitionRange in rangesToFilter)
 	{
 		NSRange intersection = NSIntersectionRange([methodDefinitionRange rangeValue], [self selectedLinesRange]);
 		if (intersection.length > 0) [rangesOverlappingSelection addObject:methodDefinitionRange];
@@ -212,7 +212,7 @@
 - (void)selectMethods
 {
 	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];
-	NSArray *rangesToSelect = [self rangesFullyOrPartiallyContainedInSelectionFromRanges:methodDefinitionRanges];
+	NSArray *rangesToSelect = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
 	
 	if ([rangesToSelect count] > 0)
 		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
@@ -221,7 +221,7 @@
 - (void)selectMethodSignatures
 {
 	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelectionFromRanges:methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
 	NSArray *methodSignatureRanges = [[self.textStorage string] xctt_methodSignatureRanges];
 	
 	NSMutableArray *rangesToSelect = [NSMutableArray array];
@@ -241,7 +241,7 @@
 - (void)duplicateMethods
 {
 	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelectionFromRanges:methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
 	NSArray *selectedMethodDefinitionLineRanges = [self lineRangesFromRanges:selectedMethodDefinitionRanges];
 	
 	if ([selectedMethodDefinitionLineRanges count] == 0) return;
