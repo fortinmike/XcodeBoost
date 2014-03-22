@@ -146,7 +146,7 @@
 	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length - (emptyLine ? 1 : 0);
 	NSRange finalSelectionRange = NSMakeRange(sourceRangeEnd + insertedStringLength - 1, 0);
 	
-	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd, 0) replacementString:stringToInsert operation:^
+	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd - 1, 0) replacementString:stringToInsert operation:^
 	{
 		[self.textStorage insertAttributedString:[stringToInsert xctt_attributedString] atIndex:sourceRangeEnd];
 		[self.sourceTextView setSelectedRange:finalSelectionRange];
