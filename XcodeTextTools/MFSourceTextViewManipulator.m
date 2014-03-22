@@ -1,26 +1,26 @@
 //
-//  MFTextViewManipulator.m
+//  MFSourceTextViewManipulator.m
 //  XcodeTextTools
 //
 //  Created by Michaël Fortin on 2014-03-20.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
-#import "MFTextViewManipulator.h"
+#import "MFSourceTextViewManipulator.h"
 #import "NSArray+XcodeTextTools.h"
 #import "NSString+XcodeTextTools.h"
 #import "NSColor+XcodeTextTools.h"
 #import "NSAlert+XcodeTextTools.h"
 #import "DVTKit.h"
 
-@interface MFTextViewManipulator ()
+@interface MFSourceTextViewManipulator ()
 
 @property (readonly, unsafe_unretained) DVTSourceTextView *sourceTextView;
 @property (readonly) NSTextStorage *textStorage;
 
 @end
 
-@implementation MFTextViewManipulator
+@implementation MFSourceTextViewManipulator
 {
 	NSUInteger _highlightCount;
 	NSArray *_highlightColors;
@@ -28,7 +28,7 @@
 
 #pragma mark Lifetime
 
-- (id)initWithTextView:(DVTSourceTextView *)textView
+- (id)initWithSourceTextView:(DVTSourceTextView *)textView
 {
 	self = [super init];
 	if (self)

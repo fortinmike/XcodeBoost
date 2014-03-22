@@ -1,5 +1,5 @@
 //
-//  MFTextViewManipulator.h
+//  MFSourceTextViewManipulator.h
 //  XcodeTextTools
 //
 //  Created by Michaël Fortin on 2014-03-20.
@@ -10,9 +10,9 @@
 
 @class DVTSourceTextView;
 
-@interface MFTextViewManipulator : NSObject
+@interface MFSourceTextViewManipulator : NSObject
 
-- (id)initWithTextView:(DVTSourceTextView *)textView;
+- (id)initWithSourceTextView:(DVTSourceTextView *)textView;
 
 #pragma mark Line Manipulation
 

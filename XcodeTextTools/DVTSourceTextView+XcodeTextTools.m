@@ -13,12 +13,12 @@
 
 static NSString *kXCTTManipulatorKey = @"XCTTManipulator";
 
-- (MFTextViewManipulator *)manipulator
+- (MFSourceTextViewManipulator *)manipulator
 {
-	MFTextViewManipulator *manipulator = [self xctt_associatedObjectForKey:kXCTTManipulatorKey];
+	MFSourceTextViewManipulator *manipulator = [self xctt_associatedObjectForKey:kXCTTManipulatorKey];
 	if (!manipulator)
 	{
-		manipulator = [[MFTextViewManipulator alloc] initWithTextView:self];
+		manipulator = [[MFSourceTextViewManipulator alloc] initWithSourceTextView:self];
 		[self xctt_setAssociatedObject:manipulator forKey:kXCTTManipulatorKey];
 	}
 	return manipulator;

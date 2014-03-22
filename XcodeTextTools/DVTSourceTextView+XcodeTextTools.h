@@ -7,11 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "MFTextViewManipulator.h"
+#import "MFSourceTextViewManipulator.h"
 #import "DVTKit.h"
 
 @interface DVTSourceTextView (XcodeTextTools)
 
-- (MFTextViewManipulator *)manipulator;
+- (MFSourceTextViewManipulator *)manipulator;
 
 @end
