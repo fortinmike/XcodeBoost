@@ -47,7 +47,7 @@
 
 #pragma mark Implementation
 
-- (NSRange)selectedLineRange
+- (NSRange)selectedLinesRange
 {
 	NSValue *selectedRange = [[self.textView selectedRanges] firstObject];
 	if (!selectedRange) return NSMakeRange(NSNotFound, 0);
@@ -86,21 +86,30 @@
 
 - (void)duplicateLines
 {
-	NSRange lineRange = [self selectedLineRange];
-	NSAttributedString *lineString = [self.textStorage attributedSubstringFromRange:lineRange];
-	NSRange actualRange = NSMakeRange(lineRange.location + lineRange.length, 0);
-	NSRange editedRange = NSMakeRange(lineRange.location + lineRange.length - 1, 0);
-	[self conditionallyChangeTextInRange:editedRange replacementString:[lineString string] operation:^
+	NSRange linesRange = [self selectedLinesRange];
+	NSAttributedString *linesString = [self.textStorage attributedSubstringFromRange:linesRange];
+	
+	NSMutableAttributedString *addedText = [[NSMutableAttributedString alloc] init];
+	
+	//if ([[linesString string] xctt_matchesMethodDefinition])
+	//[duplicated appendAttributedString:[@"\n" xctt_attributedString]];
+	[addedText appendAttributedString:linesString];
+	
+	NSUInteger addedTextLength = [[addedText string] length];
+	NSRange sourceRange = NSMakeRange(linesRange.location + addedTextLength, 0);
+	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length;
+	NSRange addedTextRange = NSMakeRange(sourceRangeEnd, addedTextLength);
+		
+	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd, 0) replacementString:[addedText string] operation:^
 	{
-		[self.textStorage insertAttributedString:lineString atIndex:actualRange.location];
-		[self.textView moveDown:self];
-		[self.textView moveToRightEndOfLine:self];
+		[self.textStorage insertAttributedString:addedText atIndex:sourceRangeEnd];
+		[self.textView setSelectedRange:addedTextRange];
 	}];
 }
 
 - (void)deleteLines
 {
-	NSRange lineRange = [self selectedLineRange];
+	NSRange lineRange = [self selectedLinesRange];
 	[self conditionallyChangeTextInRange:lineRange replacementString:@"" operation:^
 	{
 		[self.textStorage deleteCharactersInRange:lineRange];
