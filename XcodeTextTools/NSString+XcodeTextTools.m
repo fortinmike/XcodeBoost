@@ -7,8 +7,20 @@
 //
 
 #import "NSString+XcodeTextTools.h"
+#import "NSAlert+XcodeTextTools.h"
 
 @implementation NSString (XcodeTextTools)
+
+static NSRegularExpression *s_methodDefinitionRegex;
+
+#pragma mark Creating Instances
+
+- (NSAttributedString *)xctt_attributedString
+{
+	return [[NSAttributedString alloc] initWithString:self];
+}
+
+#pragma mark Ranges
 
 - (NSArray *)xctt_rangesOfString:(NSString *)string
 {
@@ -30,6 +42,26 @@
 	}
 	
 	return ranges;
+}
+
+- (NSRange)xctt_range
+{
+	return NSMakeRange(0, [self length]);
+}
+
+#pragma mark Code Patterns
+
+- (BOOL)xctt_matchesMethodDefinition
+{
+	if (!s_methodDefinitionRegex)
+	{
+		NSError *error;
+		s_methodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:@"^[-\\+] ?\\(.+?\\).*(\\n?)\\{(.*\\n)+?(\\n?)\\}"
+																			options:0 error:&error];
+	}
+	
+	NSUInteger numberOfMatches = [s_methodDefinitionRegex numberOfMatchesInString:self options:0 range:[self xctt_range]];
+	return numberOfMatches == 1;
 }
 
 @end

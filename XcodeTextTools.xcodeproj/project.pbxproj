@@ -17,6 +17,7 @@
 		4C44F69318DAA7020061D68E /* NSObject+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F69218DAA7020061D68E /* NSObject+XcodeTextTools.m */; };
 		4C4A8DB218DD0F7200256B20 /* XcodeTextToolsFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A8DB118DD0F7200256B20 /* XcodeTextToolsFoundation.m */; };
 		4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC525018D380B800E88C70 /* MFPluginController.m */; };
+		4CB7D0A618DD311D00087503 /* NSAlert+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB7D0A518DD311D00087503 /* NSAlert+XcodeTextTools.m */; };
 		4CBBA80518DA9CB600C48649 /* NSString+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBBA80418DA9CB600C48649 /* NSString+XcodeTextTools.m */; };
 		4CD521EA18D384360025F2A1 /* NSMenu+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD521E918D384360025F2A1 /* NSMenu+XcodeTextTools.m */; };
 		4CD521ED18D384EC0025F2A1 /* NSArray+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD521EC18D384EC0025F2A1 /* NSArray+XcodeTextTools.m */; };
@@ -47,6 +48,8 @@
 		4C4A8DB118DD0F7200256B20 /* XcodeTextToolsFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeTextToolsFoundation.m; sourceTree = "<group>"; };
 		4CAC524F18D380B800E88C70 /* MFPluginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPluginController.h; sourceTree = "<group>"; };
 		4CAC525018D380B800E88C70 /* MFPluginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPluginController.m; sourceTree = "<group>"; };
+		4CB7D0A418DD311D00087503 /* NSAlert+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAlert+XcodeTextTools.h"; sourceTree = "<group>"; };
+		4CB7D0A518DD311D00087503 /* NSAlert+XcodeTextTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAlert+XcodeTextTools.m"; sourceTree = "<group>"; };
 		4CBBA80318DA9CB600C48649 /* NSString+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XcodeTextTools.h"; sourceTree = "<group>"; };
 		4CBBA80418DA9CB600C48649 /* NSString+XcodeTextTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XcodeTextTools.m"; sourceTree = "<group>"; };
 		4CCAC8EE18DA936600A1F908 /* DVTFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DVTFoundation.h; path = "Class-Dumps/DVTFoundation.h"; sourceTree = SOURCE_ROOT; };
@@ -150,18 +153,20 @@
 		4CD521E718D384240025F2A1 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				4CB7D0A418DD311D00087503 /* NSAlert+XcodeTextTools.h */,
+				4CB7D0A518DD311D00087503 /* NSAlert+XcodeTextTools.m */,
 				4CD521EB18D384EC0025F2A1 /* NSArray+XcodeTextTools.h */,
 				4CD521EC18D384EC0025F2A1 /* NSArray+XcodeTextTools.m */,
+				4C0A53BB18DCE7EE00E82F1C /* NSColor+XcodeTextTools.h */,
+				4C0A53BC18DCE7EE00E82F1C /* NSColor+XcodeTextTools.m */,
 				4CD521E818D384360025F2A1 /* NSMenu+XcodeTextTools.h */,
 				4CD521E918D384360025F2A1 /* NSMenu+XcodeTextTools.m */,
+				4C44F69118DAA7020061D68E /* NSObject+XcodeTextTools.h */,
+				4C44F69218DAA7020061D68E /* NSObject+XcodeTextTools.m */,
 				4CBBA80318DA9CB600C48649 /* NSString+XcodeTextTools.h */,
 				4CBBA80418DA9CB600C48649 /* NSString+XcodeTextTools.m */,
 				4C44F68E18DAA6270061D68E /* NSTextView+XcodeTextTools.h */,
 				4C44F68F18DAA6270061D68E /* NSTextView+XcodeTextTools.m */,
-				4C44F69118DAA7020061D68E /* NSObject+XcodeTextTools.h */,
-				4C44F69218DAA7020061D68E /* NSObject+XcodeTextTools.m */,
-				4C0A53BB18DCE7EE00E82F1C /* NSColor+XcodeTextTools.h */,
-				4C0A53BC18DCE7EE00E82F1C /* NSColor+XcodeTextTools.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 				4C44F69018DAA6270061D68E /* NSTextView+XcodeTextTools.m in Sources */,
 				4C44F68D18DAA56C0061D68E /* MFTextViewManipulator.m in Sources */,
 				4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */,
+				4CB7D0A618DD311D00087503 /* NSAlert+XcodeTextTools.m in Sources */,
 				4CD521ED18D384EC0025F2A1 /* NSArray+XcodeTextTools.m in Sources */,
 				4CBBA80518DA9CB600C48649 /* NSString+XcodeTextTools.m in Sources */,
 			);
@@ -302,7 +308,10 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				WARNING_CFLAGS = "-Wno-arc-performSelector-leaks";
+				WARNING_CFLAGS = (
+					"-Wno-arc-performSelector-leaks",
+					"-Wno-format-security",
+				);
 			};
 			name = Debug;
 		};
@@ -335,7 +344,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
-				WARNING_CFLAGS = "-Wno-arc-performSelector-leaks";
+				WARNING_CFLAGS = (
+					"-Wno-arc-performSelector-leaks",
+					"-Wno-format-security",
+				);
 			};
 			name = Release;
 		};

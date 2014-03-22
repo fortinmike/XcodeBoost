@@ -10,6 +10,7 @@
 #import "NSArray+XcodeTextTools.h"
 #import "NSString+XcodeTextTools.h"
 #import "NSColor+XcodeTextTools.h"
+#import "NSAlert+XcodeTextTools.h"
 
 @interface MFTextViewManipulator ()
 
@@ -71,39 +72,40 @@
 
 - (void)cutLines
 {
-	[[NSAlert alertWithMessageText:@"Cut Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	[NSAlert showDebugAlertWithFormat:@"Cut lines"];
 }
 
 - (void)copyLines
 {
-	[[NSAlert alertWithMessageText:@"Copy Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	[NSAlert showDebugAlertWithFormat:@"Copy lines"];
 }
 
 - (void)pasteLines
 {
-	[[NSAlert alertWithMessageText:@"Paste Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	[NSAlert showDebugAlertWithFormat:@"Paste lines"];
 }
 
 - (void)duplicateLines
 {
 	NSRange linesRange = [self selectedLinesRange];
-	NSAttributedString *linesString = [self.textStorage attributedSubstringFromRange:linesRange];
+	NSAttributedString *sourceString = [self.textStorage attributedSubstringFromRange:linesRange];
 	
-	NSMutableAttributedString *addedText = [[NSMutableAttributedString alloc] init];
+	NSMutableAttributedString *addedString = [[NSMutableAttributedString alloc] init];
 	
-	//if ([[linesString string] xctt_matchesMethodDefinition])
-	//[duplicated appendAttributedString:[@"\n" xctt_attributedString]];
-	[addedText appendAttributedString:linesString];
+	if ([[sourceString string] xctt_matchesMethodDefinition])
+		[addedString appendAttributedString:[@"\n" xctt_attributedString]];
 	
-	NSUInteger addedTextLength = [[addedText string] length];
-	NSRange sourceRange = NSMakeRange(linesRange.location + addedTextLength, 0);
+	[addedString appendAttributedString:sourceString];
+	
+	NSUInteger addedStringLength = [[addedString string] length];
+	NSRange sourceRange = NSMakeRange(linesRange.location + linesRange.length, 0);
 	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length;
-	NSRange addedTextRange = NSMakeRange(sourceRangeEnd, addedTextLength);
-		
-	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd, 0) replacementString:[addedText string] operation:^
+	NSRange addedStringRange = NSMakeRange(sourceRangeEnd, addedStringLength);
+	
+	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd, 0) replacementString:[addedString string] operation:^
 	{
-		[self.textStorage insertAttributedString:addedText atIndex:sourceRangeEnd];
-		[self.textView setSelectedRange:addedTextRange];
+		[self.textStorage insertAttributedString:addedString atIndex:sourceRangeEnd];
+		[self.textView setSelectedRange:addedStringRange];
 	}];
 }
 
