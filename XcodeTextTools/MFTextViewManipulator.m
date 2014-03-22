@@ -77,7 +77,10 @@
 
 - (void)copyLines
 {
-	[NSAlert showDebugAlertWithFormat:@"Copy lines"];
+	NSRange linesRange = [self selectedLinesRange];
+	NSString *sourceString = [[self.textStorage attributedSubstringFromRange:linesRange] string];
+	NSString *trimmedString = [sourceString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+	[[NSPasteboard generalPasteboard] setString:trimmedString forType:NSPasteboardTypeString];
 }
 
 - (void)pasteLines
