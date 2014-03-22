@@ -23,7 +23,7 @@
 @implementation MFSourceTextViewManipulator
 {
 	NSUInteger _highlightCount;
-	NSArray *_highlightColors;
+	NSMutableArray *_highlightColors;
 }
 
 #pragma mark Lifetime
@@ -42,9 +42,9 @@
 
 - (void)setupHighlightColors
 {
-	_highlightColors = @[[NSColor greenColor], [NSColor orangeColor], [NSColor blueColor],
+	_highlightColors = [@[[NSColor greenColor], [NSColor orangeColor], [NSColor blueColor],
 						 [NSColor redColor], [NSColor purpleColor], [NSColor yellowColor],
-						 [NSColor brownColor]];
+						 [NSColor brownColor]] mutableCopy];
 }
 
 #pragma mark Implementation
@@ -182,7 +182,20 @@
 	{
 		NSString *selection = [[self.textStorage string] substringWithRange:[selectedRange rangeValue]];
 		NSArray *selectionRanges = [[self.textStorage string] xctt_rangesOfString:selection];
-		NSColor *highlightColor = _highlightCount < [_highlightColors count] ? _highlightColors[_highlightCount] : [NSColor xctt_randomColor];
+		
+		NSColor *highlightColor;
+		if (_highlightCount < [_highlightColors count])
+		{
+			highlightColor = _highlightColors[_highlightCount];
+		}
+		else
+		{
+			highlightColor = [NSColor xctt_randomColor];
+			
+			// Add the color to the array of colors so that we can undo highlighting
+			// step-by-step afterwards (by enumerating over ranges with those background colors).
+			[_highlightColors addObject:highlightColor];
+		}
 		
 		for (NSValue *selectionRange in selectionRanges)
 		{
@@ -194,7 +207,24 @@
 	}
 }
 
-- (void)removeHighlighting
+- (void)removeMostRecentlyAddedHighlight
+{
+	if (_highlightCount == 0) return;
+	_highlightCount--;
+	
+	NSColor *highlightColorToRemove = _highlightColors[_highlightCount];
+	
+	NSTextStorage *textStorage = self.textStorage;
+	NSRange documentRange = NSMakeRange(0, [[textStorage string] length]);
+	
+	[textStorage enumerateAttribute:NSBackgroundColorAttributeName inRange:documentRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop)
+	{
+		if ([value isEqual:highlightColorToRemove])
+			[textStorage removeAttribute:NSBackgroundColorAttributeName range:range];
+	}];
+}
+
+- (void)removeAllHighlighting
 {
 	NSTextStorage *textStorage = self.textStorage;
 	NSRange documentRange = NSMakeRange(0, [[textStorage string] length]);

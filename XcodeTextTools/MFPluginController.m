@@ -56,7 +56,8 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Paste Method Declarations" action:@selector(pasteMethodDeclarations_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of String" action:@selector(highlightSelectedStrings_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Remove Highlighting" action:@selector(removeHighlighting_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Remove Most Recently Added Highlight" action:@selector(removeMostRecentlyAddedHighlight_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Remove All Highlighting" action:@selector(removeAllHighlighting_clicked:)]];
 	
 	NSMenuItem *textToolsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Text Tools" action:NULL keyEquivalent:@""];
 	[textToolsMenuItem setSubmenu:submenu];
@@ -126,9 +127,14 @@
 	[[[self currentSourceTextView] manipulator] highlightSelectedStrings];
 }
 
-- (void)removeHighlighting_clicked:(id)sender
+- (void)removeMostRecentlyAddedHighlight_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] removeHighlighting];
+	[[[self currentSourceTextView] manipulator] removeMostRecentlyAddedHighlight];
+}
+
+- (void)removeAllHighlighting_clicked:(id)sender
+{
+	[[[self currentSourceTextView] manipulator] removeAllHighlighting];
 }
 
 #pragma mark Method Manipulation Action Methods

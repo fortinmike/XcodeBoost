@@ -26,7 +26,8 @@
 #pragma mark Highlighting
 
 - (void)highlightSelectedStrings;
-- (void)removeHighlighting;
+- (void)removeMostRecentlyAddedHighlight;
+- (void)removeAllHighlighting;
 
 #pragma mark Selection
 
