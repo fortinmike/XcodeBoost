@@ -15,6 +15,7 @@
 		4C44F68D18DAA56C0061D68E /* MFTextViewManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68C18DAA56C0061D68E /* MFTextViewManipulator.m */; };
 		4C44F69018DAA6270061D68E /* NSTextView+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68F18DAA6270061D68E /* NSTextView+XcodeTextTools.m */; };
 		4C44F69318DAA7020061D68E /* NSObject+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F69218DAA7020061D68E /* NSObject+XcodeTextTools.m */; };
+		4C4A8DB218DD0F7200256B20 /* XcodeTextToolsFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A8DB118DD0F7200256B20 /* XcodeTextToolsFoundation.m */; };
 		4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC525018D380B800E88C70 /* MFPluginController.m */; };
 		4CBBA80518DA9CB600C48649 /* NSString+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBBA80418DA9CB600C48649 /* NSString+XcodeTextTools.m */; };
 		4CD521EA18D384360025F2A1 /* NSMenu+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD521E918D384360025F2A1 /* NSMenu+XcodeTextTools.m */; };
@@ -42,6 +43,8 @@
 		4C44F68F18DAA6270061D68E /* NSTextView+XcodeTextTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextView+XcodeTextTools.m"; sourceTree = "<group>"; };
 		4C44F69118DAA7020061D68E /* NSObject+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+XcodeTextTools.h"; sourceTree = "<group>"; };
 		4C44F69218DAA7020061D68E /* NSObject+XcodeTextTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XcodeTextTools.m"; sourceTree = "<group>"; };
+		4C4A8DB018DD0F7200256B20 /* XcodeTextToolsFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XcodeTextToolsFoundation.h; sourceTree = "<group>"; };
+		4C4A8DB118DD0F7200256B20 /* XcodeTextToolsFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeTextToolsFoundation.m; sourceTree = "<group>"; };
 		4CAC524F18D380B800E88C70 /* MFPluginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPluginController.h; sourceTree = "<group>"; };
 		4CAC525018D380B800E88C70 /* MFPluginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPluginController.m; sourceTree = "<group>"; };
 		4CBBA80318DA9CB600C48649 /* NSString+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XcodeTextTools.h"; sourceTree = "<group>"; };
@@ -113,6 +116,8 @@
 			children = (
 				4C2868B618D331B7006C780C /* XcodeTextTools.h */,
 				4C2868B718D331B7006C780C /* XcodeTextTools.m */,
+				4C4A8DB018DD0F7200256B20 /* XcodeTextToolsFoundation.h */,
+				4C4A8DB118DD0F7200256B20 /* XcodeTextToolsFoundation.m */,
 				4CD521E718D384240025F2A1 /* Categories */,
 				4CAC524E18D380A000E88C70 /* Logic */,
 				4CEBB15818D37F6C0091E9FC /* Class-Dumps */,
@@ -238,6 +243,7 @@
 				4C44F69318DAA7020061D68E /* NSObject+XcodeTextTools.m in Sources */,
 				4C2868B818D331B7006C780C /* XcodeTextTools.m in Sources */,
 				4C0A53BD18DCE7EE00E82F1C /* NSColor+XcodeTextTools.m in Sources */,
+				4C4A8DB218DD0F7200256B20 /* XcodeTextToolsFoundation.m in Sources */,
 				4CD521EA18D384360025F2A1 /* NSMenu+XcodeTextTools.m in Sources */,
 				4C44F69018DAA6270061D68E /* NSTextView+XcodeTextTools.m in Sources */,
 				4C44F68D18DAA56C0061D68E /* MFTextViewManipulator.m in Sources */,

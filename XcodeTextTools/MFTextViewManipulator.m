@@ -7,6 +7,7 @@
 //
 
 #import "MFTextViewManipulator.h"
+#import "NSArray+XcodeTextTools.h"
 #import "NSString+XcodeTextTools.h"
 #import "NSColor+XcodeTextTools.h"
 
@@ -44,6 +45,28 @@
 						 [NSColor brownColor]];
 }
 
+#pragma mark Implementation
+
+- (NSRange)selectedLineRange
+{
+	NSValue *selectedRange = [[self.textView selectedRanges] firstObject];
+	if (!selectedRange) return NSMakeRange(NSNotFound, 0);
+	
+	return [[self.textView string] lineRangeForRange:[selectedRange rangeValue]];
+}
+
+- (void)conditionallyChangeTextInRange:(NSRange)range replacementString:(NSString *)replacementString operation:(Block)operation
+{
+	if (range.location == NSNotFound) return;
+	
+	// Preserves undo/redo behavior!
+	if ([self.textView shouldChangeTextInRange:range replacementString:replacementString])
+	{
+		operation();
+		[self.textView didChangeText];
+	}
+}
+
 #pragma mark Line Manipulation
 
 - (void)cutLine
@@ -63,12 +86,17 @@
 
 - (void)duplicateLine
 {
-	[[NSAlert alertWithMessageText:@"Duplicate Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	
 }
 
 - (void)deleteLine
 {
-	[[NSAlert alertWithMessageText:@"Delete Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	NSRange lineRange = [self selectedLineRange];
+	[self conditionallyChangeTextInRange:lineRange replacementString:@"" operation:^
+	{
+		[self.textStorage deleteCharactersInRange:lineRange];
+		[self.textView moveToRightEndOfLine:self];
+	}];
 }
 
 #pragma mark Highlighting

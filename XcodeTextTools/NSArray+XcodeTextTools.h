@@ -8,10 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^VoidObjectBlock)(id object);
 typedef BOOL (^BoolObjectBlock)(id object);
+typedef id (^ObjectObjectBlock)(id object);
 
 @interface NSArray (XcodeTextTools)
 
+- (instancetype)xctt_each:(VoidObjectBlock)operation;
 - (instancetype)xctt_where:(BoolObjectBlock)condition; // Returns objects that match the specified condition
+- (instancetype)xctt_map:(ObjectObjectBlock)gatheringBlock;
+- (instancetype)xctt_distinct;
 
 @end
