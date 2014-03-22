@@ -80,6 +80,15 @@ static NSRegularExpression *s_methodDefinitionsRegex;
 	return [self rangesForMatches:matches];
 }
 
+- (NSArray *)xctt_methodSignatureRanges
+{
+	[self prepareRegexes];
+	
+	NSArray *matches = [s_methodDefinitionsRegex matchesInString:self options:0 range:[self xctt_range]];
+	
+	return [self rangesForMatches:matches captureGroup:1];
+}
+
 #pragma mark Private Methods
 
 - (void)prepareRegexes
@@ -98,10 +107,15 @@ static NSRegularExpression *s_methodDefinitionsRegex;
 
 - (NSArray *)rangesForMatches:(NSArray *)matches
 {
+	return [self rangesForMatches:matches captureGroup:-1];
+}
+
+- (NSArray *)rangesForMatches:(NSArray *)matches captureGroup:(NSUInteger)captureGroup
+{
 	NSMutableArray *ranges = [NSMutableArray array];
 	for (NSTextCheckingResult *match in matches)
 	{
-		NSRange matchRange = [match range];
+		NSRange matchRange = (captureGroup == -1) ? [match range] : [match rangeAtIndex:captureGroup];
 		[ranges addObject:[NSValue valueWithRange:matchRange]];
 	}
 	return ranges;

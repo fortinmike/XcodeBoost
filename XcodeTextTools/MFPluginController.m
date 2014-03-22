@@ -51,6 +51,7 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Delete Line(s)" action:@selector(deleteLine_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Select Method(s)" action:@selector(selectMethods_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Select Method Signature(s)" action:@selector(selectMethodSignatures_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Method(s)" action:@selector(duplicateMethods_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Paste Method Declarations" action:@selector(pasteMethodDeclarations_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
@@ -135,6 +136,11 @@
 - (void)selectMethods_clicked:(id)sender
 {
 	[[[self currentSourceTextView] manipulator] selectMethods];
+}
+
+- (void)selectMethodSignatures_clicked:(id)sender
+{
+	[[[self currentSourceTextView] manipulator] selectMethodSignatures];
 }
 
 - (void)duplicateMethods_clicked:(id)sender

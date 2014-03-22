@@ -218,6 +218,26 @@
 		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
 }
 
+- (void)selectMethodSignatures
+{
+	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelectionFromRanges:methodDefinitionRanges];
+	NSArray *methodSignatureRanges = [[self.textStorage string] xctt_methodSignatureRanges];
+	
+	NSMutableArray *rangesToSelect = [NSMutableArray array];
+	for (NSValue *methodSignatureRange in methodSignatureRanges)
+	{
+		for (NSValue *selectedMethodDefinitionRange in selectedMethodDefinitionRanges)
+		{
+			if (NSIntersectionRange([methodSignatureRange rangeValue], [selectedMethodDefinitionRange rangeValue]).length != 0)
+				[rangesToSelect addObject:methodSignatureRange];
+		}
+	}
+	
+	if ([rangesToSelect count] > 0)
+		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
+}
+
 - (void)duplicateMethods
 {
 	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];

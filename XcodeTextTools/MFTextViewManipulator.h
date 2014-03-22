@@ -31,6 +31,7 @@
 #pragma mark Selection
 
 - (void)selectMethods;
+- (void)selectMethodSignatures;
 - (void)duplicateMethods;
 
 @end
