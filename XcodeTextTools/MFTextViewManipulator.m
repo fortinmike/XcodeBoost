@@ -86,7 +86,16 @@
 
 - (void)duplicateLine
 {
-	
+	NSRange lineRange = [self selectedLineRange];
+	NSAttributedString *lineString = [self.textStorage attributedSubstringFromRange:lineRange];
+	NSRange actualRange = NSMakeRange(lineRange.location + lineRange.length, 0);
+	NSRange editedRange = NSMakeRange(lineRange.location + lineRange.length - 1, 0);
+	[self conditionallyChangeTextInRange:editedRange replacementString:[lineString string] operation:^
+	{
+		[self.textStorage insertAttributedString:lineString atIndex:actualRange.location];
+		[self.textView moveDown:self];
+		[self.textView moveToRightEndOfLine:self];
+	}];
 }
 
 - (void)deleteLine
