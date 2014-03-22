@@ -46,6 +46,7 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Cut Line(s)" action:@selector(cutLine_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Copy Line(s)" action:@selector(copyLine_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Paste Line(s)" action:@selector(pasteLine_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Paste Line(s) Without Reindent" action:@selector(pasteLineWithoutReindent_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Line(s)" action:@selector(duplicateLine_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Delete Line(s)" action:@selector(deleteLine_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
@@ -92,7 +93,12 @@
 
 - (void)pasteLine_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] pasteLines];
+	[[[self currentSourceTextView] manipulator] pasteLinesWithReindent:YES];
+}
+
+- (void)pasteLineWithoutReindent_clicked:(id)sender
+{
+	[[[self currentSourceTextView] manipulator] pasteLinesWithReindent:NO];
 }
 
 - (void)duplicateLine_clicked:(id)sender

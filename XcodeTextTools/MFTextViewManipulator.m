@@ -92,7 +92,7 @@
 	[generalPasteboard setString:[self selectedLinesString] forType:NSPasteboardTypeString];
 }
 
-- (void)pasteLines
+- (void)pasteLinesWithReindent:(BOOL)reindent
 {
 	NSMutableString *string = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
 		
@@ -104,7 +104,8 @@
 	if (!emptyLine && ![string hasSuffix:@"\n"]) [string appendString:@"\n"];
 	NSRange insertedRange = [self insertString:string afterLinesInRange:linesRange onSameLine:emptyLine];
 	[self.sourceTextView setSelectedRange:insertedRange];
-	[self.sourceTextView indentSelection:self];
+	
+	if (reindent) [self.sourceTextView indentSelection:self];
 }
 
 - (void)duplicateLines
