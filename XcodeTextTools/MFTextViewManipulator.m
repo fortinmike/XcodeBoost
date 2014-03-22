@@ -65,28 +65,24 @@
 	return trimmedString;
 }
 
-- (NSArray *)selectedMethodDefinitionRanges
+- (NSArray *)lineRangesFromRanges:(NSArray *)ranges
 {
-	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];
-	
-	NSMutableArray *selectedMethodDefinitionRanges = [NSMutableArray array];
-	for (NSValue *methodDefinitionRange in methodDefinitionRanges)
-	{
-		NSRange intersection = NSIntersectionRange([methodDefinitionRange rangeValue], [self selectedLinesRange]);
-		if (intersection.length > 0) [selectedMethodDefinitionRanges addObject:methodDefinitionRange];
-	}
-	
-	return selectedMethodDefinitionRanges;
-}
-
-- (NSArray *)selectedMethodDefinitionLineRanges
-{
-	NSArray *ranges = [self selectedMethodDefinitionRanges];
 	return [ranges xctt_map:^id(NSValue *range)
 	{
 		NSRange lineRange = [[self.textStorage string] lineRangeForRange:[range rangeValue]];
 		return [NSValue valueWithRange:lineRange];
 	}];
+}
+
+- (NSArray *)rangesFullyOrPartiallyContainedInSelectionFromRanges:(NSArray *)sourceRanges
+{
+	NSMutableArray *rangesOverlappingSelection = [NSMutableArray array];
+	for (NSValue *methodDefinitionRange in sourceRanges)
+	{
+		NSRange intersection = NSIntersectionRange([methodDefinitionRange rangeValue], [self selectedLinesRange]);
+		if (intersection.length > 0) [rangesOverlappingSelection addObject:methodDefinitionRange];
+	}
+	return rangesOverlappingSelection;
 }
 
 - (void)conditionallyChangeTextInRange:(NSRange)range replacementString:(NSString *)replacementString operation:(Block)operation
@@ -215,7 +211,8 @@
 
 - (void)selectMethods
 {
-	NSArray *rangesToSelect = [self selectedMethodDefinitionRanges];
+	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];
+	NSArray *rangesToSelect = [self rangesFullyOrPartiallyContainedInSelectionFromRanges:methodDefinitionRanges];
 	
 	if ([rangesToSelect count] > 0)
 		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
@@ -223,11 +220,14 @@
 
 - (void)duplicateMethods
 {
-	NSArray *methodDefinitionRanges = [self selectedMethodDefinitionLineRanges];
-	if ([methodDefinitionRanges count] == 0) return;
+	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelectionFromRanges:methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionLineRanges = [self lineRangesFromRanges:selectedMethodDefinitionRanges];
 	
-	NSRange unionRange = [methodDefinitionRanges[0] rangeValue];
-	for (NSValue *range in methodDefinitionRanges)
+	if ([selectedMethodDefinitionLineRanges count] == 0) return;
+	
+	NSRange unionRange = [selectedMethodDefinitionLineRanges[0] rangeValue];
+	for (NSValue *range in selectedMethodDefinitionLineRanges)
 		unionRange = NSUnionRange(unionRange, [range rangeValue]);
 	
 	[self duplicateLines:unionRange];
