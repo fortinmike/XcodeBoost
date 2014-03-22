@@ -47,9 +47,10 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Copy Line(s)" action:@selector(copyLine_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Paste Line(s)" action:@selector(pasteLine_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Paste Line(s) Without Reindent" action:@selector(pasteLineWithoutReindent_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Paste Method Declarations" action:@selector(pasteMethodDeclarations_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Line(s)" action:@selector(duplicateLine_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Delete Line(s)" action:@selector(deleteLine_clicked:)]];
+	[submenu addItem:[NSMenuItem separatorItem]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Paste Method Declarations" action:@selector(pasteMethodDeclarations_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of Selection" action:@selector(highlightSelection_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove Highlighting" action:@selector(removeHighlighting_clicked:)]];
