@@ -56,6 +56,14 @@
 	return [[self.textView string] lineRangeForRange:[selectedRange rangeValue]];
 }
 
+- (NSString *)selectedLinesString
+{
+	NSRange linesRange = [self selectedLinesRange];
+	NSString *sourceString = [[self.textStorage attributedSubstringFromRange:linesRange] string];
+	NSString *trimmedString = [sourceString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+	return trimmedString;
+}
+
 - (void)conditionallyChangeTextInRange:(NSRange)range replacementString:(NSString *)replacementString operation:(Block)operation
 {
 	if (range.location == NSNotFound) return;
@@ -72,15 +80,15 @@
 
 - (void)cutLines
 {
-	[NSAlert showDebugAlertWithFormat:@"Cut lines"];
+	[self copyLines];
+	[self deleteLines];
 }
 
 - (void)copyLines
 {
-	NSRange linesRange = [self selectedLinesRange];
-	NSString *sourceString = [[self.textStorage attributedSubstringFromRange:linesRange] string];
-	NSString *trimmedString = [sourceString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-	[[NSPasteboard generalPasteboard] setString:trimmedString forType:NSPasteboardTypeString];
+	NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
+	[generalPasteboard declareTypes:[NSArray arrayWithObject:NSPasteboardTypeString] owner:nil];
+	[generalPasteboard setString:[self selectedLinesString] forType:NSPasteboardTypeString];
 }
 
 - (void)pasteLines
