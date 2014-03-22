@@ -79,6 +79,16 @@
 	return selectedMethodDefinitionRanges;
 }
 
+- (NSArray *)selectedMethodDefinitionLineRanges
+{
+	NSArray *ranges = [self selectedMethodDefinitionRanges];
+	return [ranges xctt_map:^id(NSValue *range)
+	{
+		NSRange lineRange = [[self.textStorage string] lineRangeForRange:[range rangeValue]];
+		return [NSValue valueWithRange:lineRange];
+	}];
+}
+
 - (void)conditionallyChangeTextInRange:(NSRange)range replacementString:(NSString *)replacementString operation:(Block)operation
 {
 	if (range.location == NSNotFound) return;
@@ -213,7 +223,7 @@
 
 - (void)duplicateMethods
 {
-	NSArray *methodDefinitionRanges = [self selectedMethodDefinitionRanges];
+	NSArray *methodDefinitionRanges = [self selectedMethodDefinitionLineRanges];
 	if ([methodDefinitionRanges count] == 0) return;
 	
 	NSRange unionRange = [methodDefinitionRanges[0] rangeValue];
