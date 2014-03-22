@@ -14,11 +14,11 @@
 
 #pragma mark Line Manipulation
 
-- (void)cutLine;
-- (void)copyLine;
-- (void)pasteLine;
-- (void)duplicateLine;
-- (void)deleteLine;
+- (void)cutLines;
+- (void)copyLines;
+- (void)pasteLines;
+- (void)duplicateLines;
+- (void)deleteLines;
 
 #pragma mark Highlighting
 

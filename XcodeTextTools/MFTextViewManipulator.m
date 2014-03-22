@@ -69,22 +69,22 @@
 
 #pragma mark Line Manipulation
 
-- (void)cutLine
+- (void)cutLines
 {
 	[[NSAlert alertWithMessageText:@"Cut Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
 }
 
-- (void)copyLine
+- (void)copyLines
 {
 	[[NSAlert alertWithMessageText:@"Copy Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
 }
 
-- (void)pasteLine
+- (void)pasteLines
 {
 	[[NSAlert alertWithMessageText:@"Paste Line" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
 }
 
-- (void)duplicateLine
+- (void)duplicateLines
 {
 	NSRange lineRange = [self selectedLineRange];
 	NSAttributedString *lineString = [self.textStorage attributedSubstringFromRange:lineRange];
@@ -98,7 +98,7 @@
 	}];
 }
 
-- (void)deleteLine
+- (void)deleteLines
 {
 	NSRange lineRange = [self selectedLineRange];
 	[self conditionallyChangeTextInRange:lineRange replacementString:@"" operation:^

@@ -43,11 +43,11 @@
 - (NSMenuItem *)createTextToolsMenuItem
 {
 	NSMenu *submenu = [[NSMenu alloc] init];
-	[submenu addItem:[self createMenuItemWithTitle:@"Cut Line" action:@selector(cutLine_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Copy Line" action:@selector(copyLine_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Paste Line" action:@selector(pasteLine_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Line" action:@selector(duplicateLine_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Delete Line" action:@selector(deleteLine_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Cut Line(s)" action:@selector(cutLine_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Copy Line(s)" action:@selector(copyLine_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Paste Line(s)" action:@selector(pasteLine_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Line(s)" action:@selector(duplicateLine_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Delete Line(s)" action:@selector(deleteLine_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of Selection" action:@selector(highlightSelection_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove Highlighting" action:@selector(removeHighlighting_clicked:)]];
@@ -82,27 +82,27 @@
 
 - (void)cutLine_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] cutLine];
+	[[[self currentSourceTextView] manipulator] cutLines];
 }
 
 - (void)copyLine_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] copyLine];
+	[[[self currentSourceTextView] manipulator] copyLines];
 }
 
 - (void)pasteLine_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] pasteLine];
+	[[[self currentSourceTextView] manipulator] pasteLines];
 }
 
 - (void)duplicateLine_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] duplicateLine];
+	[[[self currentSourceTextView] manipulator] duplicateLines];
 }
 
 - (void)deleteLine_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] deleteLine];
+	[[[self currentSourceTextView] manipulator] deleteLines];
 }
 
 #pragma mark Highlighting Action Methods
