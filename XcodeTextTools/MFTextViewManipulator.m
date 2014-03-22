@@ -65,6 +65,20 @@
 	return trimmedString;
 }
 
+- (NSArray *)selectedMethodDefinitionRanges
+{
+	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];
+	
+	NSMutableArray *selectedMethodDefinitionRanges = [NSMutableArray array];
+	for (NSValue *methodDefinitionRange in methodDefinitionRanges)
+	{
+		NSRange intersection = NSIntersectionRange([methodDefinitionRange rangeValue], [self selectedLinesRange]);
+		if (intersection.length > 0) [selectedMethodDefinitionRanges addObject:methodDefinitionRange];
+	}
+	
+	return selectedMethodDefinitionRanges;
+}
+
 - (void)conditionallyChangeTextInRange:(NSRange)range replacementString:(NSString *)replacementString operation:(Block)operation
 {
 	if (range.location == NSNotFound) return;
@@ -75,6 +89,43 @@
 		operation();
 		[self.sourceTextView didChangeText];
 	}
+}
+
+- (void)duplicateLines:(NSRange)linesRange
+{
+	NSString *selectedLinesString = [[self.textStorage attributedSubstringFromRange:linesRange] string];
+	
+	NSMutableString *insertedString = [[NSMutableString alloc] init];
+	
+	if ([selectedLinesString xctt_startsWithMethodDefinition])
+		[insertedString appendString:@"\n"];
+	
+	[insertedString appendString:selectedLinesString];
+	
+	[self insertString:insertedString afterLinesInRange:linesRange reindent:NO];
+}
+
+- (void)insertString:(NSString *)insertedString afterLinesInRange:(NSRange)linesRange reindent:(BOOL)reindent
+{
+	NSMutableString *stringToInsert = [insertedString mutableCopy];
+	
+	NSString *selectedLinesString = [self selectedLinesString];
+	NSString *trimmedSelectedLinesString = [selectedLinesString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	BOOL emptyLine = [trimmedSelectedLinesString isEqualToString:@""];
+	if (!emptyLine && ![stringToInsert hasSuffix:@"\n"]) [stringToInsert appendString:@"\n"];
+	
+	NSUInteger insertedStringLength = [stringToInsert length];
+	NSRange sourceRange = NSMakeRange(linesRange.location + linesRange.length, 0);
+	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length - (emptyLine ? 1 : 0);
+	NSRange finalSelectionRange = NSMakeRange(sourceRangeEnd + insertedStringLength - 1, 0);
+	
+	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd - 1, 0) replacementString:stringToInsert operation:^
+	 {
+		 [self.textStorage insertAttributedString:[stringToInsert xctt_attributedString] atIndex:sourceRangeEnd];
+		 [self.sourceTextView setSelectedRange:finalSelectionRange];
+		 
+		 if (reindent) [self.sourceTextView indentSelection:self];
+	 }];
 }
 
 #pragma mark Line Manipulation
@@ -100,26 +151,9 @@
 	[self insertString:pasteboardString afterLinesInRange:linesRange reindent:reindent];
 }
 
-- (void)pasteMethodDeclarations
-{
-	NSMutableString *pasteboardString = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
-	NSString *methodDeclarations = [pasteboardString xctt_extractMethodDeclarations];
-	[self insertString:methodDeclarations afterLinesInRange:[self selectedLinesRange] reindent:YES];
-}
-
 - (void)duplicateLines
 {
-	NSRange linesRange = [self selectedLinesRange];
-	NSString *selectedLinesString = [[self.textStorage attributedSubstringFromRange:linesRange] string];
-	
-	NSMutableString *insertedString = [[NSMutableString alloc] init];
-	
-	if ([selectedLinesString xctt_startsWithMethodDefinition])
-		[insertedString appendString:@"\n"];
-	
-	[insertedString appendString:selectedLinesString];
-	
-	[self insertString:insertedString afterLinesInRange:linesRange reindent:NO];
+	[self duplicateLines:[self selectedLinesRange]];
 }
 
 - (void)deleteLines
@@ -132,32 +166,9 @@
 	}];
 }
 
-- (void)insertString:(NSString *)insertedString afterLinesInRange:(NSRange)linesRange reindent:(BOOL)reindent
-{
-	NSMutableString *stringToInsert = [insertedString mutableCopy];
-	
-	NSString *selectedLinesString = [self selectedLinesString];
-	NSString *trimmedSelectedLinesString = [selectedLinesString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	BOOL emptyLine = [trimmedSelectedLinesString isEqualToString:@""];
-	if (!emptyLine && ![stringToInsert hasSuffix:@"\n"]) [stringToInsert appendString:@"\n"];
-	
-	NSUInteger insertedStringLength = [stringToInsert length];
-	NSRange sourceRange = NSMakeRange(linesRange.location + linesRange.length, 0);
-	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length - (emptyLine ? 1 : 0);
-	NSRange finalSelectionRange = NSMakeRange(sourceRangeEnd + insertedStringLength - 1, 0);
-	
-	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd - 1, 0) replacementString:stringToInsert operation:^
-	{
-		[self.textStorage insertAttributedString:[stringToInsert xctt_attributedString] atIndex:sourceRangeEnd];
-		[self.sourceTextView setSelectedRange:finalSelectionRange];
-		
-		if (reindent) [self.sourceTextView indentSelection:self];
-	}];
-}
-
 #pragma mark Highlighting
 
-- (void)highlightSelection
+- (void)highlightSelectedStrings
 {
 	NSArray *selectedRanges = [self.sourceTextView selectedRanges];
 	
@@ -194,17 +205,29 @@
 
 - (void)selectMethods
 {
-	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];
-	
-	NSMutableArray *rangesToSelect = [NSMutableArray array];
-	for (NSValue *methodDefinitionRange in methodDefinitionRanges)
-	{
-		NSRange intersection = NSIntersectionRange([methodDefinitionRange rangeValue], [self selectedLinesRange]);
-		if (intersection.length > 0) [rangesToSelect addObject:methodDefinitionRange];
-	}
+	NSArray *rangesToSelect = [self selectedMethodDefinitionRanges];
 	
 	if ([rangesToSelect count] > 0)
 		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
+}
+
+- (void)duplicateMethods
+{
+	NSArray *methodDefinitionRanges = [self selectedMethodDefinitionRanges];
+	if ([methodDefinitionRanges count] == 0) return;
+	
+	NSRange unionRange = [methodDefinitionRanges[0] rangeValue];
+	for (NSValue *range in methodDefinitionRanges)
+		unionRange = NSUnionRange(unionRange, [range rangeValue]);
+	
+	[self duplicateLines:unionRange];
+}
+	
+- (void)pasteMethodDeclarations
+{
+	NSMutableString *pasteboardString = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
+	NSString *methodDeclarations = [pasteboardString xctt_extractMethodDeclarations];
+	[self insertString:methodDeclarations afterLinesInRange:[self selectedLinesRange] reindent:YES];
 }
 
 #pragma mark Accessor Overrides

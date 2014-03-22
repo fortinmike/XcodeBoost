@@ -50,11 +50,11 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Line(s)" action:@selector(duplicateLine_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Delete Line(s)" action:@selector(deleteLine_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Select Method(s)" action:@selector(selectMethods_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Method(s)" action:@selector(duplicateMethods_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Paste Method Declarations" action:@selector(pasteMethodDeclarations_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Select Method(s)" action:@selector(selectMethods_clicked:)]];
-	[submenu addItem:[NSMenuItem separatorItem]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of Selection" action:@selector(highlightSelection_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of String" action:@selector(highlightSelectedStrings_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove Highlighting" action:@selector(removeHighlighting_clicked:)]];
 	
 	NSMenuItem *textToolsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Text Tools" action:NULL keyEquivalent:@""];
@@ -120,9 +120,9 @@
 
 #pragma mark Highlighting Action Methods
 
-- (void)highlightSelection_clicked:(id)sender
+- (void)highlightSelectedStrings_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] highlightSelection];
+	[[[self currentSourceTextView] manipulator] highlightSelectedStrings];
 }
 
 - (void)removeHighlighting_clicked:(id)sender
@@ -130,11 +130,16 @@
 	[[[self currentSourceTextView] manipulator] removeHighlighting];
 }
 
-#pragma mark Selection Action Methods
+#pragma mark Method Manipulation Action Methods
 
 - (void)selectMethods_clicked:(id)sender
 {
 	[[[self currentSourceTextView] manipulator] selectMethods];
+}
+
+- (void)duplicateMethods_clicked:(id)sender
+{
+	[[[self currentSourceTextView] manipulator] duplicateMethods];
 }
 
 #pragma mark Implementation

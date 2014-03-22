@@ -25,11 +25,12 @@
 
 #pragma mark Highlighting
 
-- (void)highlightSelection;
+- (void)highlightSelectedStrings;
 - (void)removeHighlighting;
 
 #pragma mark Selection
 
 - (void)selectMethods;
+- (void)duplicateMethods;
 
 @end
