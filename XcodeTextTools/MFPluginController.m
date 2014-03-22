@@ -144,7 +144,7 @@
 	IDEEditor *currentEditor = [self currentEditor];
 	
     if ([currentEditor isKindOfClass:NSClassFromString(@"IDESourceCodeEditor")])
-        return (DVTSourceTextView *)[(id)currentEditor sourceTextView];
+        return (DVTSourceTextView *)[(id)currentEditor textView];
     
     if ([currentEditor isKindOfClass:NSClassFromString(@"IDESourceCodeComparisonEditor")])
         return [(id)currentEditor performSelector:NSSelectorFromString(@"keyTextView")];
