@@ -19,6 +19,7 @@
 - (void)cutLines;
 - (void)copyLines;
 - (void)pasteLinesWithReindent:(BOOL)reindent;
+- (void)pasteMethodDeclarations;
 - (void)duplicateLines;
 - (void)deleteLines;
 

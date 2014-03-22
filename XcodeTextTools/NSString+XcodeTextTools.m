@@ -53,15 +53,26 @@ static NSRegularExpression *s_methodDefinitionRegex;
 
 - (BOOL)xctt_matchesMethodDefinition
 {
-	if (!s_methodDefinitionRegex)
-	{
-		NSError *error;
-		s_methodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:@"^[-\\+] ?\\(.+?\\).*(\\n?)\\{(.*\\n)+?(\\n?)\\}"
-																			options:0 error:&error];
-	}
-	
+	[self prepareMethodDefinitionRegex];
 	NSUInteger numberOfMatches = [s_methodDefinitionRegex numberOfMatchesInString:self options:0 range:[self xctt_range]];
 	return numberOfMatches == 1;
+}
+
+- (NSString *)xctt_extractMethodDeclarations
+{
+	[self prepareMethodDefinitionRegex];
+	return [s_methodDefinitionRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length]) withTemplate:@"$1;"];
+}
+
+#pragma mark Private Methods
+
+- (void)prepareMethodDefinitionRegex
+{
+	if (!s_methodDefinitionRegex)
+	{
+		s_methodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:@"^([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}"
+																			options:0 error:nil];
+	}
 }
 
 @end
