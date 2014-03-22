@@ -88,7 +88,7 @@
 - (void)copyLines
 {
 	NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
-	[generalPasteboard declareTypes:[NSArray arrayWithObject:NSPasteboardTypeString] owner:nil];
+	[generalPasteboard declareTypes:@[NSPasteboardTypeString] owner:nil];
 	[generalPasteboard setString:[self selectedLinesString] forType:NSPasteboardTypeString];
 }
 
