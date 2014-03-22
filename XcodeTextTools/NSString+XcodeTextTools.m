@@ -64,8 +64,11 @@ static NSRegularExpression *s_methodDeclarationExtractionRegex;
 {
 	[self prepareRegexes];
 	
-	return [s_methodDeclarationExtractionRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length])
-																   withTemplate:@"$1;"];
+	NSString *declarations = [s_methodDeclarationExtractionRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length])
+																					 withTemplate:@"$1;"];
+	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	
+	return trimmedDeclarations;
 }
 
 #pragma mark Private Methods
