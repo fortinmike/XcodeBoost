@@ -8,9 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class DVTSourceTextView;
+
 @interface MFTextViewManipulator : NSObject
 
-- (id)initWithTextView:(NSTextView *)textView;
+- (id)initWithTextView:(DVTSourceTextView *)textView;
 
 #pragma mark Line Manipulation
 

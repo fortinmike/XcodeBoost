@@ -11,10 +11,11 @@
 #import "NSString+XcodeTextTools.h"
 #import "NSColor+XcodeTextTools.h"
 #import "NSAlert+XcodeTextTools.h"
+#import "DVTKit.h"
 
 @interface MFTextViewManipulator ()
 
-@property (readonly, unsafe_unretained) NSTextView *textView;
+@property (readonly, unsafe_unretained) DVTSourceTextView *sourceTextView;
 @property (readonly) NSTextStorage *textStorage;
 
 @end
@@ -27,12 +28,12 @@
 
 #pragma mark Lifetime
 
-- (id)initWithTextView:(NSTextView *)textView
+- (id)initWithTextView:(DVTSourceTextView *)textView
 {
 	self = [super init];
 	if (self)
 	{
-		_textView = textView;
+		_sourceTextView = textView;
 		
 		[self setupHighlightColors];
 	}
@@ -50,10 +51,10 @@
 
 - (NSRange)selectedLinesRange
 {
-	NSValue *selectedRange = [[self.textView selectedRanges] firstObject];
+	NSValue *selectedRange = [[self.sourceTextView selectedRanges] firstObject];
 	if (!selectedRange) return NSMakeRange(NSNotFound, 0);
 	
-	return [[self.textView string] lineRangeForRange:[selectedRange rangeValue]];
+	return [[self.sourceTextView string] lineRangeForRange:[selectedRange rangeValue]];
 }
 
 - (NSString *)selectedLinesString
@@ -69,10 +70,10 @@
 	if (range.location == NSNotFound) return;
 	
 	// Preserves undo/redo behavior!
-	if ([self.textView shouldChangeTextInRange:range replacementString:replacementString])
+	if ([self.sourceTextView shouldChangeTextInRange:range replacementString:replacementString])
 	{
 		operation();
-		[self.textView didChangeText];
+		[self.sourceTextView didChangeText];
 	}
 }
 
@@ -93,31 +94,28 @@
 
 - (void)pasteLines
 {
-	[NSAlert showDebugAlertWithFormat:@"Paste lines"];
+	NSMutableString *string = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
+	if (![string hasSuffix:@"\n"]) [string appendString:@"\n"];
+	
+	NSRange insertedRange = [self insertString:string afterLinesInRange:[self selectedLinesRange]];
+	[self.sourceTextView setSelectedRange:insertedRange];
+	[self.sourceTextView indentSelection:self];
 }
 
 - (void)duplicateLines
 {
 	NSRange linesRange = [self selectedLinesRange];
-	NSAttributedString *sourceString = [self.textStorage attributedSubstringFromRange:linesRange];
+	NSString *sourceString = [[self.textStorage attributedSubstringFromRange:linesRange] string];
 	
-	NSMutableAttributedString *addedString = [[NSMutableAttributedString alloc] init];
+	NSMutableString *addedString = [[NSMutableString alloc] init];
 	
-	if ([[sourceString string] xctt_matchesMethodDefinition])
-		[addedString appendAttributedString:[@"\n" xctt_attributedString]];
+	if ([sourceString xctt_matchesMethodDefinition])
+		[addedString appendString:@"\n"];
 	
-	[addedString appendAttributedString:sourceString];
+	[addedString appendString:sourceString];
 	
-	NSUInteger addedStringLength = [[addedString string] length];
-	NSRange sourceRange = NSMakeRange(linesRange.location + linesRange.length, 0);
-	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length;
-	NSRange addedStringRange = NSMakeRange(sourceRangeEnd, addedStringLength);
-	
-	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd, 0) replacementString:[addedString string] operation:^
-	{
-		[self.textStorage insertAttributedString:addedString atIndex:sourceRangeEnd];
-		[self.textView setSelectedRange:addedStringRange];
-	}];
+	NSRange insertedRange = [self insertString:addedString afterLinesInRange:linesRange];
+	[self.sourceTextView setSelectedRange:insertedRange];
 }
 
 - (void)deleteLines
@@ -126,19 +124,37 @@
 	[self conditionallyChangeTextInRange:lineRange replacementString:@"" operation:^
 	{
 		[self.textStorage deleteCharactersInRange:lineRange];
-		[self.textView moveToRightEndOfLine:self];
+		[self.sourceTextView moveToRightEndOfLine:self];
 	}];
+}
+
+- (NSRange)insertString:(NSString *)string afterLinesInRange:(NSRange)linesRange
+{
+	NSUInteger addedStringLength = [string length];
+	NSRange sourceRange = NSMakeRange(linesRange.location + linesRange.length, 0);
+	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length;
+	NSRange addedStringRange = NSMakeRange(sourceRangeEnd, addedStringLength);
+	
+	__block BOOL stringWasInserted = NO;
+	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd, 0) replacementString:string operation:^
+	{
+		[self.textStorage insertAttributedString:[string xctt_attributedString] atIndex:sourceRangeEnd];
+		[self.sourceTextView setSelectedRange:addedStringRange];
+		stringWasInserted = YES;
+	}];
+	
+	return stringWasInserted ? addedStringRange : NSMakeRange(NSNotFound, 0);
 }
 
 #pragma mark Highlighting
 
 - (void)highlightSelection
 {
-	NSArray *selectedRanges = [self.textView selectedRanges];
+	NSArray *selectedRanges = [self.sourceTextView selectedRanges];
 	
 	for (NSValue *selectedRange in selectedRanges)
 	{
-		NSString *selection = [[self.textView string] substringWithRange:[selectedRange rangeValue]];
+		NSString *selection = [[self.sourceTextView string] substringWithRange:[selectedRange rangeValue]];
 		NSArray *selectionRanges = [[self.textStorage string] xctt_rangesOfString:selection];
 		NSColor *highlightColor = _highlightCount < [_highlightColors count] ? _highlightColors[_highlightCount] : [NSColor xctt_randomColor];
 		
@@ -181,7 +197,7 @@
 
 - (NSTextStorage *)textStorage
 {
-	return [self.textView textStorage];
+	return [self.sourceTextView textStorage];
 }
 
 @end
