@@ -21,7 +21,7 @@
 
 #pragma mark Code Patterns
 
-- (BOOL)xctt_matchesMethodDefinition;
+- (BOOL)xctt_startsWithMethodDefinition;
 - (NSString *)xctt_extractMethodDeclarations;
 
 @end

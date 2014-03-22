@@ -94,22 +94,17 @@
 
 - (void)pasteLinesWithReindent:(BOOL)reindent
 {
-	NSMutableString *string = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
-		
+	NSMutableString *pasteboardString = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
 	NSRange linesRange = [self selectedLinesRange];
-	NSString *selectedLinesString = [self selectedLinesString];
-	NSString *trimmedSourceString = [selectedLinesString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	BOOL emptyLine = [trimmedSourceString isEqualToString:@""];
 	
-	if (!emptyLine && ![string hasSuffix:@"\n"]) [string appendString:@"\n"];
-	[self insertString:string afterLinesInRange:linesRange onSameLine:emptyLine reindent:reindent];
+	[self insertString:pasteboardString afterLinesInRange:linesRange reindent:reindent];
 }
 
 - (void)pasteMethodDeclarations
 {
-	NSString *selectedLinesString = [self selectedLinesString];
-	NSString *methodDeclarations = [selectedLinesString xctt_extractMethodDeclarations];
-	[self insertString:methodDeclarations afterLinesInRange:[self selectedLinesRange] onSameLine:NO reindent:YES];
+	NSMutableString *pasteboardString = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
+	NSString *methodDeclarations = [pasteboardString xctt_extractMethodDeclarations];
+	[self insertString:methodDeclarations afterLinesInRange:[self selectedLinesRange] reindent:YES];
 }
 
 - (void)duplicateLines
@@ -119,12 +114,12 @@
 	
 	NSMutableString *insertedString = [[NSMutableString alloc] init];
 	
-	if ([selectedLinesString xctt_matchesMethodDefinition])
+	if ([selectedLinesString xctt_startsWithMethodDefinition])
 		[insertedString appendString:@"\n"];
 	
 	[insertedString appendString:selectedLinesString];
 	
-	[self insertString:insertedString afterLinesInRange:linesRange onSameLine:NO reindent:NO];
+	[self insertString:insertedString afterLinesInRange:linesRange reindent:NO];
 }
 
 - (void)deleteLines
@@ -137,17 +132,24 @@
 	}];
 }
 
-- (void)insertString:(NSString *)insertedString afterLinesInRange:(NSRange)linesRange onSameLine:(BOOL)onSameLine reindent:(BOOL)reindent
+- (void)insertString:(NSString *)insertedString afterLinesInRange:(NSRange)linesRange reindent:(BOOL)reindent
 {
-	NSUInteger insertedStringLength = [insertedString length];
-	NSRange sourceRange = NSMakeRange(linesRange.location + linesRange.length, 0);
-	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length - (onSameLine ? 1 : 0);
-	NSRange insertedStringRange = NSMakeRange(sourceRangeEnd, insertedStringLength);
+	NSMutableString *stringToInsert = [insertedString mutableCopy];
 	
-	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd, 0) replacementString:insertedString operation:^
+	NSString *selectedLinesString = [self selectedLinesString];
+	NSString *trimmedSelectedLinesString = [selectedLinesString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	BOOL emptyLine = [trimmedSelectedLinesString isEqualToString:@""];
+	if (!emptyLine && ![stringToInsert hasSuffix:@"\n"]) [stringToInsert appendString:@"\n"];
+	
+	NSUInteger insertedStringLength = [stringToInsert length];
+	NSRange sourceRange = NSMakeRange(linesRange.location + linesRange.length, 0);
+	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length - (emptyLine ? 1 : 0);
+	NSRange finalSelectionRange = NSMakeRange(sourceRangeEnd + insertedStringLength - 1, 0);
+	
+	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd, 0) replacementString:stringToInsert operation:^
 	{
-		[self.textStorage insertAttributedString:[insertedString xctt_attributedString] atIndex:sourceRangeEnd];
-		[self.sourceTextView setSelectedRange:insertedStringRange];
+		[self.textStorage insertAttributedString:[stringToInsert xctt_attributedString] atIndex:sourceRangeEnd];
+		[self.sourceTextView setSelectedRange:finalSelectionRange];
 		
 		if (reindent) [self.sourceTextView indentSelection:self];
 	}];

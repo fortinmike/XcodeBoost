@@ -11,7 +11,9 @@
 
 @implementation NSString (XcodeTextTools)
 
+static BOOL s_regexesPrepared;
 static NSRegularExpression *s_methodDefinitionRegex;
+static NSRegularExpression *s_methodDeclarationExtractionRegex;
 
 #pragma mark Creating Instances
 
@@ -51,28 +53,34 @@ static NSRegularExpression *s_methodDefinitionRegex;
 
 #pragma mark Code Patterns
 
-- (BOOL)xctt_matchesMethodDefinition
+- (BOOL)xctt_startsWithMethodDefinition
 {
-	[self prepareMethodDefinitionRegex];
+	[self prepareRegexes];
 	NSUInteger numberOfMatches = [s_methodDefinitionRegex numberOfMatchesInString:self options:0 range:[self xctt_range]];
 	return numberOfMatches == 1;
 }
 
 - (NSString *)xctt_extractMethodDeclarations
 {
-	[self prepareMethodDefinitionRegex];
+	[self prepareRegexes];
 	
-	return [s_methodDefinitionRegex stringByReplacingMatchesInString:self options:NSMatchingWithoutAnchoringBounds range:NSMakeRange(0, [self length]) withTemplate:@"$1;"];
+	return [s_methodDeclarationExtractionRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length])
+																   withTemplate:@"$1;"];
 }
 
 #pragma mark Private Methods
 
-- (void)prepareMethodDefinitionRegex
+- (void)prepareRegexes
 {
-	if (!s_methodDefinitionRegex)
+	if (!s_regexesPrepared)
 	{
-		s_methodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:@"^([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}"
+		s_methodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:@"^[-\\+] ?\\(.+?\\).*(\\n?)\\{(.*\\n)+?(\\n?)\\}"
 																			options:0 error:nil];
+		
+		s_methodDeclarationExtractionRegex = [NSRegularExpression regularExpressionWithPattern:@"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}"
+																					   options:0 error:nil];
+		
+		s_regexesPrepared = YES;
 	}
 }
 
