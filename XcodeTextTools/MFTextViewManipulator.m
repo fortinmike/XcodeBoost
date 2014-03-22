@@ -95,9 +95,14 @@
 - (void)pasteLines
 {
 	NSMutableString *string = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
-	if (![string hasSuffix:@"\n"]) [string appendString:@"\n"];
+		
+	NSRange linesRange = [self selectedLinesRange];
+	NSString *sourceString = [self selectedLinesString];
+	NSString *trimmedSourceString = [sourceString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	BOOL emptyLine = [trimmedSourceString isEqualToString:@""];
 	
-	NSRange insertedRange = [self insertString:string afterLinesInRange:[self selectedLinesRange]];
+	if (!emptyLine && ![string hasSuffix:@"\n"]) [string appendString:@"\n"];
+	NSRange insertedRange = [self insertString:string afterLinesInRange:linesRange onSameLine:emptyLine];
 	[self.sourceTextView setSelectedRange:insertedRange];
 	[self.sourceTextView indentSelection:self];
 }
@@ -114,25 +119,25 @@
 	
 	[addedString appendString:sourceString];
 	
-	NSRange insertedRange = [self insertString:addedString afterLinesInRange:linesRange];
+	NSRange insertedRange = [self insertString:addedString afterLinesInRange:linesRange onSameLine:NO];
 	[self.sourceTextView setSelectedRange:insertedRange];
 }
 
 - (void)deleteLines
 {
-	NSRange lineRange = [self selectedLinesRange];
-	[self conditionallyChangeTextInRange:lineRange replacementString:@"" operation:^
+	NSRange linesRange = [self selectedLinesRange];
+	[self conditionallyChangeTextInRange:linesRange replacementString:@"" operation:^
 	{
-		[self.textStorage deleteCharactersInRange:lineRange];
+		[self.textStorage deleteCharactersInRange:linesRange];
 		[self.sourceTextView moveToRightEndOfLine:self];
 	}];
 }
 
-- (NSRange)insertString:(NSString *)string afterLinesInRange:(NSRange)linesRange
+- (NSRange)insertString:(NSString *)string afterLinesInRange:(NSRange)linesRange onSameLine:(BOOL)onSameLine
 {
 	NSUInteger addedStringLength = [string length];
 	NSRange sourceRange = NSMakeRange(linesRange.location + linesRange.length, 0);
-	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length;
+	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length - (onSameLine ? 1 : 0);
 	NSRange addedStringRange = NSMakeRange(sourceRangeEnd, addedStringLength);
 	
 	__block BOOL stringWasInserted = NO;
