@@ -108,10 +108,10 @@
 	
 	[insertedString appendString:selectedLinesString];
 	
-	[self insertString:insertedString afterLinesInRange:linesRange reindent:NO];
+	[self insertString:insertedString afterLineRanges:linesRange reindent:NO];
 }
 
-- (void)insertString:(NSString *)insertedString afterLinesInRange:(NSRange)linesRange reindent:(BOOL)reindent
+- (void)insertString:(NSString *)insertedString afterLineRanges:(NSRange)linesRange reindent:(BOOL)reindent
 {
 	NSMutableString *stringToInsert = [insertedString mutableCopy];
 	
@@ -154,7 +154,7 @@
 	NSMutableString *pasteboardString = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
 	NSRange linesRange = [self selectedLinesRange];
 	
-	[self insertString:pasteboardString afterLinesInRange:linesRange reindent:reindent];
+	[self insertString:pasteboardString afterLineRanges:linesRange reindent:reindent];
 }
 
 - (void)duplicateLines
@@ -287,7 +287,7 @@
 {
 	NSMutableString *pasteboardString = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
 	NSString *methodDeclarations = [pasteboardString xctt_extractMethodDeclarations];
-	[self insertString:methodDeclarations afterLinesInRange:[self selectedLinesRange] reindent:YES];
+	[self insertString:methodDeclarations afterLineRanges:[self selectedLinesRange] reindent:YES];
 }
 
 #pragma mark Accessor Overrides
