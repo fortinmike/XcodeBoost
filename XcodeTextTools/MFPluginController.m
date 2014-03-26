@@ -29,9 +29,19 @@
     {
 		_pluginBundle = pluginBundle;
 		
+		[self registerDefaults];
 		[self insertMenuItems];
     }
     return self;
+}
+
+#pragma mark Setup
+
+- (void)registerDefaults
+{
+	NSString *defaultsFilePath = [_pluginBundle pathForResource:@"Defaults" ofType:@"plist"];
+	NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:defaultsFilePath];
+	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
 
 - (void)insertMenuItems

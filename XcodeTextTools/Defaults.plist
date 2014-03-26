@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>XCTTRegexCaseSensitive</key>
+	<true/>
+	<key>XCTTRegexAllowCommentsAndWhitespace</key>
+	<false/>
+	<key>XCTTRegexIgnoreMetacharacters</key>
+	<false/>
+	<key>XCTTRegexDotMatchesLineSeparators</key>
+	<false/>
+	<key>XCTTRegexAnchorsMatchLines</key>
+	<false/>
+	<key>XCTTRegexUseUnixLineSeparators</key>
+	<false/>
+	<key>XCTTRegexUseUnicodeWordBoundaries</key>
+	<false/>
+</dict>
+</plist>

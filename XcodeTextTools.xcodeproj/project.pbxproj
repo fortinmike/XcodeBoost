@@ -14,6 +14,7 @@
 		4C2868B818D331B7006C780C /* XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C2868B718D331B7006C780C /* XcodeTextTools.m */; };
 		4C30388518E1AAC800F570E4 /* MFHighlightRegexWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C30388418E1AAC800F570E4 /* MFHighlightRegexWindowController.m */; };
 		4C30388818E2304A00F570E4 /* HighlightRegexWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C30388718E2304A00F570E4 /* HighlightRegexWindow.xib */; };
+		4C30388B18E2F89400F570E4 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C30388A18E2F89400F570E4 /* Defaults.plist */; };
 		4C44F68D18DAA56C0061D68E /* MFSourceTextViewManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68C18DAA56C0061D68E /* MFSourceTextViewManipulator.m */; };
 		4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeTextTools.m */; };
 		4C44F69318DAA7020061D68E /* NSObject+XcodeTextTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F69218DAA7020061D68E /* NSObject+XcodeTextTools.m */; };
@@ -43,6 +44,7 @@
 		4C30388318E1AAC800F570E4 /* MFHighlightRegexWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHighlightRegexWindowController.h; sourceTree = "<group>"; };
 		4C30388418E1AAC800F570E4 /* MFHighlightRegexWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHighlightRegexWindowController.m; sourceTree = "<group>"; };
 		4C30388718E2304A00F570E4 /* HighlightRegexWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HighlightRegexWindow.xib; sourceTree = "<group>"; };
+		4C30388A18E2F89400F570E4 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		4C44F68B18DAA56C0061D68E /* MFSourceTextViewManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFSourceTextViewManipulator.h; sourceTree = "<group>"; };
 		4C44F68C18DAA56C0061D68E /* MFSourceTextViewManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFSourceTextViewManipulator.m; sourceTree = "<group>"; };
 		4C44F68E18DAA6270061D68E /* DVTSourceTextView+XcodeTextTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DVTSourceTextView+XcodeTextTools.h"; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				4C30388218E1AAB000F570E4 /* Window Controllers */,
 				4C30388618E2303600F570E4 /* Xibs */,
 				4CEBB15818D37F6C0091E9FC /* Class-Dumps */,
+				4C30388918E2F88700F570E4 /* Resources */,
 				4C2868B118D331B7006C780C /* Supporting Files */,
 			);
 			path = XcodeTextTools;
@@ -161,6 +164,14 @@
 				4C30388718E2304A00F570E4 /* HighlightRegexWindow.xib */,
 			);
 			name = Xibs;
+			sourceTree = "<group>";
+		};
+		4C30388918E2F88700F570E4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4C30388A18E2F89400F570E4 /* Defaults.plist */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		4CAC524E18D380A000E88C70 /* Logic */ = {
@@ -260,6 +271,7 @@
 			files = (
 				4C30388818E2304A00F570E4 /* HighlightRegexWindow.xib in Resources */,
 				4C2868B518D331B7006C780C /* InfoPlist.strings in Resources */,
+				4C30388B18E2F89400F570E4 /* Defaults.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
