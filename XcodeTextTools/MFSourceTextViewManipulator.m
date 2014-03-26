@@ -47,7 +47,7 @@
 						 [NSColor brownColor]] mutableCopy];
 }
 
-#pragma mark Implementation
+#pragma mark Line Manipulation Helpers
 
 - (NSRange)selectedLinesRange
 {
@@ -134,35 +134,58 @@
 	}];
 }
 
-- (void)highlightRanges:(NSArray *)ranges
+#pragma mark Highlighting Helpers
+
+- (void)highlightRanges:(NSArray *)ranges withSameColor:(BOOL)withSameColor
 {
 	for (NSValue *range in ranges)
 	{
 		NSString *string = [[self.textStorage string] substringWithRange:[range rangeValue]];
 		NSArray *stringRanges = [[self.textStorage string] xctt_rangesOfString:string];
 		
-		NSColor *highlightColor;
-		if (_highlightCount < [_highlightColors count])
-		{
-			highlightColor = _highlightColors[_highlightCount];
-		}
-		else
-		{
-			highlightColor = [NSColor xctt_randomColor];
-			
-			// Add the color to the array of colors so that we can undo highlighting
-			// step-by-step afterwards (by enumerating over ranges with those background colors).
-			[_highlightColors addObject:highlightColor];
-		}
+		NSColor *highlightColor = [self pushHighlightColor];
 		
 		for (NSValue *stringRange in stringRanges)
 		{
 			NSRange range = [stringRange rangeValue];
 			[self.textStorage addAttribute:NSBackgroundColorAttributeName value:highlightColor range:range];
 		}
-		
-		_highlightCount++;
 	}
+}
+
+- (NSColor *)pushHighlightColor
+{
+	NSColor *color;
+	
+	if (_highlightCount < [_highlightColors count])
+	{
+		color = _highlightColors[_highlightCount];
+	}
+	else
+	{
+		color = [NSColor xctt_randomColor];
+		
+		// Add the color to the array of colors so that we can undo highlighting
+		// step-by-step afterwards (by enumerating over ranges with those background colors).
+		[_highlightColors addObject:color];
+	}
+	
+	_highlightCount++;
+	
+	return color;
+}
+
+- (NSColor *)popHighlightColor
+{
+	if (_highlightCount == 0) return nil;
+	_highlightCount--;
+	
+	return _highlightColors[_highlightCount];
+}
+
+- (void)popAllHighlightColors
+{
+	_highlightCount = 0;
 }
 
 #pragma mark Line Manipulation
@@ -207,20 +230,18 @@
 
 - (void)highlightSelectedStrings
 {
-	[self highlightRanges:[self.sourceTextView selectedRanges]];
+	[self highlightRanges:[self.sourceTextView selectedRanges] withSameColor:NO];
 }
 
 - (void)highlightRegexMatchesWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options
 {
-	[self highlightRanges:[[self.textStorage string] xctt_rangesOfRegex:pattern options:options]];
+	[self highlightRanges:[[self.textStorage string] xctt_rangesOfRegex:pattern options:options] withSameColor:YES];
 }
 
 - (void)removeMostRecentlyAddedHighlight
 {
-	if (_highlightCount == 0) return;
-	_highlightCount--;
-	
-	NSColor *highlightColorToRemove = _highlightColors[_highlightCount];
+	NSColor *highlightColorToRemove = [self popHighlightColor];
+	if (!highlightColorToRemove) return;
 	
 	NSTextStorage *textStorage = self.textStorage;
 	NSRange documentRange = NSMakeRange(0, [[textStorage string] length]);
@@ -242,7 +263,7 @@
 		[textStorage removeAttribute:NSBackgroundColorAttributeName range:range];
 	}];
 	
-	_highlightCount = 0;
+	[self popAllHighlightColors];
 }
 
 #pragma mark Selection
