@@ -18,6 +18,7 @@
 
 - (NSRange)xctt_range;
 - (NSArray *)xctt_rangesOfString:(NSString *)string;
+- (NSArray *)xctt_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options;
 
 #pragma mark Code Patterns
 

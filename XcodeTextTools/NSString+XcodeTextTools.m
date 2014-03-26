@@ -46,6 +46,14 @@ static NSRegularExpression *s_methodDefinitionsRegex;
 	return ranges;
 }
 
+- (NSArray *)xctt_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options
+{
+	NSError *error;
+	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:&error];
+	NSArray *matches = [regex matchesInString:self options:0 range:[self xctt_range]];
+	return [self xctt_rangesForMatches:matches];
+}
+
 - (NSRange)xctt_range
 {
 	return NSMakeRange(0, [self length]);
@@ -55,43 +63,37 @@ static NSRegularExpression *s_methodDefinitionsRegex;
 
 - (BOOL)xctt_startsWithMethodDefinition
 {
-	[self prepareRegexes];
+	[self xctt_prepareRegexes];
 	NSUInteger numberOfMatches = [s_singleMethodDefinitionRegex numberOfMatchesInString:self options:0 range:[self xctt_range]];
 	return numberOfMatches == 1;
 }
 
 - (NSString *)xctt_extractMethodDeclarations
 {
-	[self prepareRegexes];
-	
+	[self xctt_prepareRegexes];
 	NSString *declarations = [s_methodDefinitionsRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length])
 																					 withTemplate:@"$1;"];
 	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	
 	return trimmedDeclarations;
 }
 
 - (NSArray *)xctt_methodDefinitionRanges
 {
-	[self prepareRegexes];
-	
+	[self xctt_prepareRegexes];
 	NSArray *matches = [s_methodDefinitionsRegex matchesInString:self options:0 range:[self xctt_range]];
-	
-	return [self rangesForMatches:matches];
+	return [self xctt_rangesForMatches:matches];
 }
 
 - (NSArray *)xctt_methodSignatureRanges
 {
-	[self prepareRegexes];
-	
+	[self xctt_prepareRegexes];
 	NSArray *matches = [s_methodDefinitionsRegex matchesInString:self options:0 range:[self xctt_range]];
-	
-	return [self rangesForMatches:matches captureGroup:1];
+	return [self xctt_rangesForMatches:matches captureGroup:1];
 }
 
 #pragma mark Private Methods
 
-- (void)prepareRegexes
+- (void)xctt_prepareRegexes
 {
 	if (!s_regexesPrepared)
 	{
@@ -105,12 +107,12 @@ static NSRegularExpression *s_methodDefinitionsRegex;
 	}
 }
 
-- (NSArray *)rangesForMatches:(NSArray *)matches
+- (NSArray *)xctt_rangesForMatches:(NSArray *)matches
 {
-	return [self rangesForMatches:matches captureGroup:-1];
+	return [self xctt_rangesForMatches:matches captureGroup:-1];
 }
 
-- (NSArray *)rangesForMatches:(NSArray *)matches captureGroup:(NSUInteger)captureGroup
+- (NSArray *)xctt_rangesForMatches:(NSArray *)matches captureGroup:(NSUInteger)captureGroup
 {
 	NSMutableArray *ranges = [NSMutableArray array];
 	for (NSTextCheckingResult *match in matches)

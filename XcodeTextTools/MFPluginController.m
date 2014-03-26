@@ -9,12 +9,15 @@
 #import "MFPluginController.h"
 #import "NSMenu+XcodeTextTools.h"
 #import "DVTSourceTextView+XcodeTextTools.h"
+#import "MFHighlightRegexWindowController.h"
 #import "IDEKit.h"
 
 @implementation MFPluginController
 {
 	NSBundle *_pluginBundle;
 	NSTextView *_activeTextView;
+	
+	MFHighlightRegexWindowController *_highlightRegexWindowController;
 }
 
 #pragma mark Lifetime
@@ -27,7 +30,6 @@
 		_pluginBundle = pluginBundle;
 		
 		[self insertMenuItems];
-        [self registerForNotifications];
     }
     return self;
 }
@@ -56,6 +58,7 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Paste Method Declarations" action:@selector(pasteMethodDeclarations_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of String" action:@selector(highlightSelectedStrings_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Regex Matches" action:@selector(highlightRegexMatches_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove Most Recently Added Highlight" action:@selector(removeMostRecentlyAddedHighlight_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove All Highlighting" action:@selector(removeAllHighlighting_clicked:)]];
 	
@@ -70,12 +73,6 @@
 	NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:title action:action keyEquivalent:@""];
 	[item setTarget:self];
 	return item;
-}
-
-- (void)registerForNotifications
-{
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activeEditorContextDidChange:)
-												 name:@"IDEEditorAreaLastActiveEditorContextDidChangeNotification" object:nil];
 }
 
 - (void)dealloc
@@ -127,6 +124,28 @@
 	[[[self currentSourceTextView] manipulator] highlightSelectedStrings];
 }
 
+- (void)highlightRegexMatches_clicked:(id)sender
+{
+	if (!_highlightRegexWindowController)
+	{
+		__weak MFPluginController *wSelf = self;
+		
+		_highlightRegexWindowController = [[MFHighlightRegexWindowController alloc] initWithBundle:_pluginBundle];
+		[_highlightRegexWindowController setHighlightButtonClickedBlock:^
+		{
+			__strong MFPluginController *sSelf = wSelf;
+			NSString *pattern = sSelf->_highlightRegexWindowController.pattern;
+			NSRegularExpressionOptions options = sSelf->_highlightRegexWindowController.options;
+			
+			if (!pattern) return;
+			
+			[[[sSelf currentSourceTextView] manipulator] highlightRegexMatchesWithPattern:pattern options:options];
+		}];
+	}
+	
+	[_highlightRegexWindowController showWindow:self];
+}
+
 - (void)removeMostRecentlyAddedHighlight_clicked:(id)sender
 {
 	[[[self currentSourceTextView] manipulator] removeMostRecentlyAddedHighlight];
@@ -158,10 +177,10 @@
 
 - (IDEEditor *)currentEditor
 {
-	NSWindowController *currentWindowController = [[NSApp keyWindow] windowController];
-	if ([currentWindowController isKindOfClass:NSClassFromString(@"IDEWorkspaceWindowController")])
+	NSWindowController *mainWindowController = [[NSApp mainWindow] windowController];
+	if ([mainWindowController isKindOfClass:NSClassFromString(@"IDEWorkspaceWindowController")])
 	{
-		IDEWorkspaceWindowController *workspaceController = (IDEWorkspaceWindowController *)currentWindowController;
+		IDEWorkspaceWindowController *workspaceController = (IDEWorkspaceWindowController *)mainWindowController;
 		IDEEditorArea *editorArea = [workspaceController editorArea];
 		IDEEditorContext *editorContext = [editorArea lastActiveEditorContext];
 		return [editorContext editor];
@@ -180,23 +199,6 @@
         return [(id)currentEditor performSelector:NSSelectorFromString(@"keyTextView")];
     
     return nil;
-}
-
-- (void)activeEditorContextDidChange:(NSNotification *)notification
-{
-	IDEEditorContext *context = [notification userInfo][@"IDEEditorContext"];
-    _activeTextView = [self getSourceTextViewFromEditorContext:context];
-}
-
-- (DVTSourceTextView *)getSourceTextViewFromEditorContext:(IDEEditorContext *)context
-{
-    IDEEditor *editor = [context editor];
-    NSScrollView *scrollView = [editor mainScrollView];
-    NSClipView *clipView = [scrollView contentView];
-	
-    id documentView = [clipView documentView];
-    
-	return [documentView isKindOfClass:[DVTSourceTextView class]] ? documentView : nil;
 }
 
 @end

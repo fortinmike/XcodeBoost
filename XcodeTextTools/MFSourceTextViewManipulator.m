@@ -134,6 +134,37 @@
 	}];
 }
 
+- (void)highlightRanges:(NSArray *)ranges
+{
+	for (NSValue *range in ranges)
+	{
+		NSString *string = [[self.textStorage string] substringWithRange:[range rangeValue]];
+		NSArray *stringRanges = [[self.textStorage string] xctt_rangesOfString:string];
+		
+		NSColor *highlightColor;
+		if (_highlightCount < [_highlightColors count])
+		{
+			highlightColor = _highlightColors[_highlightCount];
+		}
+		else
+		{
+			highlightColor = [NSColor xctt_randomColor];
+			
+			// Add the color to the array of colors so that we can undo highlighting
+			// step-by-step afterwards (by enumerating over ranges with those background colors).
+			[_highlightColors addObject:highlightColor];
+		}
+		
+		for (NSValue *stringRange in stringRanges)
+		{
+			NSRange range = [stringRange rangeValue];
+			[self.textStorage addAttribute:NSBackgroundColorAttributeName value:highlightColor range:range];
+		}
+		
+		_highlightCount++;
+	}
+}
+
 #pragma mark Line Manipulation
 
 - (void)cutLines
@@ -176,35 +207,12 @@
 
 - (void)highlightSelectedStrings
 {
-	NSArray *selectedRanges = [self.sourceTextView selectedRanges];
-	
-	for (NSValue *selectedRange in selectedRanges)
-	{
-		NSString *selection = [[self.textStorage string] substringWithRange:[selectedRange rangeValue]];
-		NSArray *selectionRanges = [[self.textStorage string] xctt_rangesOfString:selection];
-		
-		NSColor *highlightColor;
-		if (_highlightCount < [_highlightColors count])
-		{
-			highlightColor = _highlightColors[_highlightCount];
-		}
-		else
-		{
-			highlightColor = [NSColor xctt_randomColor];
-			
-			// Add the color to the array of colors so that we can undo highlighting
-			// step-by-step afterwards (by enumerating over ranges with those background colors).
-			[_highlightColors addObject:highlightColor];
-		}
-		
-		for (NSValue *selectionRange in selectionRanges)
-		{
-			NSRange range = [selectionRange rangeValue];
-			[self.textStorage addAttribute:NSBackgroundColorAttributeName value:highlightColor range:range];
-		}
-		
-		_highlightCount++;
-	}
+	[self highlightRanges:[self.sourceTextView selectedRanges]];
+}
+
+- (void)highlightRegexMatchesWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options
+{
+	[self highlightRanges:[[self.textStorage string] xctt_rangesOfRegex:pattern options:options]];
 }
 
 - (void)removeMostRecentlyAddedHighlight

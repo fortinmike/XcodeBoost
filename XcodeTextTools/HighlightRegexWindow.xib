@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="MFHighlightRegexWindowController">
+            <connections>
+                <outlet property="addHighlight_clicked" destination="WRx-jH-88H" id="RPU-rJ-vkE"/>
+                <outlet property="regexTextField" destination="HWz-qe-FdO" id="61D-cJ-2hd"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="MtR-RJ-Cv2"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
+        <window title="Highlight Regex Matches" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="494" y="441" width="469" height="171"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <view key="contentView" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="469" height="171"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" id="HWz-qe-FdO">
+                        <rect key="frame" x="20" y="129" width="429" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="Type a regular expression" drawsBackground="YES" id="Z2v-OQ-ZuQ">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <binding destination="-2" name="value" keyPath="pattern" id="YRc-5s-BVz"/>
+                        </connections>
+                    </textField>
+                    <button id="4ie-W6-cxo">
+                        <rect key="frame" x="17" y="96" width="97" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Case Sensitive" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="y18-GT-8dm">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="optionCheckbox_clicked:" target="-2" id="Grq-uZ-bhw"/>
+                            <binding destination="-2" name="value" keyPath="caseSensitive" id="9z0-Vc-SeL"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="WRx-jH-88H">
+                        <rect key="frame" x="327" y="13" width="128" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Add Highlight" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Q5d-og-Lcp">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="addHighlight_clicked:" target="-2" id="xB0-LD-uRY"/>
+                        </connections>
+                    </button>
+                    <button id="YOv-I1-dHO">
+                        <rect key="frame" x="17" y="56" width="141" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Ignore Metacharacters" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="v9m-Td-Jkj">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="optionCheckbox_clicked:" target="-2" id="if2-Rc-pmR"/>
+                            <binding destination="-2" name="value" keyPath="ignoreMetacharacters" id="BVq-zC-QXo"/>
+                        </connections>
+                    </button>
+                    <button id="gBO-TJ-Frg">
+                        <rect key="frame" x="17" y="76" width="173" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Dot Matches Line Separators" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="FVj-em-E7y">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="optionCheckbox_clicked:" target="-2" id="AaS-bf-zPV"/>
+                            <binding destination="-2" name="value" keyPath="dotMatchesLineSeparators" id="ZHa-5O-8ab"/>
+                        </connections>
+                    </button>
+                    <button id="rMr-FE-ma3">
+                        <rect key="frame" x="226" y="96" width="132" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Anchors Match Lines" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="KMo-dO-lhb">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="optionCheckbox_clicked:" target="-2" id="nO4-YU-LeK"/>
+                            <binding destination="-2" name="value" keyPath="anchorsMatchLines" id="GfI-aI-qoK"/>
+                        </connections>
+                    </button>
+                    <button id="Eob-Lk-Xob">
+                        <rect key="frame" x="226" y="56" width="181" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Use Unicode Word Boundaries" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="ugu-Vh-Z2w">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="optionCheckbox_clicked:" target="-2" id="GDT-h8-tNN"/>
+                            <binding destination="-2" name="value" keyPath="useUnicodeWordBoundaries" id="aQI-h7-NBW"/>
+                        </connections>
+                    </button>
+                    <button id="NpA-5Y-Cvd">
+                        <rect key="frame" x="226" y="76" width="154" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Use Unix Line Separators" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Qli-OW-G5a">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="optionCheckbox_clicked:" target="-2" id="4eA-hs-3mW"/>
+                            <binding destination="-2" name="value" keyPath="useUnixLineSeparators" id="AyM-bT-yd6"/>
+                        </connections>
+                    </button>
+                    <button id="pFY-y5-hlA">
+                        <rect key="frame" x="17" y="36" width="199" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Allow Comments and Whitespace" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="gAE-y5-F3Y">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="optionCheckbox_clicked:" target="-2" id="ehl-5X-9b4"/>
+                            <binding destination="-2" name="value" keyPath="allowCommentsAndWhitespace" id="VAX-oD-zkH"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+        </window>
+        <userDefaultsController representsSharedInstance="YES" id="RDF-4E-uSP"/>
+    </objects>
+</document>
