@@ -147,6 +147,9 @@
 	for (NSValue *range in ranges)
 	{
 		[self.textStorage addAttribute:NSBackgroundColorAttributeName value:highlightColor range:[range rangeValue]];
+		
+		// Sometimes when the window is not key (such as when a panel is opened in front of it)
+		// the text view won't update to show the newly added highlighting.
 		[self.sourceTextView setNeedsDisplay:YES];
 	}
 }
