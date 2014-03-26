@@ -17,6 +17,7 @@
 
 @property (readonly, unsafe_unretained) DVTSourceTextView *sourceTextView;
 @property (readonly) NSTextStorage *textStorage;
+@property (readonly) NSString *string;
 
 @end
 
@@ -54,7 +55,7 @@
 	NSValue *selectedRange = [[self.sourceTextView selectedRanges] firstObject];
 	if (!selectedRange) return NSMakeRange(NSNotFound, 0);
 	
-	return [[self.textStorage string] lineRangeForRange:[selectedRange rangeValue]];
+	return [self.string lineRangeForRange:[selectedRange rangeValue]];
 }
 
 - (NSString *)selectedLinesString
@@ -65,11 +66,11 @@
 	return trimmedString;
 }
 
-- (NSArray *)lineRangesFromRanges:(NSArray *)ranges
+- (NSArray *)lineRangesForRanges:(NSArray *)ranges
 {
 	return [ranges xctt_map:^id(NSValue *range)
 	{
-		NSRange lineRange = [[self.textStorage string] lineRangeForRange:[range rangeValue]];
+		NSRange lineRange = [self.string lineRangeForRange:[range rangeValue]];
 		return [NSValue valueWithRange:lineRange];
 	}];
 }
@@ -108,12 +109,15 @@
 	
 	[insertedString appendString:selectedLinesString];
 	
-	[self insertString:insertedString afterLineRanges:linesRange reindent:NO];
+	[self insertString:insertedString afterRange:linesRange reindent:NO];
 }
 
-- (void)insertString:(NSString *)insertedString afterLineRanges:(NSRange)linesRange reindent:(BOOL)reindent
+- (void)insertString:(NSString *)string afterRange:(NSRange)range reindent:(BOOL)reindent
 {
-	NSMutableString *stringToInsert = [insertedString mutableCopy];
+	// Make sure we're working with a line range
+	range = [self.string lineRangeForRange:range];
+	
+	NSMutableString *stringToInsert = [string mutableCopy];
 	
 	NSString *selectedLinesString = [self selectedLinesString];
 	NSString *trimmedSelectedLinesString = [selectedLinesString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -121,7 +125,7 @@
 	if (!emptyLine && ![stringToInsert hasSuffix:@"\n"]) [stringToInsert appendString:@"\n"];
 	
 	NSUInteger insertedStringLength = [stringToInsert length];
-	NSRange sourceRange = NSMakeRange(linesRange.location + linesRange.length, 0);
+	NSRange sourceRange = NSMakeRange(range.location + range.length, 0);
 	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length - (emptyLine ? 1 : 0);
 	NSRange finalSelectionRange = NSMakeRange(sourceRangeEnd + insertedStringLength - 1, 0);
 	
@@ -202,7 +206,7 @@
 	NSMutableString *pasteboardString = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
 	NSRange linesRange = [self selectedLinesRange];
 	
-	[self insertString:pasteboardString afterLineRanges:linesRange reindent:reindent];
+	[self insertString:pasteboardString afterRange:linesRange reindent:reindent];
 }
 
 - (void)duplicateLines
@@ -226,8 +230,8 @@
 {
 	for (NSValue *range in [self.sourceTextView selectedRanges])
 	{
-		NSString *string = [[self.textStorage string] substringWithRange:[range rangeValue]];
-		NSArray *stringRanges = [[self.textStorage string] xctt_rangesOfString:string];
+		NSString *string = [self.string substringWithRange:[range rangeValue]];
+		NSArray *stringRanges = [self.string xctt_rangesOfString:string];
 		
 		[self highlightRanges:stringRanges];
 	}
@@ -235,7 +239,7 @@
 
 - (void)highlightRegexMatchesWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options
 {
-	[self highlightRanges:[[self.textStorage string] xctt_rangesOfRegex:pattern options:options]];
+	[self highlightRanges:[self.string xctt_rangesOfRegex:pattern options:options]];
 }
 
 - (void)removeMostRecentlyAddedHighlight
@@ -270,7 +274,7 @@
 
 - (void)selectMethods
 {
-	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];
+	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
 	NSArray *rangesToSelect = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
 	
 	if ([rangesToSelect count] > 0)
@@ -279,9 +283,9 @@
 
 - (void)selectMethodSignatures
 {
-	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];
+	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
 	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
-	NSArray *methodSignatureRanges = [[self.textStorage string] xctt_methodSignatureRanges];
+	NSArray *methodSignatureRanges = [self.string xctt_methodSignatureRanges];
 	
 	NSMutableArray *rangesToSelect = [NSMutableArray array];
 	for (NSValue *methodSignatureRange in methodSignatureRanges)
@@ -299,9 +303,9 @@
 
 - (void)duplicateMethods
 {
-	NSArray *methodDefinitionRanges = [[self.textStorage string] xctt_methodDefinitionRanges];
+	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
 	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionLineRanges = [self lineRangesFromRanges:selectedMethodDefinitionRanges];
+	NSArray *selectedMethodDefinitionLineRanges = [self lineRangesForRanges:selectedMethodDefinitionRanges];
 	
 	if ([selectedMethodDefinitionLineRanges count] == 0) return;
 	
@@ -316,7 +320,7 @@
 {
 	NSMutableString *pasteboardString = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
 	NSString *methodDeclarations = [pasteboardString xctt_extractMethodDeclarations];
-	[self insertString:methodDeclarations afterLineRanges:[self selectedLinesRange] reindent:YES];
+	[self insertString:methodDeclarations afterRange:[self selectedLinesRange] reindent:YES];
 }
 
 #pragma mark Accessor Overrides
@@ -324,6 +328,11 @@
 - (NSTextStorage *)textStorage
 {
 	return [self.sourceTextView textStorage];
+}
+
+- (NSString *)string
+{
+	return [self.textStorage string];
 }
 
 @end
