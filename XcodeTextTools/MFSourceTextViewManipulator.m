@@ -136,20 +136,14 @@
 
 #pragma mark Highlighting Helpers
 
-- (void)highlightRanges:(NSArray *)ranges withSameColor:(BOOL)withSameColor
+- (void)highlightRanges:(NSArray *)ranges
 {
+	NSColor *highlightColor = [self pushHighlightColor];
+	
 	for (NSValue *range in ranges)
 	{
-		NSString *string = [[self.textStorage string] substringWithRange:[range rangeValue]];
-		NSArray *stringRanges = [[self.textStorage string] xctt_rangesOfString:string];
-		
-		NSColor *highlightColor = [self pushHighlightColor];
-		
-		for (NSValue *stringRange in stringRanges)
-		{
-			NSRange range = [stringRange rangeValue];
-			[self.textStorage addAttribute:NSBackgroundColorAttributeName value:highlightColor range:range];
-		}
+		[self.textStorage addAttribute:NSBackgroundColorAttributeName value:highlightColor range:[range rangeValue]];
+		[self.sourceTextView setNeedsDisplay:YES];
 	}
 }
 
@@ -230,12 +224,18 @@
 
 - (void)highlightSelectedStrings
 {
-	[self highlightRanges:[self.sourceTextView selectedRanges] withSameColor:NO];
+	for (NSValue *range in [self.sourceTextView selectedRanges])
+	{
+		NSString *string = [[self.textStorage string] substringWithRange:[range rangeValue]];
+		NSArray *stringRanges = [[self.textStorage string] xctt_rangesOfString:string];
+		
+		[self highlightRanges:stringRanges];
+	}
 }
 
 - (void)highlightRegexMatchesWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options
 {
-	[self highlightRanges:[[self.textStorage string] xctt_rangesOfRegex:pattern options:options] withSameColor:YES];
+	[self highlightRanges:[[self.textStorage string] xctt_rangesOfRegex:pattern options:options]];
 }
 
 - (void)removeMostRecentlyAddedHighlight
