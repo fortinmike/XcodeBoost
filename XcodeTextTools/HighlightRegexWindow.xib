@@ -42,8 +42,7 @@
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
-                            <action selector="optionCheckbox_clicked:" target="-2" id="Grq-uZ-bhw"/>
-                            <binding destination="-2" name="value" keyPath="caseSensitive" id="9z0-Vc-SeL"/>
+                            <binding destination="RDF-4E-uSP" name="value" keyPath="values.XCTTRegexCaseSensitive" id="uDC-4D-fnE"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" id="WRx-jH-88H">
@@ -68,8 +67,7 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
-                            <action selector="optionCheckbox_clicked:" target="-2" id="if2-Rc-pmR"/>
-                            <binding destination="-2" name="value" keyPath="ignoreMetacharacters" id="BVq-zC-QXo"/>
+                            <binding destination="RDF-4E-uSP" name="value" keyPath="values.XCTTRegexIgnoreMetacharacters" id="b4K-wT-Ae5"/>
                         </connections>
                     </button>
                     <button id="gBO-TJ-Frg">
@@ -80,8 +78,7 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
-                            <action selector="optionCheckbox_clicked:" target="-2" id="AaS-bf-zPV"/>
-                            <binding destination="-2" name="value" keyPath="dotMatchesLineSeparators" id="ZHa-5O-8ab"/>
+                            <binding destination="RDF-4E-uSP" name="value" keyPath="values.XCTTRegexDotMatchesLineSeparators" id="7HJ-Jk-lF6"/>
                         </connections>
                     </button>
                     <button id="rMr-FE-ma3">
@@ -92,8 +89,7 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
-                            <action selector="optionCheckbox_clicked:" target="-2" id="nO4-YU-LeK"/>
-                            <binding destination="-2" name="value" keyPath="anchorsMatchLines" id="GfI-aI-qoK"/>
+                            <binding destination="RDF-4E-uSP" name="value" keyPath="values.XCTTRegexAnchorsMatchLines" id="2pE-9p-A1U"/>
                         </connections>
                     </button>
                     <button id="Eob-Lk-Xob">
@@ -104,8 +100,7 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
-                            <action selector="optionCheckbox_clicked:" target="-2" id="GDT-h8-tNN"/>
-                            <binding destination="-2" name="value" keyPath="useUnicodeWordBoundaries" id="aQI-h7-NBW"/>
+                            <binding destination="RDF-4E-uSP" name="value" keyPath="values.XCTTRegexUseUnicodeWordBoundaries" id="lYX-Z3-ulq"/>
                         </connections>
                     </button>
                     <button id="NpA-5Y-Cvd">
@@ -116,8 +111,7 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
-                            <action selector="optionCheckbox_clicked:" target="-2" id="4eA-hs-3mW"/>
-                            <binding destination="-2" name="value" keyPath="useUnixLineSeparators" id="AyM-bT-yd6"/>
+                            <binding destination="RDF-4E-uSP" name="value" keyPath="values.XCTTRegexUseUnixLineSeparators" id="JGk-40-EWf"/>
                         </connections>
                     </button>
                     <button id="pFY-y5-hlA">
@@ -128,8 +122,7 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
-                            <action selector="optionCheckbox_clicked:" target="-2" id="ehl-5X-9b4"/>
-                            <binding destination="-2" name="value" keyPath="allowCommentsAndWhitespace" id="VAX-oD-zkH"/>
+                            <binding destination="RDF-4E-uSP" name="value" keyPath="values.XCTTRegexAllowCommentsAndWhitespace" id="Tb3-rb-Hnf"/>
                         </connections>
                     </button>
                 </subviews>

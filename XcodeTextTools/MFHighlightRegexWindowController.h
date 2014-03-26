@@ -14,14 +14,6 @@
 @property (copy) NSString *pattern;
 @property (readonly) NSRegularExpressionOptions options;
 
-@property (assign) BOOL caseSensitive;
-@property (assign) BOOL allowCommentsAndWhitespace;
-@property (assign) BOOL ignoreMetacharacters;
-@property (assign) BOOL dotMatchesLineSeparators;
-@property (assign) BOOL anchorsMatchLines;
-@property (assign) BOOL useUnixLineSeparators;
-@property (assign) BOOL useUnicodeWordBoundaries;
-
 @property (strong) Block highlightButtonClickedBlock;
 
 #pragma mark Lifetime

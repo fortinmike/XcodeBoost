@@ -43,16 +43,25 @@
 		self.highlightButtonClickedBlock();
 }
 
-- (IBAction)optionCheckbox_clicked:(id)sender
+#pragma mark Helpers
+
+- (BOOL)boolValue:(NSString *)userDefaultsKey
 {
-	_options = self.caseSensitive ? 0 : NSRegularExpressionCaseInsensitive;
-	_options |= self.allowCommentsAndWhitespace ? NSRegularExpressionAllowCommentsAndWhitespace : 0;
-	_options |= self.ignoreMetacharacters ? NSRegularExpressionIgnoreMetacharacters : 0;
-	_options |= self.dotMatchesLineSeparators ? NSRegularExpressionDotMatchesLineSeparators : 0;
-	_options |= self.anchorsMatchLines ? NSRegularExpressionAnchorsMatchLines : 0;
-	_options |= self.useUnixLineSeparators ? NSRegularExpressionUseUnixLineSeparators : 0;
-	_options |= self.caseSensitive ? 0 : NSRegularExpressionCaseInsensitive;
-	_options |= self.useUnicodeWordBoundaries ? NSRegularExpressionUseUnicodeWordBoundaries : 0;
+	return [[NSUserDefaults standardUserDefaults] boolForKey:userDefaultsKey];
+}
+
+#pragma mark Accessor Overrides
+
+- (NSRegularExpressionOptions)options
+{
+	NSRegularExpressionOptions options = [self boolValue:@"XCTTRegexCaseSensitive"] ? 0 : NSRegularExpressionCaseInsensitive;
+	options |= [self boolValue:@"XCTTRegexAllowCommentsAndWhitespace"] ? NSRegularExpressionAllowCommentsAndWhitespace : 0;
+	options |= [self boolValue:@"XCTTRegexIgnoreMetacharacters"] ? NSRegularExpressionIgnoreMetacharacters : 0;
+	options |= [self boolValue:@"XCTTRegexDotMatchesLineSeparators"] ? NSRegularExpressionDotMatchesLineSeparators : 0;
+	options |= [self boolValue:@"XCTTRegexAnchorsMatchLines"] ? NSRegularExpressionAnchorsMatchLines : 0;
+	options |= [self boolValue:@"XCTTRegexUseUnixLineSeparators"] ? NSRegularExpressionUseUnixLineSeparators : 0;
+	options |= [self boolValue:@"XCTTRegexUseUnicodeWordBoundaries"] ? NSRegularExpressionUseUnicodeWordBoundaries : 0;
+	return options;
 }
 
 @end
