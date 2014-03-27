@@ -123,10 +123,10 @@
 	if (!emptyLine && ![stringToInsert hasSuffix:@"\n"])
 		[stringToInsert appendString:@"\n"];
 	
-	NSUInteger insertedStringLength = [stringToInsert length];
+	NSUInteger stringToInsertLength = [stringToInsert length];
 	NSRange sourceRange = NSMakeRange(range.location + range.length, 0);
 	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length - (emptyLine ? 1 : 0);
-	NSRange finalSelectionRange = NSMakeRange(sourceRangeEnd + insertedStringLength - 1, 0);
+	NSRange finalSelectionRange = NSMakeRange(sourceRangeEnd + stringToInsertLength - 1, 0);
 	
 	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd - 1, 0) replacementString:stringToInsert operation:^
 	{
