@@ -117,12 +117,11 @@
 	// Make sure we're working with a line range
 	range = [self.string lineRangeForRange:range];
 	
+	BOOL emptyLine = [[self selectedLinesString] xctt_containsOnlyWhitespace];
 	NSMutableString *stringToInsert = [string mutableCopy];
 	
-	NSString *selectedLinesString = [self selectedLinesString];
-	NSString *trimmedSelectedLinesString = [selectedLinesString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	BOOL emptyLine = [trimmedSelectedLinesString isEqualToString:@""];
-	if (!emptyLine && ![stringToInsert hasSuffix:@"\n"]) [stringToInsert appendString:@"\n"];
+	if (!emptyLine && ![stringToInsert hasSuffix:@"\n"])
+		[stringToInsert appendString:@"\n"];
 	
 	NSUInteger insertedStringLength = [stringToInsert length];
 	NSRange sourceRange = NSMakeRange(range.location + range.length, 0);
