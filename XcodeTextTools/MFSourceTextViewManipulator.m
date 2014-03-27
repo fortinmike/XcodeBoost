@@ -119,10 +119,8 @@
 	
 	NSMutableString *stringToInsert = [string mutableCopy];
 	
-	BOOL emptyLine = [[self selectedLinesString] xctt_containsOnlyWhitespace];
-	BOOL appendNewline = !emptyLine && ![stringToInsert hasSuffix:@"\n"];
-	
-	if (appendNewline) [stringToInsert appendString:@"\n"];
+	if (![stringToInsert hasSuffix:@"\n"])
+		[stringToInsert appendString:@"\n"];
 	
 	NSUInteger rangeEnd = range.location + range.length;
 	NSUInteger beforeRangeEnd = rangeEnd - 1;
