@@ -86,6 +86,19 @@
 	return rangesOverlappingSelection;
 }
 
+- (NSRange)unionRangeWithRanges:(NSArray *)ranges
+{
+	if ([ranges count] == 0)
+		return NSMakeRange(NSNotFound, 0);
+	
+	NSRange unionRange = [ranges[0] rangeValue];
+	
+	for (int i = 1; i < [ranges count]; i++)
+		unionRange = NSUnionRange([ranges[i] rangeValue], unionRange);
+	
+	return unionRange;
+}
+
 - (void)conditionallyChangeTextInRange:(NSRange)range replacementString:(NSString *)replacementString operation:(Block)operation
 {
 	if (range.location == NSNotFound) return;
@@ -269,9 +282,15 @@
 - (void)copyMethodDeclarations
 {
 	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *rangesToSelect = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
-	//NSString *methodDeclarations = [pasteboardString xctt_extractMethodDeclarations];
+	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
 	
+	NSRange overarchingRange = [self unionRangeWithRanges:selectedMethodDefinitionRanges];
+	if (overarchingRange.location == NSNotFound) return;
+	
+	NSString *overarchingString = [[self.textStorage string] substringWithRange:overarchingRange];
+	NSString *methodDeclarations = [overarchingString xctt_extractMethodDeclarations];
+	
+	[self setPasteboardString:methodDeclarations];
 }
 
 - (void)duplicateMethods
