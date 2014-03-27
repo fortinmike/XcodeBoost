@@ -319,7 +319,12 @@
 {
 	NSMutableString *pasteboardString = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
 	NSString *methodDeclarations = [pasteboardString xctt_extractMethodDeclarations];
-	[self insertString:methodDeclarations afterRange:[self selectedLinesRange] reindent:YES];
+	NSRange selectedRange = [self.sourceTextView selectedRange];
+	
+	[self conditionallyChangeTextInRange:selectedRange replacementString:methodDeclarations operation:^
+	{
+		[self.textStorage replaceCharactersInRange:selectedRange withString:methodDeclarations];
+	}];
 }
 
 #pragma mark Accessor Overrides
