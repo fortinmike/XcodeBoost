@@ -117,21 +117,20 @@
 	// Make sure we're working with a line range
 	range = [self.string lineRangeForRange:range];
 	
-	BOOL emptyLine = [[self selectedLinesString] xctt_containsOnlyWhitespace];
 	NSMutableString *stringToInsert = [string mutableCopy];
 	
-	if (!emptyLine && ![stringToInsert hasSuffix:@"\n"])
-		[stringToInsert appendString:@"\n"];
+	BOOL emptyLine = [[self selectedLinesString] xctt_containsOnlyWhitespace];
+	BOOL appendNewline = !emptyLine && ![stringToInsert hasSuffix:@"\n"];
 	
-	NSUInteger stringToInsertLength = [stringToInsert length];
+	if (appendNewline) [stringToInsert appendString:@"\n"];
+	
 	NSRange sourceRange = NSMakeRange(range.location + range.length, 0);
-	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length - (emptyLine ? 1 : 0);
-	NSRange finalSelectionRange = NSMakeRange(sourceRangeEnd + stringToInsertLength - 1, 0);
+	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length + 1;
 	
-	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd - 1, 0) replacementString:stringToInsert operation:^
+	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd, 0) replacementString:stringToInsert operation:^
 	{
 		[self.textStorage insertAttributedString:[stringToInsert xctt_attributedString] atIndex:sourceRangeEnd];
-		[self.sourceTextView setSelectedRange:finalSelectionRange];
+		[self.sourceTextView setSelectedRange:NSMakeRange(sourceRangeEnd + [stringToInsert length], 0)];
 		
 		if (reindent) [self.sourceTextView indentSelection:self];
 	}];
