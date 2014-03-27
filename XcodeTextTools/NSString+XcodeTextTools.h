@@ -14,6 +14,10 @@
 
 - (NSAttributedString *)xctt_attributedString;
 
+#pragma mark Checks
+
+- (BOOL)xctt_containsOnlyWhitespace;
+
 #pragma mark Ranges
 
 - (NSRange)xctt_range;

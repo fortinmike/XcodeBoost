@@ -22,6 +22,13 @@ static NSRegularExpression *s_methodDefinitionsRegex;
 	return [[NSAttributedString alloc] initWithString:self];
 }
 
+#pragma mark Checks
+
+- (BOOL)xctt_containsOnlyWhitespace
+{
+	return [[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""];
+}
+
 #pragma mark Ranges
 
 - (NSArray *)xctt_rangesOfString:(NSString *)string
