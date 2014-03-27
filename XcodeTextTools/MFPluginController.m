@@ -65,7 +65,7 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Select Method(s)" action:@selector(selectMethods_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Select Method Signature(s)" action:@selector(selectMethodSignatures_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Method(s)" action:@selector(duplicateMethods_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Paste Method Declarations" action:@selector(pasteMethodDeclarations_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Copy Method Declarations" action:@selector(copyMethodDeclarations_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of String" action:@selector(highlightSelectedStrings_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Regex Matches" action:@selector(highlightRegexMatches_clicked:)]];
@@ -112,9 +112,9 @@
 	[[[self currentSourceTextView] manipulator] pasteLinesWithReindent:NO];
 }
 
-- (void)pasteMethodDeclarations_clicked:(id)sender
+- (void)copyMethodDeclarations_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] pasteMethodDeclarations];
+	[[[self currentSourceTextView] manipulator] copyMethodDeclarations];
 }
 
 - (void)duplicateLine_clicked:(id)sender

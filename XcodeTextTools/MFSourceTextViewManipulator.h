@@ -19,9 +19,15 @@
 - (void)cutLines;
 - (void)copyLines;
 - (void)pasteLinesWithReindent:(BOOL)reindent;
-- (void)pasteMethodDeclarations;
 - (void)duplicateLines;
 - (void)deleteLines;
+
+#pragma mark Working With Methods
+
+- (void)selectMethods;
+- (void)selectMethodSignatures;
+- (void)copyMethodDeclarations;
+- (void)duplicateMethods;
 
 #pragma mark Highlighting
 
@@ -29,11 +35,5 @@
 - (void)highlightRegexMatchesWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options;
 - (void)removeMostRecentlyAddedHighlight;
 - (void)removeAllHighlighting;
-
-#pragma mark Selection
-
-- (void)selectMethods;
-- (void)selectMethodSignatures;
-- (void)duplicateMethods;
 
 @end

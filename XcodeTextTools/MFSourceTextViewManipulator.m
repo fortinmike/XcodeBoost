@@ -185,6 +185,20 @@
 	_highlightCount = 0;
 }
 
+#pragma mark Pasteboard Helpers
+
+- (NSString *)getPasteboardString
+{
+	return [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
+}
+
+- (void)setPasteboardString:(NSString *)string
+{
+	NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
+	[generalPasteboard declareTypes:@[NSPasteboardTypeString] owner:nil];
+	[generalPasteboard setString:string forType:NSPasteboardTypeString];
+}
+
 #pragma mark Line Manipulation
 
 - (void)cutLines
@@ -195,14 +209,12 @@
 
 - (void)copyLines
 {
-	NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
-	[generalPasteboard declareTypes:@[NSPasteboardTypeString] owner:nil];
-	[generalPasteboard setString:[self selectedLinesString] forType:NSPasteboardTypeString];
+	[self setPasteboardString:[self selectedLinesString]];
 }
 
 - (void)pasteLinesWithReindent:(BOOL)reindent
 {
-	NSMutableString *pasteboardString = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
+	NSMutableString *pasteboardString = [[self getPasteboardString] mutableCopy];
 	NSRange linesRange = [self selectedLinesRange];
 	
 	[self insertString:pasteboardString afterRange:linesRange reindent:reindent];
@@ -221,6 +233,60 @@
 		[self.textStorage deleteCharactersInRange:linesRange];
 		[self.sourceTextView moveToRightEndOfLine:self];
 	}];
+}
+
+#pragma mark Working With Methods
+
+- (void)selectMethods
+{
+	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
+	NSArray *rangesToSelect = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
+	
+	if ([rangesToSelect count] > 0)
+		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
+}
+
+- (void)selectMethodSignatures
+{
+	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
+	NSArray *methodSignatureRanges = [self.string xctt_methodSignatureRanges];
+	
+	NSMutableArray *rangesToSelect = [NSMutableArray array];
+	for (NSValue *methodSignatureRange in methodSignatureRanges)
+	{
+		for (NSValue *selectedMethodDefinitionRange in selectedMethodDefinitionRanges)
+		{
+			if (NSIntersectionRange([methodSignatureRange rangeValue], [selectedMethodDefinitionRange rangeValue]).length != 0)
+				[rangesToSelect addObject:methodSignatureRange];
+		}
+	}
+	
+	if ([rangesToSelect count] > 0)
+		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
+}
+
+- (void)copyMethodDeclarations
+{
+	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
+	NSArray *rangesToSelect = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
+	//NSString *methodDeclarations = [pasteboardString xctt_extractMethodDeclarations];
+	
+}
+
+- (void)duplicateMethods
+{
+	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionLineRanges = [self lineRangesForRanges:selectedMethodDefinitionRanges];
+	
+	if ([selectedMethodDefinitionLineRanges count] == 0) return;
+	
+	NSRange unionRange = [selectedMethodDefinitionLineRanges[0] rangeValue];
+	for (NSValue *range in selectedMethodDefinitionLineRanges)
+		unionRange = NSUnionRange(unionRange, [range rangeValue]);
+	
+	[self duplicateLines:unionRange];
 }
 
 #pragma mark Highlighting
@@ -267,64 +333,6 @@
 	}];
 	
 	[self popAllHighlightColors];
-}
-
-#pragma mark Selection
-
-- (void)selectMethods
-{
-	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *rangesToSelect = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
-	
-	if ([rangesToSelect count] > 0)
-		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
-}
-
-- (void)selectMethodSignatures
-{
-	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
-	NSArray *methodSignatureRanges = [self.string xctt_methodSignatureRanges];
-	
-	NSMutableArray *rangesToSelect = [NSMutableArray array];
-	for (NSValue *methodSignatureRange in methodSignatureRanges)
-	{
-		for (NSValue *selectedMethodDefinitionRange in selectedMethodDefinitionRanges)
-		{
-			if (NSIntersectionRange([methodSignatureRange rangeValue], [selectedMethodDefinitionRange rangeValue]).length != 0)
-				[rangesToSelect addObject:methodSignatureRange];
-		}
-	}
-	
-	if ([rangesToSelect count] > 0)
-		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
-}
-
-- (void)duplicateMethods
-{
-	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionLineRanges = [self lineRangesForRanges:selectedMethodDefinitionRanges];
-	
-	if ([selectedMethodDefinitionLineRanges count] == 0) return;
-	
-	NSRange unionRange = [selectedMethodDefinitionLineRanges[0] rangeValue];
-	for (NSValue *range in selectedMethodDefinitionLineRanges)
-		unionRange = NSUnionRange(unionRange, [range rangeValue]);
-	
-	[self duplicateLines:unionRange];
-}
-	
-- (void)pasteMethodDeclarations
-{
-	NSMutableString *pasteboardString = [[[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString] mutableCopy];
-	NSString *methodDeclarations = [pasteboardString xctt_extractMethodDeclarations];
-	NSRange selectedRange = [self.sourceTextView selectedRange];
-	
-	[self conditionallyChangeTextInRange:selectedRange replacementString:methodDeclarations operation:^
-	{
-		[self.textStorage replaceCharactersInRange:selectedRange withString:methodDeclarations];
-	}];
 }
 
 #pragma mark Accessor Overrides
