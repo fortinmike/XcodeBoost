@@ -124,13 +124,13 @@
 	
 	if (appendNewline) [stringToInsert appendString:@"\n"];
 	
-	NSRange sourceRange = NSMakeRange(range.location + range.length, 0);
-	NSUInteger sourceRangeEnd = sourceRange.location + sourceRange.length + 1;
+	NSUInteger rangeEnd = range.location + range.length;
+	NSUInteger beforeRangeEnd = rangeEnd - 1;
 	
-	[self conditionallyChangeTextInRange:NSMakeRange(sourceRangeEnd, 0) replacementString:stringToInsert operation:^
+	[self conditionallyChangeTextInRange:NSMakeRange(beforeRangeEnd, 0) replacementString:stringToInsert operation:^
 	{
-		[self.textStorage insertAttributedString:[stringToInsert xctt_attributedString] atIndex:sourceRangeEnd];
-		[self.sourceTextView setSelectedRange:NSMakeRange(sourceRangeEnd + [stringToInsert length], 0)];
+		[self.textStorage insertAttributedString:[stringToInsert xctt_attributedString] atIndex:rangeEnd];
+		[self.sourceTextView setSelectedRange:NSMakeRange(beforeRangeEnd + [stringToInsert length], 0)];
 		
 		if (reindent) [self.sourceTextView indentSelection:self];
 	}];
