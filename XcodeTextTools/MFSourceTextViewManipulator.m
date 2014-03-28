@@ -75,9 +75,9 @@
 	}];
 }
 
-- (NSArray *)rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)fullLines
+- (NSArray *)rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines
 {
-	NSRange selectedRange = fullLines ? [self selectedLinesRange] : [self.sourceTextView selectedRange];
+	NSRange selectedRange = wholeLines ? [self selectedLinesRange] : [self.sourceTextView selectedRange];
 	NSUInteger selectedRangeStart = selectedRange.location;
 	NSUInteger selectedRangeEnd = selectedRange.location + selectedRange.length;
 	
@@ -88,7 +88,9 @@
 		NSUInteger testedRangeStart = testedRange.location;
 		NSUInteger testedRangeEnd = testedRange.location + testedRange.length;
 		
-		if ((selectedRangeStart >= testedRangeStart && selectedRangeStart <= testedRangeEnd) ||
+		if ((testedRangeStart >= selectedRangeStart && testedRangeStart <= selectedRangeEnd) ||
+			(testedRangeEnd >= selectedRangeStart && testedRangeEnd <= selectedRangeEnd) ||
+			(selectedRangeStart >= testedRangeStart && selectedRangeStart <= testedRangeEnd) ||
 			(selectedRangeEnd >= testedRangeStart && selectedRangeEnd <= testedRangeEnd))
 		{
 			[rangesOverlappingSelection addObject:range];
