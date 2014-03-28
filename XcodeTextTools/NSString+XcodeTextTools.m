@@ -72,8 +72,9 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 
 - (NSArray *)xctt_rangesOfSymbol:(NSString *)symbol
 {
-	// Using negative look-behind and look-ahead so that we obtain the actual symbols
-	// and not all occurences of the string in the text. Covers most cases.
+	// Using negative look-behind and look-ahead so that we obtain
+	// the actual symbols and not all occurences of the string in
+	// the text. Covers most cases (enough for helpful results).
 	NSString *symbolPattern = [NSString stringWithFormat:@"(?<!(%@))%@(?!(%@))",
 							   s_symbolCharacterPattern, symbol, s_symbolCharacterPattern];
 	
