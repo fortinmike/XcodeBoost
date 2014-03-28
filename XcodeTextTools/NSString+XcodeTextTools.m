@@ -8,6 +8,7 @@
 
 #import "NSString+XcodeTextTools.h"
 #import "NSAlert+XcodeTextTools.h"
+#import "NSArray+XcodeTextTools.h"
 
 @implementation NSString (XcodeTextTools)
 
@@ -74,11 +75,28 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 {
 	// Using negative look-behind and look-ahead so that we obtain
 	// the actual symbols and not all occurences of the string in
-	// the text. Covers most cases (enough for helpful results).
-	NSString *symbolPattern = [NSString stringWithFormat:@"(?<!(%@))%@(?!(%@))",
-							   s_symbolCharacterPattern, symbol, s_symbolCharacterPattern];
+	// the text. Enough for helpful results.
 	
-	return [self xctt_rangesOfRegex:symbolPattern options:0];
+	NSString *symbolPattern = [NSString stringWithFormat:@"(?<!(%@))%@(?!(%@))", s_symbolCharacterPattern, symbol, s_symbolCharacterPattern];
+	NSArray *rawSymbolRanges = [self xctt_rangesOfRegex:symbolPattern options:0];
+	
+	// Simple, brute-force approach to removing symbols detected in strings
+	
+	NSArray *stringRanges = [self xctt_rangesOfRegex:@"@\".+?\"" options:0];
+	
+	NSMutableArray *symbolRanges = [NSMutableArray array];
+	for (NSValue *rawSymbolRange in rawSymbolRanges)
+	{
+		BOOL symbolIsInAString = [stringRanges xctt_any:^BOOL(NSValue *stringRange)
+		{
+			return NSIntersectionRange([stringRange rangeValue], [rawSymbolRange rangeValue]).length > 0;
+		}];
+		
+		if (!symbolIsInAString)
+			[symbolRanges addObject:rawSymbolRange];
+	}
+	
+	return symbolRanges;
 }
 
 - (NSArray *)xctt_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options

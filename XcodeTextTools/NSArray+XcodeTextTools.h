@@ -18,5 +18,6 @@ typedef id (^ObjectObjectBlock)(id object);
 - (instancetype)xctt_where:(BoolObjectBlock)condition; // Returns objects that match the specified condition
 - (instancetype)xctt_map:(ObjectObjectBlock)gatheringBlock;
 - (instancetype)xctt_distinct;
+- (BOOL)xctt_any:(BoolObjectBlock)testBlock;
 
 @end

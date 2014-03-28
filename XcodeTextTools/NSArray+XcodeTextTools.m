@@ -57,4 +57,12 @@
 	return distinct;
 }
 
+- (BOOL)xctt_any:(BoolObjectBlock)testBlock
+{
+	for (id object in self)
+		if (testBlock(object)) return YES;
+	
+	return NO;
+}
+
 @end
