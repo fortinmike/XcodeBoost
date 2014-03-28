@@ -32,6 +32,7 @@
 #pragma mark Highlighting
 
 - (void)highlightSelectedStrings;
+- (void)highlightSelectedSymbols;
 - (void)highlightRegexMatchesWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options;
 - (void)removeMostRecentlyAddedHighlight;
 - (void)removeAllHighlighting;

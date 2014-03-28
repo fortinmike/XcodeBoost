@@ -75,14 +75,26 @@
 	}];
 }
 
-- (NSArray *)rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter
+- (NSArray *)rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)fullLines
 {
+	NSRange selectedRange = fullLines ? [self selectedLinesRange] : [self.sourceTextView selectedRange];
+	NSUInteger selectedRangeStart = selectedRange.location;
+	NSUInteger selectedRangeEnd = selectedRange.location + selectedRange.length;
+	
 	NSMutableArray *rangesOverlappingSelection = [NSMutableArray array];
-	for (NSValue *methodDefinitionRange in rangesToFilter)
+	for (NSValue *range in rangesToFilter)
 	{
-		NSRange intersection = NSIntersectionRange([methodDefinitionRange rangeValue], [self selectedLinesRange]);
-		if (intersection.length > 0) [rangesOverlappingSelection addObject:methodDefinitionRange];
+		NSRange testedRange = [range rangeValue];
+		NSUInteger testedRangeStart = testedRange.location;
+		NSUInteger testedRangeEnd = testedRange.location + testedRange.length;
+		
+		if ((selectedRangeStart >= testedRangeStart && selectedRangeStart <= testedRangeEnd) ||
+			(selectedRangeEnd >= testedRangeStart && selectedRangeEnd <= testedRangeEnd))
+		{
+			[rangesOverlappingSelection addObject:range];
+		}
 	}
+	
 	return rangesOverlappingSelection;
 }
 
@@ -253,7 +265,7 @@
 - (void)selectMethods
 {
 	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *rangesToSelect = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
+	NSArray *rangesToSelect = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	
 	if ([rangesToSelect count] > 0)
 		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
@@ -262,7 +274,7 @@
 - (void)selectMethodSignatures
 {
 	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	NSArray *methodSignatureRanges = [self.string xctt_methodSignatureRanges];
 	
 	NSMutableArray *rangesToSelect = [NSMutableArray array];
@@ -282,7 +294,7 @@
 - (void)copyMethodDeclarations
 {
 	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	
 	NSRange overarchingRange = [self unionRangeWithRanges:selectedMethodDefinitionRanges];
 	if (overarchingRange.location == NSNotFound) return;
@@ -296,7 +308,7 @@
 - (void)duplicateMethods
 {
 	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	NSArray *selectedMethodDefinitionLineRanges = [self lineRangesForRanges:selectedMethodDefinitionRanges];
 	
 	if ([selectedMethodDefinitionLineRanges count] == 0) return;
@@ -318,6 +330,19 @@
 		NSArray *stringRanges = [self.string xctt_rangesOfString:string];
 		
 		[self highlightRanges:stringRanges];
+	}
+}
+
+- (void)highlightSelectedSymbols
+{
+	NSArray *symbolRanges = [self.string xctt_symbolRanges];
+	NSArray *selectedSymbolRanges = [self rangesFullyOrPartiallyContainedInSelection:symbolRanges wholeLines:NO];
+	
+	for (NSValue *selectedSymbolRange in selectedSymbolRanges)
+	{
+		NSString *symbolString = [self.string substringWithRange:[selectedSymbolRange rangeValue]];
+		NSArray *selectedSymbolOccurenceRanges = [self.string xctt_rangesOfSymbol:symbolString];
+		[self highlightRanges:selectedSymbolOccurenceRanges];
 	}
 }
 

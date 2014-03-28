@@ -68,6 +68,7 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Copy Method Declarations" action:@selector(copyMethodDeclarations_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of String" action:@selector(highlightSelectedStrings_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of Symbol" action:@selector(highlightSelectedSymbols_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Regex Matches" action:@selector(highlightRegexMatches_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove Most Recently Added Highlight" action:@selector(removeMostRecentlyAddedHighlight_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove All Highlighting" action:@selector(removeAllHighlighting_clicked:)]];
@@ -132,6 +133,11 @@
 - (void)highlightSelectedStrings_clicked:(id)sender
 {
 	[[[self currentSourceTextView] manipulator] highlightSelectedStrings];
+}
+
+- (void)highlightSelectedSymbols_clicked:(id)sender
+{
+	[[[self currentSourceTextView] manipulator] highlightSelectedSymbols];
 }
 
 - (void)highlightRegexMatches_clicked:(id)sender
