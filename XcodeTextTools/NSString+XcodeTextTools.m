@@ -18,7 +18,7 @@ static NSString *s_symbolCharacterPattern = @"[a-zA-Z0-9_]";
 static NSString *s_stringLiteralPattern = @"@\".+?\""; // Unescaped: @".+?"
 static NSString *s_numberLiteralPattern = @"@\\(.+\\)|@[0-9]+?.??[0-9]+?"; // Unescaped: @\(.+?\)|@[0-9]+.?[0-9]+
 static NSString *s_selectorPattern = @"@selector\\(.+?\\)"; // Unescaped: @selector\(.+?\)
-static NSString *s_methodDefinitionsPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}";
+static NSString *s_methodDefinitionsPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}"; // Unescaped: ([-\+] ?\(.+?\).*)(\n?)\{(.*\n)+?(\n?)\}
 
 // Primitives
 static NSRegularExpression *s_genericSymbolRegex;
