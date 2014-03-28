@@ -19,6 +19,7 @@ static NSString *s_stringLiteralPattern = @"@\".+?\""; // Unescaped: @".+?"
 static NSString *s_numberLiteralPattern = @"@\\(.+\\)|@[0-9]+?.??[0-9]+?"; // Unescaped: @\(.+?\)|@[0-9]+.?[0-9]+
 static NSString *s_selectorPattern = @"@selector\\(.+?\\)"; // Unescaped: @selector\(.+?\)
 static NSString *s_methodDefinitionsPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}"; // Unescaped: ([-\+] ?\(.+?\).*)(\n?)\{(.*\n)+?(\n?)\}
+static NSString *s_commentPattern = @"//.+?(?=\\n)|/\\*.+?\\*/"; // Unescaped: //.+?(?=\n)|/\*.+?\*/
 
 // Primitives
 static NSRegularExpression *s_genericSymbolRegex;
@@ -26,6 +27,7 @@ static NSRegularExpression *s_stringLiteralRegex;
 static NSRegularExpression *s_numberLiteralRegex;
 static NSRegularExpression *s_selectorRegex;
 static NSRegularExpression *s_methodDefinitionRegex;
+static NSRegularExpression *s_commentRegex;
 
 // Composite
 static NSRegularExpression *s_symbolRegex;
@@ -81,19 +83,20 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 	NSString *symbolPattern = [NSString stringWithFormat:@"(?<!(%@))%@(?!(%@))", s_symbolCharacterPattern, symbol, s_symbolCharacterPattern];
 	NSArray *rawSymbolRanges = [self xctt_rangesOfRegex:symbolPattern options:0];
 	
-	// Simple, brute-force approach to removing symbols detected in strings
+	// Simple, brute-force approach to removing symbols detected in strings, comments, ...
 	
-	NSArray *stringRanges = [self xctt_rangesOfRegex:@"@\".+?\"" options:0];
+	NSMutableArray *invalidRanges = [[self xctt_rangesOfRegex:@"@\".+?\"" options:0] mutableCopy];
+	[invalidRanges addObjectsFromArray:[self xctt_commentRanges]];
 	
 	NSMutableArray *symbolRanges = [NSMutableArray array];
 	for (NSValue *rawSymbolRange in rawSymbolRanges)
 	{
-		BOOL symbolIsInAString = [stringRanges xctt_any:^BOOL(NSValue *stringRange)
+		BOOL symbolIsInAnInvalidRange = [invalidRanges xctt_any:^BOOL(NSValue *stringRange)
 		{
 			return NSIntersectionRange([stringRange rangeValue], [rawSymbolRange rangeValue]).length > 0;
 		}];
 		
-		if (!symbolIsInAString)
+		if (!symbolIsInAnInvalidRange)
 			[symbolRanges addObject:rawSymbolRange];
 	}
 	
@@ -151,6 +154,13 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 	return [self xctt_rangesForMatches:matches];
 }
 
+- (NSArray *)xctt_commentRanges
+{
+	[self xctt_prepareRegexes];
+	NSArray *matches = [s_commentRegex matchesInString:self options:0 range:[self xctt_range]];
+	return [self xctt_rangesForMatches:matches];
+}
+
 #pragma mark Private Methods
 
 - (void)xctt_prepareRegexes
@@ -167,6 +177,8 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 		s_selectorRegex = [NSRegularExpression regularExpressionWithPattern:s_selectorPattern options:0 error:nil];
 		
 		s_methodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:s_methodDefinitionsPattern options:0 error:nil];
+		
+		s_commentRegex = [NSRegularExpression regularExpressionWithPattern:s_commentPattern options:0 error:nil];
 		
 		NSString *symbolPattern = [NSString stringWithFormat:@"%@|%@|%@|%@",
 								   genericSymbolPattern, s_stringLiteralPattern,

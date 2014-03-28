@@ -32,5 +32,6 @@
 - (NSArray *)xctt_methodDefinitionRanges;
 - (NSArray *)xctt_methodSignatureRanges;
 - (NSArray *)xctt_symbolRanges;
+- (NSArray *)xctt_commentRanges;
 
 @end
