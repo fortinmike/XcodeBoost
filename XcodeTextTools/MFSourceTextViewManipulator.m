@@ -50,7 +50,15 @@
 
 #pragma mark Line Manipulation Helpers
 
-- (NSRange)selectedLinesRange
+- (NSRange)overarchingRangeForSelectedLinesRanges
+{
+	NSArray *selectedRanges = [self.sourceTextView selectedRanges];
+	if ([selectedRanges count] == 0) return NSMakeRange(NSNotFound, 0);
+	
+	return [self.string lineRangeForRange:[self unionRangeWithRanges:selectedRanges]];
+}
+
+- (NSRange)firstSelectedLinesRange
 {
 	NSValue *selectedRange = [[self.sourceTextView selectedRanges] firstObject];
 	if (!selectedRange) return NSMakeRange(NSNotFound, 0);
@@ -58,9 +66,9 @@
 	return [self.string lineRangeForRange:[selectedRange rangeValue]];
 }
 
-- (NSString *)selectedLinesString
+- (NSString *)firstSelectedLinesString
 {
-	NSRange linesRange = [self selectedLinesRange];
+	NSRange linesRange = [self firstSelectedLinesRange];
 	NSString *sourceString = [[self.textStorage attributedSubstringFromRange:linesRange] string];
 	NSString *trimmedString = [sourceString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 	return trimmedString;
@@ -77,7 +85,7 @@
 
 - (NSArray *)rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines
 {
-	NSRange selectedRange = wholeLines ? [self selectedLinesRange] : [self.sourceTextView selectedRange];
+	NSRange selectedRange = wholeLines ? [self firstSelectedLinesRange] : [self.sourceTextView selectedRange];
 	NSUInteger selectedRangeStart = selectedRange.location;
 	NSUInteger selectedRangeEnd = selectedRange.location + selectedRange.length;
 	
@@ -236,25 +244,25 @@
 
 - (void)copyLines
 {
-	[self setPasteboardString:[self selectedLinesString]];
+	[self setPasteboardString:[self firstSelectedLinesString]];
 }
 
 - (void)pasteLinesWithReindent:(BOOL)reindent
 {
 	NSMutableString *pasteboardString = [[self getPasteboardString] mutableCopy];
-	NSRange linesRange = [self selectedLinesRange];
+	NSRange linesRange = [self firstSelectedLinesRange];
 	
 	[self insertString:pasteboardString afterRange:linesRange reindent:reindent];
 }
 
 - (void)duplicateLines
 {
-	[self duplicateLines:[self selectedLinesRange]];
+	[self duplicateLines:[self firstSelectedLinesRange]];
 }
 
 - (void)deleteLines
 {
-	NSRange linesRange = [self selectedLinesRange];
+	NSRange linesRange = [self firstSelectedLinesRange];
 	[self conditionallyChangeTextInRange:linesRange replacementString:@"" operation:^
 	{
 		[self.textStorage deleteCharactersInRange:linesRange];
