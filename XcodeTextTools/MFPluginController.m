@@ -55,20 +55,20 @@
 - (NSMenuItem *)createTextToolsMenuItem
 {
 	NSMenu *submenu = [[NSMenu alloc] init];
-	[submenu addItem:[self createMenuItemWithTitle:@"Cut Line(s)" action:@selector(cutLine_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Copy Line(s)" action:@selector(copyLine_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Paste Line(s)" action:@selector(pasteLine_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Paste Line(s) Without Reindent" action:@selector(pasteLineWithoutReindent_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Line(s)" action:@selector(duplicateLine_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Delete Line(s)" action:@selector(deleteLine_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Cut Lines" action:@selector(cutLines_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Copy Lines" action:@selector(copyLines_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Paste Lines" action:@selector(pasteLines_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Paste Lines Without Reindent" action:@selector(pasteLinesWithoutReindent_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Lines" action:@selector(duplicateLines_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Delete Lines" action:@selector(deleteLines_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Select Method(s)" action:@selector(selectMethods_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Select Method Signature(s)" action:@selector(selectMethodSignatures_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Method(s)" action:@selector(duplicateMethods_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Select Methods" action:@selector(selectMethods_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Select Method Signatures" action:@selector(selectMethodSignatures_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Methods" action:@selector(duplicateMethods_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Copy Method Declarations" action:@selector(copyMethodDeclarations_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of String" action:@selector(highlightSelectedStrings_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of Symbol" action:@selector(highlightSelectedSymbols_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of String" action:@selector(highlightSelectedStrings_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Regex Matches" action:@selector(highlightRegexMatches_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove Most Recently Added Highlight" action:@selector(removeMostRecentlyAddedHighlight_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove All Highlighting" action:@selector(removeAllHighlighting_clicked:)]];
@@ -93,39 +93,56 @@
 
 #pragma mark Line Manipulation Action Methods
 
-- (void)cutLine_clicked:(id)sender
+- (void)cutLines_clicked:(id)sender
 {
 	[[[self currentSourceTextView] manipulator] cutLines];
 }
 
-- (void)copyLine_clicked:(id)sender
+- (void)copyLines_clicked:(id)sender
 {
 	[[[self currentSourceTextView] manipulator] copyLines];
 }
 
-- (void)pasteLine_clicked:(id)sender
+- (void)pasteLines_clicked:(id)sender
 {
 	[[[self currentSourceTextView] manipulator] pasteLinesWithReindent:YES];
 }
 
-- (void)pasteLineWithoutReindent_clicked:(id)sender
+- (void)pasteLinesWithoutReindent_clicked:(id)sender
 {
 	[[[self currentSourceTextView] manipulator] pasteLinesWithReindent:NO];
+}
+
+- (void)duplicateLines_clicked:(id)sender
+{
+	[[[self currentSourceTextView] manipulator] duplicateLines];
+}
+
+- (void)deleteLines_clicked:(id)sender
+{
+	[[[self currentSourceTextView] manipulator] deleteLines];
+}
+
+#pragma mark Method Manipulation Action Methods
+
+- (void)selectMethods_clicked:(id)sender
+{
+	[[[self currentSourceTextView] manipulator] selectMethods];
+}
+
+- (void)selectMethodSignatures_clicked:(id)sender
+{
+	[[[self currentSourceTextView] manipulator] selectMethodSignatures];
+}
+
+- (void)duplicateMethods_clicked:(id)sender
+{
+	[[[self currentSourceTextView] manipulator] duplicateMethods];
 }
 
 - (void)copyMethodDeclarations_clicked:(id)sender
 {
 	[[[self currentSourceTextView] manipulator] copyMethodDeclarations];
-}
-
-- (void)duplicateLine_clicked:(id)sender
-{
-	[[[self currentSourceTextView] manipulator] duplicateLines];
-}
-
-- (void)deleteLine_clicked:(id)sender
-{
-	[[[self currentSourceTextView] manipulator] deleteLines];
 }
 
 #pragma mark Highlighting Action Methods
@@ -170,23 +187,6 @@
 - (void)removeAllHighlighting_clicked:(id)sender
 {
 	[[[self currentSourceTextView] manipulator] removeAllHighlighting];
-}
-
-#pragma mark Method Manipulation Action Methods
-
-- (void)selectMethods_clicked:(id)sender
-{
-	[[[self currentSourceTextView] manipulator] selectMethods];
-}
-
-- (void)selectMethodSignatures_clicked:(id)sender
-{
-	[[[self currentSourceTextView] manipulator] selectMethodSignatures];
-}
-
-- (void)duplicateMethods_clicked:(id)sender
-{
-	[[[self currentSourceTextView] manipulator] duplicateMethods];
 }
 
 #pragma mark Implementation
