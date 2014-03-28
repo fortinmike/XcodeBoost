@@ -12,8 +12,25 @@
 @implementation NSString (XcodeTextTools)
 
 static BOOL s_regexesPrepared;
+
+static NSString *s_symbolCharacterPattern = @"[a-zA-Z0-9_]";
+static NSString *s_stringLiteralPattern = @"@\".+?\""; // Unescaped: @".+?"
+static NSString *s_numberLiteralPattern = @"@\\(.+\\)|@[0-9]+?.??[0-9]+?"; // Unescaped: @\(.+?\)|@[0-9]+.?[0-9]+
+static NSString *s_selectorPattern = @"@selector\\(.+?\\)"; // Unescaped: @selector\(.+?\)
+static NSString *s_methodDefinitionsPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}";
+
+// Primitives
+static NSRegularExpression *s_genericSymbolRegex;
+static NSRegularExpression *s_stringLiteralRegex;
+static NSRegularExpression *s_numberLiteralRegex;
+static NSRegularExpression *s_selectorRegex;
+static NSRegularExpression *s_methodDefinitionRegex;
+
+// Composite
+static NSRegularExpression *s_symbolRegex;
+
+// Special Cases
 static NSRegularExpression *s_singleMethodDefinitionRegex;
-static NSRegularExpression *s_methodDefinitionsRegex;
 
 #pragma mark Creating Instances
 
@@ -53,6 +70,16 @@ static NSRegularExpression *s_methodDefinitionsRegex;
 	return ranges;
 }
 
+- (NSArray *)xctt_rangesOfSymbol:(NSString *)symbol
+{
+	// Using negative look-behind and look-ahead so that we obtain the actual symbols
+	// and not all occurences of the string in the text. Covers most cases.
+	NSString *symbolPattern = [NSString stringWithFormat:@"(?<!(%@))%@(?!(%@))",
+							   s_symbolCharacterPattern, symbol, s_symbolCharacterPattern];
+	
+	return [self xctt_rangesOfRegex:symbolPattern options:0];
+}
+
 - (NSArray *)xctt_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options
 {
 	NSError *error;
@@ -78,8 +105,7 @@ static NSRegularExpression *s_methodDefinitionsRegex;
 - (NSString *)xctt_extractMethodDeclarations
 {
 	[self xctt_prepareRegexes];
-	NSString *declarations = [s_methodDefinitionsRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length])
-																					 withTemplate:@"$1;"];
+	NSString *declarations = [s_methodDefinitionRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length]) withTemplate:@"$1;"];
 	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	return trimmedDeclarations;
 }
@@ -87,15 +113,22 @@ static NSRegularExpression *s_methodDefinitionsRegex;
 - (NSArray *)xctt_methodDefinitionRanges
 {
 	[self xctt_prepareRegexes];
-	NSArray *matches = [s_methodDefinitionsRegex matchesInString:self options:0 range:[self xctt_range]];
+	NSArray *matches = [s_methodDefinitionRegex matchesInString:self options:0 range:[self xctt_range]];
 	return [self xctt_rangesForMatches:matches];
 }
 
 - (NSArray *)xctt_methodSignatureRanges
 {
 	[self xctt_prepareRegexes];
-	NSArray *matches = [s_methodDefinitionsRegex matchesInString:self options:0 range:[self xctt_range]];
+	NSArray *matches = [s_methodDefinitionRegex matchesInString:self options:0 range:[self xctt_range]];
 	return [self xctt_rangesForMatches:matches captureGroup:1];
+}
+
+- (NSArray *)xctt_symbolRanges
+{
+	[self xctt_prepareRegexes];
+	NSArray *matches = [s_symbolRegex matchesInString:self options:0 range:[self xctt_range]];
+	return [self xctt_rangesForMatches:matches];
 }
 
 #pragma mark Private Methods
@@ -104,10 +137,24 @@ static NSRegularExpression *s_methodDefinitionsRegex;
 {
 	if (!s_regexesPrepared)
 	{
-		NSString *methodDefinitionsPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}";
-		s_methodDefinitionsRegex = [NSRegularExpression regularExpressionWithPattern:methodDefinitionsPattern options:0 error:nil];
+		NSString *genericSymbolPattern = [NSString stringWithFormat:@"%@+", s_symbolCharacterPattern];
+		s_genericSymbolRegex = [NSRegularExpression regularExpressionWithPattern:genericSymbolPattern options:0 error:nil];
 		
-		NSString *startsWithMethodDefinitionPattern = [@"^" stringByAppendingString:methodDefinitionsPattern];
+		s_stringLiteralRegex = [NSRegularExpression regularExpressionWithPattern:s_stringLiteralPattern options:0 error:nil];
+		
+		s_numberLiteralRegex = [NSRegularExpression regularExpressionWithPattern:s_numberLiteralPattern options:0 error:nil];
+		
+		s_selectorRegex = [NSRegularExpression regularExpressionWithPattern:s_selectorPattern options:0 error:nil];
+		
+		s_methodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:s_methodDefinitionsPattern options:0 error:nil];
+		
+		NSString *symbolPattern = [NSString stringWithFormat:@"%@|%@|%@|%@",
+								   genericSymbolPattern, s_stringLiteralPattern,
+								   s_numberLiteralPattern, s_selectorPattern];
+		s_symbolRegex = [NSRegularExpression regularExpressionWithPattern:symbolPattern options:0 error:nil];
+		
+		
+		NSString *startsWithMethodDefinitionPattern = [@"^" stringByAppendingString:s_methodDefinitionsPattern];
 		s_singleMethodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:startsWithMethodDefinitionPattern options:0 error:nil];
 		
 		s_regexesPrepared = YES;

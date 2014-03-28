@@ -22,6 +22,7 @@
 
 - (NSRange)xctt_range;
 - (NSArray *)xctt_rangesOfString:(NSString *)string;
+- (NSArray *)xctt_rangesOfSymbol:(NSString *)symbol;
 - (NSArray *)xctt_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options;
 
 #pragma mark Code Patterns
@@ -30,5 +31,6 @@
 - (NSString *)xctt_extractMethodDeclarations;
 - (NSArray *)xctt_methodDefinitionRanges;
 - (NSArray *)xctt_methodSignatureRanges;
+- (NSArray *)xctt_symbolRanges;
 
 @end
