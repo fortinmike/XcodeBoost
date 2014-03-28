@@ -77,6 +77,7 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 	// the actual symbols and not all occurences of the string in
 	// the text. Enough for helpful results.
 	
+	[self xctt_prepareRegexes];
 	NSString *symbolPattern = [NSString stringWithFormat:@"(?<!(%@))%@(?!(%@))", s_symbolCharacterPattern, symbol, s_symbolCharacterPattern];
 	NSArray *rawSymbolRanges = [self xctt_rangesOfRegex:symbolPattern options:0];
 	
