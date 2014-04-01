@@ -238,7 +238,7 @@
 
 - (void)cutLines
 {
-	[self copyLines];
+	[self setPasteboardString:[self firstSelectedLineRangeString]];
 	[self deleteLines];
 }
 
