@@ -1,7 +1,11 @@
 XcodeBoost
 ==========
 
-An Xcode plugin that aims to make altering and inspecting code quick and easy. Line and method-based manipulation, highlighting and more! Contributions are welcome.
+An Xcode plugin that makes altering and inspecting Objective-C code quick and easy.
+
+XcodeBoost automates some tedious operations such as **extracting method declarations from definitions** for insertion into a header file, adds **line-based manipulation** (cut/copy/paste/duplicate/delete lines), **persistent highlighting** and more!
+
+*Contributions are welcome! :)*
 
 #### Symbol Highlighting
 ![image](GIFs/highlighting.gif)
