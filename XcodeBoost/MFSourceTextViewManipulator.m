@@ -86,23 +86,12 @@
 - (NSArray *)rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines
 {
 	NSRange selectedRange = wholeLines ? [self firstSelectedLinesRange] : [self.sourceTextView selectedRange];
-	NSUInteger selectedRangeStart = selectedRange.location;
-	NSUInteger selectedRangeEnd = selectedRange.location + selectedRange.length;
 	
 	NSMutableArray *rangesOverlappingSelection = [NSMutableArray array];
 	for (NSValue *range in rangesToFilter)
 	{
-		NSRange testedRange = [range rangeValue];
-		NSUInteger testedRangeStart = testedRange.location;
-		NSUInteger testedRangeEnd = testedRange.location + testedRange.length;
-		
-		if ((testedRangeStart >= selectedRangeStart && testedRangeStart <= selectedRangeEnd) ||
-			(testedRangeEnd >= selectedRangeStart && testedRangeEnd <= selectedRangeEnd) ||
-			(selectedRangeStart >= testedRangeStart && selectedRangeStart <= testedRangeEnd) ||
-			(selectedRangeEnd >= testedRangeStart && selectedRangeEnd <= testedRangeEnd))
-		{
+		if (MFRangeOverlaps([range rangeValue], selectedRange))
 			[rangesOverlappingSelection addObject:range];
-		}
 	}
 	
 	return rangesOverlappingSelection;

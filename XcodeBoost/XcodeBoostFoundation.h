@@ -9,3 +9,5 @@
 #import <Foundation/Foundation.h>
 
 typedef void (^Block)();
+
+BOOL MFRangeOverlaps(NSRange range1, NSRange range2);
