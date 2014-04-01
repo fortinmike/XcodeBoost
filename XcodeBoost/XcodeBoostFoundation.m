@@ -21,5 +21,5 @@ BOOL MFRangeOverlaps(NSRange range, NSRange targetRange)
 	BOOL targetRangeContainedInRange = (targetRangeStart >= rangeStart && targetRangeStart <= rangeEnd) ||
 									   (targetRangeEnd >= rangeStart && targetRangeEnd <= rangeEnd);
 	
-	return rangeOverlapsTargetRange && targetRangeContainedInRange;
+	return rangeOverlapsTargetRange || targetRangeContainedInRange;
 }
