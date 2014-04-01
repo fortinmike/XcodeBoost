@@ -1,14 +1,14 @@
 //
-//  NSColor+XcodeTextTools.m
-//  XcodeTextTools
+//  NSColor+XcodeBoost.m
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-21.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
-#import "NSColor+XcodeTextTools.h"
+#import "NSColor+XcodeBoost.h"
 
-@implementation NSColor (XcodeTextTools)
+@implementation NSColor (XcodeBoost)
 
 + (NSColor *)xctt_randomColor
 {

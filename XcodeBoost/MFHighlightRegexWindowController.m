@@ -1,6 +1,6 @@
 //
 //  MFHighlightRegexWindowController.m
-//  XcodeTextTools
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-25.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.

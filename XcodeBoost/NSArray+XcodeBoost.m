@@ -1,14 +1,14 @@
 //
-//  NSArray+XcodeTextTools.m
-//  XcodeTextTools
+//  NSArray+XcodeBoost.m
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-14.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
-#import "NSArray+XcodeTextTools.h"
+#import "NSArray+XcodeBoost.h"
 
-@implementation NSArray (XcodeTextTools)
+@implementation NSArray (XcodeBoost)
 
 - (instancetype)xctt_each:(VoidObjectBlock)operation
 {

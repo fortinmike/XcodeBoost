@@ -1,14 +1,14 @@
 //
-//  NSAlert+XcodeTextTools.m
-//  XcodeTextTools
+//  NSAlert+XcodeBoost.m
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-21.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
-#import "NSAlert+XcodeTextTools.h"
+#import "NSAlert+XcodeBoost.h"
 
-@implementation NSAlert (XcodeTextTools)
+@implementation NSAlert (XcodeBoost)
 
 + (void)showDebugAlertWithFormat:(NSString *)format, ...
 {

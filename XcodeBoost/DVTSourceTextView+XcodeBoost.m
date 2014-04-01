@@ -1,15 +1,15 @@
 //
-//  DVTSourceTextView+XcodeTextTools.m
-//  XcodeTextTools
+//  DVTSourceTextView+XcodeBoost.m
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-20.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
-#import "DVTSourceTextView+XcodeTextTools.h"
-#import "NSObject+XcodeTextTools.h"
+#import "DVTSourceTextView+XcodeBoost.h"
+#import "NSObject+XcodeBoost.h"
 
-@implementation DVTSourceTextView (XcodeTextTools)
+@implementation DVTSourceTextView (XcodeBoost)
 
 static NSString *kXCTTManipulatorKey = @"XCTTManipulator";
 

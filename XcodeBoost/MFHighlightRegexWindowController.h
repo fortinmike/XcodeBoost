@@ -1,13 +1,13 @@
 //
 //  MFHighlightRegexWindowController.h
-//  XcodeTextTools
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-25.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
-#import "XcodeTextToolsFoundation.h"
+#import "XcodeBoostFoundation.h"
 
 @interface MFHighlightRegexWindowController : NSWindowController
 

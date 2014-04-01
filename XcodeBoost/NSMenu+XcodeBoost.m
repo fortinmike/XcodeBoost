@@ -1,15 +1,15 @@
 //
-//  NSMenu+XcodeTextTools.m
-//  XcodeTextTools
+//  NSMenu+XcodeBoost.m
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-14.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
-#import "NSMenu+XcodeTextTools.h"
-#import "NSArray+XcodeTextTools.h"
+#import "NSMenu+XcodeBoost.h"
+#import "NSArray+XcodeBoost.h"
 
-@implementation NSMenu (XcodeTextTools)
+@implementation NSMenu (XcodeBoost)
 
 - (void)xctt_insertItem:(NSMenuItem *)item beforeItem:(NSUInteger)itemIndexInMatches where:(BoolItemBlock)condition
 {

@@ -1,6 +1,6 @@
 //
-//  DVTSourceTextView+XcodeTextTools.h
-//  XcodeTextTools
+//  DVTSourceTextView+XcodeBoost.h
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-20.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
@@ -10,7 +10,7 @@
 #import "MFSourceTextViewManipulator.h"
 #import "DVTKit.h"
 
-@interface DVTSourceTextView (XcodeTextTools)
+@interface DVTSourceTextView (XcodeBoost)
 
 - (MFSourceTextViewManipulator *)manipulator;
 

@@ -1,16 +1,16 @@
 //
 //  MFSourceTextViewManipulator.m
-//  XcodeTextTools
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-20.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
 #import "MFSourceTextViewManipulator.h"
-#import "NSArray+XcodeTextTools.h"
-#import "NSString+XcodeTextTools.h"
-#import "NSColor+XcodeTextTools.h"
-#import "NSAlert+XcodeTextTools.h"
+#import "NSArray+XcodeBoost.h"
+#import "NSString+XcodeBoost.h"
+#import "NSColor+XcodeBoost.h"
+#import "NSAlert+XcodeBoost.h"
 #import "DVTKit.h"
 
 @interface MFSourceTextViewManipulator ()

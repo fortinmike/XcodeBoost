@@ -1,6 +1,6 @@
 //
 //  MFSourceTextViewManipulator.h
-//  XcodeTextTools
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-20.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.

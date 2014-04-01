@@ -1,6 +1,6 @@
 //
-//  NSArray+XcodeTextTools.h
-//  XcodeTextTools
+//  NSArray+XcodeBoost.h
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-14.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
@@ -12,7 +12,7 @@ typedef void (^VoidObjectBlock)(id object);
 typedef BOOL (^BoolObjectBlock)(id object);
 typedef id (^ObjectObjectBlock)(id object);
 
-@interface NSArray (XcodeTextTools)
+@interface NSArray (XcodeBoost)
 
 - (instancetype)xctt_each:(VoidObjectBlock)operation;
 - (instancetype)xctt_where:(BoolObjectBlock)condition; // Returns objects that match the specified condition

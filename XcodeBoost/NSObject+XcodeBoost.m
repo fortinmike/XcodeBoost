@@ -1,15 +1,15 @@
 //
-//  NSObject+XcodeTextTools.m
-//  XcodeTextTools
+//  NSObject+XcodeBoost.m
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2013-09-25.
 //  Copyright (c) 2013 Michaël Fortin. All rights reserved.
 //
 
-#import "NSObject+XcodeTextTools.h"
+#import "NSObject+XcodeBoost.h"
 #import <objc/message.h>
 
-@implementation NSObject (XcodeTextTools)
+@implementation NSObject (XcodeBoost)
 
 static const char KeysStorageKey[] = "keysStorage";
 

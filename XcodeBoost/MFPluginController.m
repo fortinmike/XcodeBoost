@@ -1,14 +1,14 @@
 //
 //  MFPluginController.m
-//  XcodeTextTools
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-14.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
 #import "MFPluginController.h"
-#import "NSMenu+XcodeTextTools.h"
-#import "DVTSourceTextView+XcodeTextTools.h"
+#import "NSMenu+XcodeBoost.h"
+#import "DVTSourceTextView+XcodeBoost.h"
 #import "MFHighlightRegexWindowController.h"
 #import "IDEKit.h"
 

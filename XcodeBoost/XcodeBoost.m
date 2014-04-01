@@ -1,17 +1,17 @@
 //
-//  XcodeTextTools.m
-//  XcodeTextTools
+//  XcodeBoost.m
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-14.
 //    Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
-#import "XcodeTextTools.h"
+#import "XcodeBoost.h"
 #import "MFPluginController.h"
 
 static MFPluginController *_pluginController;
 
-@implementation XcodeTextTools
+@implementation XcodeBoost
 
 + (void)pluginDidLoad:(NSBundle *)pluginBundle
 {

@@ -1,6 +1,6 @@
 //
-//  NSObject+XcodeTextTools.h
-//  XcodeTextTools
+//  NSObject+XcodeBoost.h
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2013-09-25.
 //  Copyright (c) 2013 Michaël Fortin. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSObject (XcodeTextTools)
+@interface NSObject (XcodeBoost)
 
 - (void)xctt_setAssociatedObject:(id)object forKey:(NSString *)key;
 - (void)xctt_removeAssociatedObjectForKey:(NSString *)key;

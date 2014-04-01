@@ -1,16 +1,16 @@
 //
-//  NSString+XcodeTextTools.m
-//  XcodeTextTools
+//  NSString+XcodeBoost.m
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-19.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
-#import "NSString+XcodeTextTools.h"
-#import "NSAlert+XcodeTextTools.h"
-#import "NSArray+XcodeTextTools.h"
+#import "NSString+XcodeBoost.h"
+#import "NSAlert+XcodeBoost.h"
+#import "NSArray+XcodeBoost.h"
 
-@implementation NSString (XcodeTextTools)
+@implementation NSString (XcodeBoost)
 
 static BOOL s_regexesPrepared;
 

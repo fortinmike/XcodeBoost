@@ -1,6 +1,6 @@
 //
-//  NSString+XcodeTextTools.h
-//  XcodeTextTools
+//  NSString+XcodeBoost.h
+//  XcodeBoost
 //
 //  Created by Michaël Fortin on 2014-03-19.
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface NSString (XcodeTextTools)
+@interface NSString (XcodeBoost)
 
 #pragma mark Creating Instances
 
