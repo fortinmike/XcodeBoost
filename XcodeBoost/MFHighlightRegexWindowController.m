@@ -55,7 +55,6 @@
 - (NSRegularExpressionOptions)options
 {
 	NSRegularExpressionOptions options = [self boolValue:@"XCTTRegexCaseSensitive"] ? 0 : NSRegularExpressionCaseInsensitive;
-	options |= [self boolValue:@"XCTTRegexAllowCommentsAndWhitespace"] ? NSRegularExpressionAllowCommentsAndWhitespace : 0;
 	options |= [self boolValue:@"XCTTRegexIgnoreMetacharacters"] ? NSRegularExpressionIgnoreMetacharacters : 0;
 	options |= [self boolValue:@"XCTTRegexDotMatchesLineSeparators"] ? NSRegularExpressionDotMatchesLineSeparators : 0;
 	options |= [self boolValue:@"XCTTRegexAnchorsMatchLines"] ? NSRegularExpressionAnchorsMatchLines : 0;
