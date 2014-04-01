@@ -43,9 +43,12 @@
 
 - (void)setupHighlightColors
 {
-	_highlightColors = [@[[NSColor greenColor], [NSColor orangeColor], [NSColor blueColor],
-						 [NSColor redColor], [NSColor purpleColor], [NSColor yellowColor],
-						 [NSColor brownColor]] mutableCopy];
+	NSColor *yellowColor = [NSColor colorWithCalibratedRed:0.91 green:0.74 blue:0.14 alpha:1];
+	NSColor *blueColor = [NSColor colorWithCalibratedRed:0.05 green:0.24 blue:1 alpha:1];
+	NSColor *redColor = [NSColor colorWithCalibratedRed:0.69 green:0.07 blue:0.14 alpha:1];
+	NSColor *purpleColor = [NSColor colorWithCalibratedRed:0.58 green:0.09 blue:0.93 alpha:1];
+	
+	_highlightColors = [@[purpleColor, redColor, blueColor, yellowColor] mutableCopy];
 }
 
 #pragma mark Line Manipulation Helpers
