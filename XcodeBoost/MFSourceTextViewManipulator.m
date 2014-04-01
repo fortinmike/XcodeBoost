@@ -50,15 +50,13 @@
 
 #pragma mark Line Manipulation Helpers
 
-- (NSRange)overarchingRangeForSelectedLinesRanges
+- (NSArray *)selectedLineRanges
 {
 	NSArray *selectedRanges = [self.sourceTextView selectedRanges];
-	if ([selectedRanges count] == 0) return NSMakeRange(NSNotFound, 0);
-	
-	return [self.string lineRangeForRange:[self unionRangeWithRanges:selectedRanges]];
+	return [self lineRangesForRanges:selectedRanges];
 }
 
-- (NSRange)firstSelectedLinesRange
+- (NSRange)firstSelectedLineRange
 {
 	NSValue *selectedRange = [[self.sourceTextView selectedRanges] firstObject];
 	if (!selectedRange) return NSMakeRange(NSNotFound, 0);
@@ -66,9 +64,9 @@
 	return [self.string lineRangeForRange:[selectedRange rangeValue]];
 }
 
-- (NSString *)firstSelectedLinesString
+- (NSString *)firstSelectedLineRangeString
 {
-	NSRange linesRange = [self firstSelectedLinesRange];
+	NSRange linesRange = [self firstSelectedLineRange];
 	NSString *sourceString = [[self.textStorage attributedSubstringFromRange:linesRange] string];
 	NSString *trimmedString = [sourceString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 	return trimmedString;
@@ -85,13 +83,16 @@
 
 - (NSArray *)rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines
 {
-	NSRange selectedRange = wholeLines ? [self firstSelectedLinesRange] : [self.sourceTextView selectedRange];
+	NSArray *selectedRanges = wholeLines ? [self selectedLineRanges] : [self.sourceTextView selectedRanges];
 	
 	NSMutableArray *rangesOverlappingSelection = [NSMutableArray array];
 	for (NSValue *range in rangesToFilter)
 	{
-		if (MFRangeOverlaps([range rangeValue], selectedRange))
-			[rangesOverlappingSelection addObject:range];
+		for (NSValue *selectedRange in selectedRanges)
+		{
+			if (MFRangeOverlaps([range rangeValue], [selectedRange rangeValue]))
+				[rangesOverlappingSelection addObject:range];
+		}
 	}
 	
 	return rangesOverlappingSelection;
@@ -233,25 +234,25 @@
 
 - (void)copyLines
 {
-	[self setPasteboardString:[self firstSelectedLinesString]];
+	[self setPasteboardString:[self firstSelectedLineRangeString]];
 }
 
 - (void)pasteLinesWithReindent:(BOOL)reindent
 {
 	NSMutableString *pasteboardString = [[self getPasteboardString] mutableCopy];
-	NSRange linesRange = [self firstSelectedLinesRange];
+	NSRange linesRange = [self firstSelectedLineRange];
 	
 	[self insertString:pasteboardString afterRange:linesRange reindent:reindent];
 }
 
 - (void)duplicateLines
 {
-	[self duplicateLines:[self firstSelectedLinesRange]];
+	[self duplicateLines:[self firstSelectedLineRange]];
 }
 
 - (void)deleteLines
 {
-	NSRange linesRange = [self firstSelectedLinesRange];
+	NSRange linesRange = [self firstSelectedLineRange];
 	[self conditionallyChangeTextInRange:linesRange replacementString:@"" operation:^
 	{
 		[self.textStorage deleteCharactersInRange:linesRange];
