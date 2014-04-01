@@ -56,6 +56,16 @@
 	return [self lineRangesForRanges:selectedRanges];
 }
 
+- (NSString *)concatenatedStringForRanges:(NSArray *)ranges
+{
+	NSMutableString *concatenated = [[NSMutableString alloc] init];
+	
+	for (NSValue *range in ranges)
+		[concatenated appendString:[self.string substringWithRange:[range rangeValue]]];
+	
+	return concatenated;
+}
+
 - (NSRange)firstSelectedLineRange
 {
 	NSValue *selectedRange = [[self.sourceTextView selectedRanges] firstObject];
@@ -234,7 +244,7 @@
 
 - (void)copyLines
 {
-	[self setPasteboardString:[self firstSelectedLineRangeString]];
+	[self setPasteboardString:[self concatenatedStringForRanges:[self selectedLineRanges]]];
 }
 
 - (void)pasteLinesWithReindent:(BOOL)reindent
