@@ -73,7 +73,7 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove Most Recently Added Highlight" action:@selector(removeMostRecentlyAddedHighlight_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove All Highlighting" action:@selector(removeAllHighlighting_clicked:)]];
 	
-	NSMenuItem *textToolsMenuItem = [[NSMenuItem alloc] initWithTitle:@"Text Tools" action:NULL keyEquivalent:@""];
+	NSMenuItem *textToolsMenuItem = [[NSMenuItem alloc] initWithTitle:@"XcodeBoost" action:NULL keyEquivalent:@""];
 	[textToolsMenuItem setSubmenu:submenu];
 	
 	return textToolsMenuItem;
