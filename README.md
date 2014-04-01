@@ -8,7 +8,14 @@ XcodeBoost automates some tedious operations such as **extracting method declara
 *Contributions are welcome! :)*
 
 #### Symbol Highlighting
-![image](GIFs/highlighting.gif)
+![image](Images/highlighting.gif)
 
 #### Method Definition and Signature Selection
-![image](GIFs/method-selection.gif)
+![image](Images/method-selection.gif)
+
+## Installation
+
+1. Install through [Alcatraz](https://github.com/supermarin/Alcatraz) or download the source and build the XcodeBoost target, then restart Xcode.
+2. Assign a keyboard shortcut to each XcodeBoost menu item through System Preferences' *Keyboard Shortcuts* panel.
+
+![image](Images/shortcuts.png)
