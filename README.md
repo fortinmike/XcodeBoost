@@ -29,4 +29,6 @@ XcodeBoost automates some tedious operations such as **extracting method declara
 
 ![image](Images/shortcuts.png)
 
-![image](Images/menu.png)
+<div style="text-align: center; margin-top: 60px;">
+	<img src="Images/menu.png"/>
+</div>
