@@ -19,6 +19,9 @@ XcodeBoost automates some tedious operations such as **extracting method declara
 #### Regex Match Highlighting
 ![image](Images/highlight-regex.gif)
 
+#### Paste Without Reindent
+![image](Images/paste-without-reindent.gif)
+
 ## Installation
 
 1. Install through [Alcatraz](https://github.com/supermarin/Alcatraz) or download the source and build the XcodeBoost target, then restart Xcode.
