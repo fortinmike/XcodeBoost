@@ -97,11 +97,17 @@
 - (NSArray *)rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines
 {
 	NSArray *selectedRanges = wholeLines ? [self selectedLineRanges] : [self.sourceTextView selectedRanges];
+	NSArray *rangesOverlappingSelection = [self ranges:rangesToFilter fullyOrPartiallyContainedInRanges:selectedRanges];
 	
+	return rangesOverlappingSelection;
+}
+
+- (NSArray *)ranges:(NSArray *)rangesToFilter fullyOrPartiallyContainedInRanges:(NSArray *)targetRanges
+{
 	NSMutableArray *rangesOverlappingSelection = [NSMutableArray array];
 	for (NSValue *range in rangesToFilter)
 	{
-		for (NSValue *selectedRange in selectedRanges)
+		for (NSValue *selectedRange in targetRanges)
 		{
 			if (MFRangeOverlaps([range rangeValue], [selectedRange rangeValue]))
 				[rangesOverlappingSelection addObject:range];
@@ -350,12 +356,30 @@
 {
 	NSArray *symbolRanges = [self.string xctt_symbolRanges];
 	NSArray *selectedSymbolRanges = [self rangesFullyOrPartiallyContainedInSelection:symbolRanges wholeLines:NO];
+	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
 	
 	for (NSValue *selectedSymbolRange in selectedSymbolRanges)
 	{
 		NSString *symbolString = [self.string substringWithRange:[selectedSymbolRange rangeValue]];
-		NSArray *selectedSymbolOccurenceRanges = [self.string xctt_rangesOfSymbol:symbolString];
-		[self highlightRanges:selectedSymbolOccurenceRanges];
+		NSArray *occurenceRanges = [self.string xctt_rangesOfSymbol:symbolString];
+		
+		// Basic scope-checking
+		
+		NSArray *symbolsInMethodDefinitions = [self ranges:occurenceRanges fullyOrPartiallyContainedInRanges:methodDefinitionRanges];
+		if ([symbolsInMethodDefinitions count] == [occurenceRanges count])
+		{
+			// All symbol occurences were found in method definitions; consider symbol as local
+			NSValue *currentMethodDefinitionRange = [[self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES] firstObject];
+			if (!currentMethodDefinitionRange) continue;
+			
+			[self highlightRanges:[self ranges:occurenceRanges fullyOrPartiallyContainedInRanges:@[currentMethodDefinitionRange]]];
+		}
+		else
+		{
+			// Some of the symbol occurences were found outside of method definitions;
+			// consider symbol as global and highlight all occurences.
+			[self highlightRanges:occurenceRanges];
+		}
 	}
 }
 
