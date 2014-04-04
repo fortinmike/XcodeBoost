@@ -42,6 +42,16 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 	return [[NSAttributedString alloc] initWithString:self];
 }
 
+- (NSString *)xctt_concatenatedStringForRanges:(NSArray *)ranges
+{
+	NSMutableString *concatenated = [[NSMutableString alloc] init];
+	
+	for (NSValue *range in ranges)
+		[concatenated appendString:[self substringWithRange:[range rangeValue]]];
+	
+	return concatenated;
+}
+
 #pragma mark Checks
 
 - (BOOL)xctt_containsOnlyWhitespace
@@ -50,6 +60,20 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 }
 
 #pragma mark Ranges
+
+- (NSRange)xctt_range
+{
+	return NSMakeRange(0, [self length]);
+}
+
+- (NSArray *)xctt_lineRangesForRanges:(NSArray *)ranges
+{
+	return [ranges xctt_map:^id(NSValue *range)
+	{
+		NSRange lineRange = [self lineRangeForRange:[range rangeValue]];
+		return [NSValue valueWithRange:lineRange];
+	}];
+}
 
 - (NSArray *)xctt_rangesOfString:(NSString *)string
 {
@@ -109,11 +133,6 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:&error];
 	NSArray *matches = [regex matchesInString:self options:0 range:[self xctt_range]];
 	return [self xctt_rangesForMatches:matches];
-}
-
-- (NSRange)xctt_range
-{
-	return NSMakeRange(0, [self length]);
 }
 
 #pragma mark Code Patterns

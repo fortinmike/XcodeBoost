@@ -13,6 +13,7 @@
 #pragma mark Creating Instances
 
 - (NSAttributedString *)xctt_attributedString;
+- (NSString *)xctt_concatenatedStringForRanges:(NSArray *)ranges;
 
 #pragma mark Checks
 
@@ -21,6 +22,7 @@
 #pragma mark Ranges
 
 - (NSRange)xctt_range;
+- (NSArray *)xctt_lineRangesForRanges:(NSArray *)ranges;
 - (NSArray *)xctt_rangesOfString:(NSString *)string;
 - (NSArray *)xctt_rangesOfSymbol:(NSString *)symbol;
 - (NSArray *)xctt_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options;

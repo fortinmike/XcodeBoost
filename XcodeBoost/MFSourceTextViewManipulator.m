@@ -57,17 +57,7 @@
 - (NSArray *)selectedLineRanges
 {
 	NSArray *selectedRanges = [self.sourceTextView selectedRanges];
-	return [self lineRangesForRanges:selectedRanges];
-}
-
-- (NSString *)concatenatedStringForRanges:(NSArray *)ranges
-{
-	NSMutableString *concatenated = [[NSMutableString alloc] init];
-	
-	for (NSValue *range in ranges)
-		[concatenated appendString:[self.string substringWithRange:[range rangeValue]]];
-	
-	return concatenated;
+	return [self.string xctt_lineRangesForRanges:selectedRanges];
 }
 
 - (NSRange)firstSelectedLineRange
@@ -84,15 +74,6 @@
 	NSString *sourceString = [[self.textStorage attributedSubstringFromRange:linesRange] string];
 	NSString *trimmedString = [sourceString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 	return trimmedString;
-}
-
-- (NSArray *)lineRangesForRanges:(NSArray *)ranges
-{
-	return [ranges xctt_map:^id(NSValue *range)
-	{
-		NSRange lineRange = [self.string lineRangeForRange:[range rangeValue]];
-		return [NSValue valueWithRange:lineRange];
-	}];
 }
 
 - (NSArray *)rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines
@@ -226,7 +207,7 @@
 
 - (void)copyLines
 {
-	[self setPasteboardString:[self concatenatedStringForRanges:[self selectedLineRanges]]];
+	[self setPasteboardString:[self.string xctt_concatenatedStringForRanges:[self selectedLineRanges]]];
 }
 
 - (void)pasteLinesWithReindent:(BOOL)reindent
@@ -288,7 +269,7 @@
 	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
 	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	
-	NSRange overarchingRange = [self unionRangeWithRanges:selectedMethodDefinitionRanges];
+	NSRange overarchingRange = [MFRangeHelper unionRangeWithRanges:selectedMethodDefinitionRanges];
 	if (overarchingRange.location == NSNotFound) return;
 	
 	NSString *overarchingString = [[self.textStorage string] substringWithRange:overarchingRange];
@@ -301,7 +282,7 @@
 {
 	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
 	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
-	NSArray *selectedMethodDefinitionLineRanges = [self lineRangesForRanges:selectedMethodDefinitionRanges];
+	NSArray *selectedMethodDefinitionLineRanges = [self.string xctt_lineRangesForRanges:selectedMethodDefinitionRanges];
 	
 	if ([selectedMethodDefinitionLineRanges count] == 0) return;
 	
