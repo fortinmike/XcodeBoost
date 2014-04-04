@@ -10,6 +10,6 @@
 
 @interface NSColor (XcodeBoost)
 
-+ (NSColor *)xctt_randomColor;
++ (NSColor *)xb_randomColor;
 
 @end

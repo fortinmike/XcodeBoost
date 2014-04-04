@@ -49,7 +49,7 @@
 	NSArray *menuItems = @[[NSMenuItem separatorItem], [self createTextToolsMenuItem]];
 	
 	NSMenu *editMenu = [[[NSApp mainMenu] itemWithTitle:@"Edit"] submenu];
-	[editMenu xctt_insertItems:menuItems beforeItem:1 where:^BOOL(NSMenuItem *item) { return [item isSeparatorItem]; }];
+	[editMenu xb_insertItems:menuItems beforeItem:1 where:^BOOL(NSMenuItem *item) { return [item isSeparatorItem]; }];
 }
 
 - (NSMenuItem *)createTextToolsMenuItem
@@ -95,66 +95,66 @@
 
 - (void)cutLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] cutLines];
+	[[[self currentSourceTextView] xb_manipulator] cutLines];
 }
 
 - (void)copyLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] copyLines];
+	[[[self currentSourceTextView] xb_manipulator] copyLines];
 }
 
 - (void)pasteLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] pasteLinesWithReindent:YES];
+	[[[self currentSourceTextView] xb_manipulator] pasteLinesWithReindent:YES];
 }
 
 - (void)pasteLinesWithoutReindent_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] pasteLinesWithReindent:NO];
+	[[[self currentSourceTextView] xb_manipulator] pasteLinesWithReindent:NO];
 }
 
 - (void)duplicateLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] duplicateLines];
+	[[[self currentSourceTextView] xb_manipulator] duplicateLines];
 }
 
 - (void)deleteLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] deleteLines];
+	[[[self currentSourceTextView] xb_manipulator] deleteLines];
 }
 
 #pragma mark Method Manipulation Action Methods
 
 - (void)selectMethods_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] selectMethods];
+	[[[self currentSourceTextView] xb_manipulator] selectMethods];
 }
 
 - (void)selectMethodSignatures_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] selectMethodSignatures];
+	[[[self currentSourceTextView] xb_manipulator] selectMethodSignatures];
 }
 
 - (void)duplicateMethods_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] duplicateMethods];
+	[[[self currentSourceTextView] xb_manipulator] duplicateMethods];
 }
 
 - (void)copyMethodDeclarations_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] copyMethodDeclarations];
+	[[[self currentSourceTextView] xb_manipulator] copyMethodDeclarations];
 }
 
 #pragma mark Highlighting Action Methods
 
 - (void)highlightSelectedStrings_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] highlightSelectedStrings];
+	[[[self currentSourceTextView] xb_manipulator] highlightSelectedStrings];
 }
 
 - (void)highlightSelectedSymbols_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] highlightSelectedSymbols];
+	[[[self currentSourceTextView] xb_manipulator] highlightSelectedSymbols];
 }
 
 - (void)highlightRegexMatches_clicked:(id)sender
@@ -172,7 +172,7 @@
 			
 			if (!pattern) return;
 			
-			[[[sSelf currentSourceTextView] xctt_manipulator] highlightRegexMatchesWithPattern:pattern options:options];
+			[[[sSelf currentSourceTextView] xb_manipulator] highlightRegexMatchesWithPattern:pattern options:options];
 		}];
 	}
 	
@@ -181,12 +181,12 @@
 
 - (void)removeMostRecentlyAddedHighlight_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] removeMostRecentlyAddedHighlight];
+	[[[self currentSourceTextView] xb_manipulator] removeMostRecentlyAddedHighlight];
 }
 
 - (void)removeAllHighlighting_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xctt_manipulator] removeAllHighlighting];
+	[[[self currentSourceTextView] xb_manipulator] removeAllHighlighting];
 }
 
 #pragma mark Implementation

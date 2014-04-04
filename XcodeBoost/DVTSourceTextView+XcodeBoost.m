@@ -17,26 +17,26 @@ static NSString *kXCTTManipulatorKey = @"XCTTManipulator";
 
 #pragma mark Obtaining the Manipulator Instance
 
-- (MFSourceTextViewManipulator *)xctt_manipulator
+- (MFSourceTextViewManipulator *)xb_manipulator
 {
-	MFSourceTextViewManipulator *manipulator = [self xctt_associatedObjectForKey:kXCTTManipulatorKey];
+	MFSourceTextViewManipulator *manipulator = [self xb_associatedObjectForKey:kXCTTManipulatorKey];
 	if (!manipulator)
 	{
 		manipulator = [[MFSourceTextViewManipulator alloc] initWithSourceTextView:self];
-		[self xctt_setAssociatedObject:manipulator forKey:kXCTTManipulatorKey];
+		[self xb_setAssociatedObject:manipulator forKey:kXCTTManipulatorKey];
 	}
 	return manipulator;
 }
 
 #pragma mark Working With Selections
 
-- (NSArray *)xctt_selectedLineRanges
+- (NSArray *)xb_selectedLineRanges
 {
 	NSArray *selectedRanges = [self selectedRanges];
-	return [self.string xctt_lineRangesForRanges:selectedRanges];
+	return [self.string xb_lineRangesForRanges:selectedRanges];
 }
 
-- (NSRange)xctt_firstSelectedLineRange
+- (NSRange)xb_firstSelectedLineRange
 {
 	NSValue *selectedRange = [[self selectedRanges] firstObject];
 	if (!selectedRange) return NSMakeRange(NSNotFound, 0);
@@ -44,17 +44,17 @@ static NSString *kXCTTManipulatorKey = @"XCTTManipulator";
 	return [self.string lineRangeForRange:[selectedRange rangeValue]];
 }
 
-- (NSString *)xctt_firstSelectedLineRangeString
+- (NSString *)xb_firstSelectedLineRangeString
 {
-	NSRange linesRange = [self xctt_firstSelectedLineRange];
+	NSRange linesRange = [self xb_firstSelectedLineRange];
 	NSString *sourceString = [[self.textStorage attributedSubstringFromRange:linesRange] string];
 	NSString *trimmedString = [sourceString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 	return trimmedString;
 }
 
-- (NSArray *)xctt_rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines
+- (NSArray *)xb_rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines
 {
-	NSArray *selectedRanges = wholeLines ? [self xctt_selectedLineRanges] : [self selectedRanges];
+	NSArray *selectedRanges = wholeLines ? [self xb_selectedLineRanges] : [self selectedRanges];
 	NSArray *rangesOverlappingSelection = [MFRangeHelper ranges:rangesToFilter fullyOrPartiallyContainedInRanges:selectedRanges];
 	
 	return rangesOverlappingSelection;

@@ -10,7 +10,7 @@
 
 @implementation NSColor (XcodeBoost)
 
-+ (NSColor *)xctt_randomColor
++ (NSColor *)xb_randomColor
 {
 	CGFloat randomR = arc4random_uniform(256) / 255.0;
 	CGFloat randomG = arc4random_uniform(256) / 255.0;

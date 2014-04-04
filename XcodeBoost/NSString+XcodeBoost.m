@@ -37,12 +37,12 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 
 #pragma mark Creating Instances
 
-- (NSAttributedString *)xctt_attributedString
+- (NSAttributedString *)xb_attributedString
 {
 	return [[NSAttributedString alloc] initWithString:self];
 }
 
-- (NSString *)xctt_concatenatedStringForRanges:(NSArray *)ranges
+- (NSString *)xb_concatenatedStringForRanges:(NSArray *)ranges
 {
 	NSMutableString *concatenated = [[NSMutableString alloc] init];
 	
@@ -54,28 +54,28 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 
 #pragma mark Checks
 
-- (BOOL)xctt_containsOnlyWhitespace
+- (BOOL)xb_containsOnlyWhitespace
 {
 	return [[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""];
 }
 
 #pragma mark Ranges
 
-- (NSRange)xctt_range
+- (NSRange)xb_range
 {
 	return NSMakeRange(0, [self length]);
 }
 
-- (NSArray *)xctt_lineRangesForRanges:(NSArray *)ranges
+- (NSArray *)xb_lineRangesForRanges:(NSArray *)ranges
 {
-	return [ranges xctt_map:^id(NSValue *range)
+	return [ranges xb_map:^id(NSValue *range)
 	{
 		NSRange lineRange = [self lineRangeForRange:[range rangeValue]];
 		return [NSValue valueWithRange:lineRange];
 	}];
 }
 
-- (NSArray *)xctt_rangesOfString:(NSString *)string
+- (NSArray *)xb_rangesOfString:(NSString *)string
 {
 	NSUInteger length = [self length];
 	
@@ -97,25 +97,25 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 	return ranges;
 }
 
-- (NSArray *)xctt_rangesOfSymbol:(NSString *)symbol
+- (NSArray *)xb_rangesOfSymbol:(NSString *)symbol
 {
 	// Using negative look-behind and look-ahead so that we obtain
 	// the actual symbols and not all occurences of the string in
 	// the text. Enough for helpful results.
 	
-	[self xctt_prepareRegexes];
+	[self xb_prepareRegexes];
 	NSString *symbolPattern = [NSString stringWithFormat:@"(?<!(%@))%@(?!(%@))", s_symbolCharacterPattern, symbol, s_symbolCharacterPattern];
-	NSArray *rawSymbolRanges = [self xctt_rangesOfRegex:symbolPattern options:0];
+	NSArray *rawSymbolRanges = [self xb_rangesOfRegex:symbolPattern options:0];
 	
 	// Simple, brute-force approach to removing symbols detected in strings, comments, ...
 	
-	NSMutableArray *invalidRanges = [[self xctt_rangesOfRegex:@"@\".+?\"" options:0] mutableCopy];
-	[invalidRanges addObjectsFromArray:[self xctt_commentRanges]];
+	NSMutableArray *invalidRanges = [[self xb_rangesOfRegex:@"@\".+?\"" options:0] mutableCopy];
+	[invalidRanges addObjectsFromArray:[self xb_commentRanges]];
 	
 	NSMutableArray *symbolRanges = [NSMutableArray array];
 	for (NSValue *rawSymbolRange in rawSymbolRanges)
 	{
-		BOOL symbolIsInAnInvalidRange = [invalidRanges xctt_any:^BOOL(NSValue *stringRange)
+		BOOL symbolIsInAnInvalidRange = [invalidRanges xb_any:^BOOL(NSValue *stringRange)
 		{
 			return NSIntersectionRange([stringRange rangeValue], [rawSymbolRange rangeValue]).length > 0;
 		}];
@@ -127,62 +127,62 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 	return symbolRanges;
 }
 
-- (NSArray *)xctt_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options
+- (NSArray *)xb_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options
 {
 	NSError *error;
 	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:&error];
-	NSArray *matches = [regex matchesInString:self options:0 range:[self xctt_range]];
-	return [self xctt_rangesForMatches:matches];
+	NSArray *matches = [regex matchesInString:self options:0 range:[self xb_range]];
+	return [self xb_rangesForMatches:matches];
 }
 
 #pragma mark Code Patterns
 
-- (BOOL)xctt_startsWithMethodDefinition
+- (BOOL)xb_startsWithMethodDefinition
 {
-	[self xctt_prepareRegexes];
-	NSUInteger numberOfMatches = [s_singleMethodDefinitionRegex numberOfMatchesInString:self options:0 range:[self xctt_range]];
+	[self xb_prepareRegexes];
+	NSUInteger numberOfMatches = [s_singleMethodDefinitionRegex numberOfMatchesInString:self options:0 range:[self xb_range]];
 	return numberOfMatches == 1;
 }
 
-- (NSString *)xctt_extractMethodDeclarations
+- (NSString *)xb_extractMethodDeclarations
 {
-	[self xctt_prepareRegexes];
+	[self xb_prepareRegexes];
 	NSString *declarations = [s_methodDefinitionRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length]) withTemplate:@"$1;"];
 	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	return trimmedDeclarations;
 }
 
-- (NSArray *)xctt_methodDefinitionRanges
+- (NSArray *)xb_methodDefinitionRanges
 {
-	[self xctt_prepareRegexes];
-	NSArray *matches = [s_methodDefinitionRegex matchesInString:self options:0 range:[self xctt_range]];
-	return [self xctt_rangesForMatches:matches];
+	[self xb_prepareRegexes];
+	NSArray *matches = [s_methodDefinitionRegex matchesInString:self options:0 range:[self xb_range]];
+	return [self xb_rangesForMatches:matches];
 }
 
-- (NSArray *)xctt_methodSignatureRanges
+- (NSArray *)xb_methodSignatureRanges
 {
-	[self xctt_prepareRegexes];
-	NSArray *matches = [s_methodDefinitionRegex matchesInString:self options:0 range:[self xctt_range]];
-	return [self xctt_rangesForMatches:matches captureGroup:1];
+	[self xb_prepareRegexes];
+	NSArray *matches = [s_methodDefinitionRegex matchesInString:self options:0 range:[self xb_range]];
+	return [self xb_rangesForMatches:matches captureGroup:1];
 }
 
-- (NSArray *)xctt_symbolRanges
+- (NSArray *)xb_symbolRanges
 {
-	[self xctt_prepareRegexes];
-	NSArray *matches = [s_symbolRegex matchesInString:self options:0 range:[self xctt_range]];
-	return [self xctt_rangesForMatches:matches];
+	[self xb_prepareRegexes];
+	NSArray *matches = [s_symbolRegex matchesInString:self options:0 range:[self xb_range]];
+	return [self xb_rangesForMatches:matches];
 }
 
-- (NSArray *)xctt_commentRanges
+- (NSArray *)xb_commentRanges
 {
-	[self xctt_prepareRegexes];
-	NSArray *matches = [s_commentRegex matchesInString:self options:0 range:[self xctt_range]];
-	return [self xctt_rangesForMatches:matches];
+	[self xb_prepareRegexes];
+	NSArray *matches = [s_commentRegex matchesInString:self options:0 range:[self xb_range]];
+	return [self xb_rangesForMatches:matches];
 }
 
 #pragma mark Private Methods
 
-- (void)xctt_prepareRegexes
+- (void)xb_prepareRegexes
 {
 	if (!s_regexesPrepared)
 	{
@@ -212,12 +212,12 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 	}
 }
 
-- (NSArray *)xctt_rangesForMatches:(NSArray *)matches
+- (NSArray *)xb_rangesForMatches:(NSArray *)matches
 {
-	return [self xctt_rangesForMatches:matches captureGroup:-1];
+	return [self xb_rangesForMatches:matches captureGroup:-1];
 }
 
-- (NSArray *)xctt_rangesForMatches:(NSArray *)matches captureGroup:(NSUInteger)captureGroup
+- (NSArray *)xb_rangesForMatches:(NSArray *)matches captureGroup:(NSUInteger)captureGroup
 {
 	NSMutableArray *ranges = [NSMutableArray array];
 	for (NSTextCheckingResult *match in matches)

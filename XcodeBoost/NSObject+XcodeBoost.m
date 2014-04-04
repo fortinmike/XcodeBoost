@@ -13,22 +13,22 @@
 
 static const char KeysStorageKey[] = "keysStorage";
 
-- (void)xctt_setAssociatedObject:(id)object forKey:(NSString *)key
+- (void)xb_setAssociatedObject:(id)object forKey:(NSString *)key
 {
-	objc_setAssociatedObject(self, [self xctt_keyForString:key], object, OBJC_ASSOCIATION_RETAIN);
+	objc_setAssociatedObject(self, [self xb_keyForString:key], object, OBJC_ASSOCIATION_RETAIN);
 }
 
-- (void)xctt_removeAssociatedObjectForKey:(NSString *)key
+- (void)xb_removeAssociatedObjectForKey:(NSString *)key
 {
-	objc_setAssociatedObject(self, [self xctt_keyForString:key], nil, OBJC_ASSOCIATION_ASSIGN);
+	objc_setAssociatedObject(self, [self xb_keyForString:key], nil, OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (id)xctt_associatedObjectForKey:(NSString *)key
+- (id)xb_associatedObjectForKey:(NSString *)key
 {
-	return objc_getAssociatedObject(self, [self xctt_keyForString:key]);
+	return objc_getAssociatedObject(self, [self xb_keyForString:key]);
 }
 
-- (void *)xctt_keyForString:(NSString *)string
+- (void *)xb_keyForString:(NSString *)string
 {
 	NSMutableDictionary *keysStorage = objc_getAssociatedObject(self, &KeysStorageKey);
 	

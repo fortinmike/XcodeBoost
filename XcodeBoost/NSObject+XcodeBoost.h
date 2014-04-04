@@ -10,8 +10,8 @@
 
 @interface NSObject (XcodeBoost)
 
-- (void)xctt_setAssociatedObject:(id)object forKey:(NSString *)key;
-- (void)xctt_removeAssociatedObjectForKey:(NSString *)key;
-- (id)xctt_associatedObjectForKey:(NSString *)key;
+- (void)xb_setAssociatedObject:(id)object forKey:(NSString *)key;
+- (void)xb_removeAssociatedObjectForKey:(NSString *)key;
+- (id)xb_associatedObjectForKey:(NSString *)key;
 
 @end

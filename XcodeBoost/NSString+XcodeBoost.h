@@ -12,28 +12,28 @@
 
 #pragma mark Creating Instances
 
-- (NSAttributedString *)xctt_attributedString;
-- (NSString *)xctt_concatenatedStringForRanges:(NSArray *)ranges;
+- (NSAttributedString *)xb_attributedString;
+- (NSString *)xb_concatenatedStringForRanges:(NSArray *)ranges;
 
 #pragma mark Checks
 
-- (BOOL)xctt_containsOnlyWhitespace;
+- (BOOL)xb_containsOnlyWhitespace;
 
 #pragma mark Ranges
 
-- (NSRange)xctt_range;
-- (NSArray *)xctt_lineRangesForRanges:(NSArray *)ranges;
-- (NSArray *)xctt_rangesOfString:(NSString *)string;
-- (NSArray *)xctt_rangesOfSymbol:(NSString *)symbol;
-- (NSArray *)xctt_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options;
+- (NSRange)xb_range;
+- (NSArray *)xb_lineRangesForRanges:(NSArray *)ranges;
+- (NSArray *)xb_rangesOfString:(NSString *)string;
+- (NSArray *)xb_rangesOfSymbol:(NSString *)symbol;
+- (NSArray *)xb_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options;
 
 #pragma mark Code Patterns
 
-- (BOOL)xctt_startsWithMethodDefinition;
-- (NSString *)xctt_extractMethodDeclarations;
-- (NSArray *)xctt_methodDefinitionRanges;
-- (NSArray *)xctt_methodSignatureRanges;
-- (NSArray *)xctt_symbolRanges;
-- (NSArray *)xctt_commentRanges;
+- (BOOL)xb_startsWithMethodDefinition;
+- (NSString *)xb_extractMethodDeclarations;
+- (NSArray *)xb_methodDefinitionRanges;
+- (NSArray *)xb_methodSignatureRanges;
+- (NSArray *)xb_symbolRanges;
+- (NSArray *)xb_commentRanges;
 
 @end

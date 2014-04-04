@@ -73,7 +73,7 @@
 	
 	NSMutableString *insertedString = [[NSMutableString alloc] init];
 	
-	if ([selectedLinesString xctt_startsWithMethodDefinition])
+	if ([selectedLinesString xb_startsWithMethodDefinition])
 		[insertedString appendString:@"\n"];
 	
 	[insertedString appendString:selectedLinesString];
@@ -96,7 +96,7 @@
 	
 	[self conditionallyChangeTextInRange:NSMakeRange(beforeRangeEnd, 0) replacementString:stringToInsert operation:^
 	{
-		[self.textStorage insertAttributedString:[stringToInsert xctt_attributedString] atIndex:rangeEnd];
+		[self.textStorage insertAttributedString:[stringToInsert xb_attributedString] atIndex:rangeEnd];
 		[self.sourceTextView setSelectedRange:NSMakeRange(beforeRangeEnd + [stringToInsert length], 0)];
 		
 		if (reindent) [self.sourceTextView indentSelection:self];
@@ -129,7 +129,7 @@
 	}
 	else
 	{
-		color = [NSColor xctt_randomColor];
+		color = [NSColor xb_randomColor];
 		
 		// Add the color to the array of colors so that we can undo highlighting
 		// step-by-step afterwards (by enumerating over ranges with those background colors).
@@ -172,31 +172,31 @@
 
 - (void)cutLines
 {
-	[self setPasteboardString:[self.sourceTextView xctt_firstSelectedLineRangeString]];
+	[self setPasteboardString:[self.sourceTextView xb_firstSelectedLineRangeString]];
 	[self deleteLines];
 }
 
 - (void)copyLines
 {
-	[self setPasteboardString:[self.string xctt_concatenatedStringForRanges:[self.sourceTextView xctt_selectedLineRanges]]];
+	[self setPasteboardString:[self.string xb_concatenatedStringForRanges:[self.sourceTextView xb_selectedLineRanges]]];
 }
 
 - (void)pasteLinesWithReindent:(BOOL)reindent
 {
 	NSMutableString *pasteboardString = [[self getPasteboardString] mutableCopy];
-	NSRange linesRange = [self.sourceTextView xctt_firstSelectedLineRange];
+	NSRange linesRange = [self.sourceTextView xb_firstSelectedLineRange];
 	
 	[self insertString:pasteboardString afterRange:linesRange reindent:reindent];
 }
 
 - (void)duplicateLines
 {
-	[self duplicateLines:[self.sourceTextView xctt_firstSelectedLineRange]];
+	[self duplicateLines:[self.sourceTextView xb_firstSelectedLineRange]];
 }
 
 - (void)deleteLines
 {
-	NSRange linesRange = [self.sourceTextView xctt_firstSelectedLineRange];
+	NSRange linesRange = [self.sourceTextView xb_firstSelectedLineRange];
 	[self conditionallyChangeTextInRange:linesRange replacementString:@"" operation:^
 	{
 		[self.textStorage deleteCharactersInRange:linesRange];
@@ -208,8 +208,8 @@
 
 - (void)selectMethods
 {
-	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *rangesToSelect = [self.sourceTextView xctt_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
+	NSArray *methodDefinitionRanges = [self.string xb_methodDefinitionRanges];
+	NSArray *rangesToSelect = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	
 	if ([rangesToSelect count] > 0)
 		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
@@ -217,9 +217,9 @@
 
 - (void)selectMethodSignatures
 {
-	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xctt_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
-	NSArray *methodSignatureRanges = [self.string xctt_methodSignatureRanges];
+	NSArray *methodDefinitionRanges = [self.string xb_methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
+	NSArray *methodSignatureRanges = [self.string xb_methodSignatureRanges];
 	
 	NSMutableArray *rangesToSelect = [NSMutableArray array];
 	for (NSValue *methodSignatureRange in methodSignatureRanges)
@@ -237,23 +237,23 @@
 
 - (void)copyMethodDeclarations
 {
-	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xctt_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
+	NSArray *methodDefinitionRanges = [self.string xb_methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	
 	NSRange overarchingRange = [MFRangeHelper unionRangeWithRanges:selectedMethodDefinitionRanges];
 	if (overarchingRange.location == NSNotFound) return;
 	
 	NSString *overarchingString = [[self.textStorage string] substringWithRange:overarchingRange];
-	NSString *methodDeclarations = [overarchingString xctt_extractMethodDeclarations];
+	NSString *methodDeclarations = [overarchingString xb_extractMethodDeclarations];
 	
 	[self setPasteboardString:methodDeclarations];
 }
 
 - (void)duplicateMethods
 {
-	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xctt_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
-	NSArray *selectedMethodDefinitionLineRanges = [self.string xctt_lineRangesForRanges:selectedMethodDefinitionRanges];
+	NSArray *methodDefinitionRanges = [self.string xb_methodDefinitionRanges];
+	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
+	NSArray *selectedMethodDefinitionLineRanges = [self.string xb_lineRangesForRanges:selectedMethodDefinitionRanges];
 	
 	if ([selectedMethodDefinitionLineRanges count] == 0) return;
 	
@@ -271,7 +271,7 @@
 	for (NSValue *range in [self.sourceTextView selectedRanges])
 	{
 		NSString *string = [self.string substringWithRange:[range rangeValue]];
-		NSArray *stringRanges = [self.string xctt_rangesOfString:string];
+		NSArray *stringRanges = [self.string xb_rangesOfString:string];
 		
 		[self highlightRanges:stringRanges];
 	}
@@ -279,14 +279,14 @@
 
 - (void)highlightSelectedSymbols
 {
-	NSArray *symbolRanges = [self.string xctt_symbolRanges];
-	NSArray *selectedSymbolRanges = [self.sourceTextView xctt_rangesFullyOrPartiallyContainedInSelection:symbolRanges wholeLines:NO];
-	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
+	NSArray *symbolRanges = [self.string xb_symbolRanges];
+	NSArray *selectedSymbolRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:symbolRanges wholeLines:NO];
+	NSArray *methodDefinitionRanges = [self.string xb_methodDefinitionRanges];
 	
 	for (NSValue *selectedSymbolRange in selectedSymbolRanges)
 	{
 		NSString *symbolString = [self.string substringWithRange:[selectedSymbolRange rangeValue]];
-		NSArray *occurenceRanges = [self.string xctt_rangesOfSymbol:symbolString];
+		NSArray *occurenceRanges = [self.string xb_rangesOfSymbol:symbolString];
 		
 		// Basic scope-checking
 		
@@ -294,7 +294,7 @@
 		if ([symbolsInMethodDefinitions count] == [occurenceRanges count])
 		{
 			// All symbol occurences were found in method definitions; consider symbol as local
-			NSValue *currentMethodDefinitionRange = [[self.sourceTextView xctt_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES] firstObject];
+			NSValue *currentMethodDefinitionRange = [[self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES] firstObject];
 			if (!currentMethodDefinitionRange) continue;
 			
 			[self highlightRanges:[MFRangeHelper ranges:occurenceRanges fullyOrPartiallyContainedInRanges:@[currentMethodDefinitionRange]]];
@@ -310,7 +310,7 @@
 
 - (void)highlightRegexMatchesWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options
 {
-	[self highlightRanges:[self.string xctt_rangesOfRegex:pattern options:options]];
+	[self highlightRanges:[self.string xb_rangesOfRegex:pattern options:options]];
 }
 
 - (void)removeMostRecentlyAddedHighlight

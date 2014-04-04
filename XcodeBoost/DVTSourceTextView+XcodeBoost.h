@@ -14,13 +14,13 @@
 
 #pragma mark Obtaining the Manipulator Instance
 
-- (MFSourceTextViewManipulator *)xctt_manipulator;
+- (MFSourceTextViewManipulator *)xb_manipulator;
 
 #pragma mark Working With Selections
 
-- (NSArray *)xctt_selectedLineRanges;
-- (NSRange)xctt_firstSelectedLineRange;
-- (NSString *)xctt_firstSelectedLineRangeString;
-- (NSArray *)xctt_rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines;
+- (NSArray *)xb_selectedLineRanges;
+- (NSRange)xb_firstSelectedLineRange;
+- (NSString *)xb_firstSelectedLineRangeString;
+- (NSArray *)xb_rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines;
 
 @end

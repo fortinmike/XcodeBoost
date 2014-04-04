@@ -14,10 +14,10 @@ typedef id (^ObjectObjectBlock)(id object);
 
 @interface NSArray (XcodeBoost)
 
-- (instancetype)xctt_each:(VoidObjectBlock)operation;
-- (instancetype)xctt_where:(BoolObjectBlock)condition; // Returns objects that match the specified condition
-- (instancetype)xctt_map:(ObjectObjectBlock)gatheringBlock;
-- (instancetype)xctt_distinct;
-- (BOOL)xctt_any:(BoolObjectBlock)testBlock;
+- (instancetype)xb_each:(VoidObjectBlock)operation;
+- (instancetype)xb_where:(BoolObjectBlock)condition; // Returns objects that match the specified condition
+- (instancetype)xb_map:(ObjectObjectBlock)gatheringBlock;
+- (instancetype)xb_distinct;
+- (BOOL)xb_any:(BoolObjectBlock)testBlock;
 
 @end

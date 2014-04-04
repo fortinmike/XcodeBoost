@@ -10,7 +10,7 @@
 
 @implementation NSArray (XcodeBoost)
 
-- (instancetype)xctt_each:(VoidObjectBlock)operation
+- (instancetype)xb_each:(VoidObjectBlock)operation
 {
 	for (id obj in self)
 		operation(obj);
@@ -18,7 +18,7 @@
 	return self;
 }
 
-- (instancetype)xctt_where:(BoolObjectBlock)condition
+- (instancetype)xb_where:(BoolObjectBlock)condition
 {
 	NSMutableArray *selectedObjects = [NSMutableArray array];
 	
@@ -31,7 +31,7 @@
 	return selectedObjects;
 }
 
-- (instancetype)xctt_map:(ObjectObjectBlock)gatheringBlock
+- (instancetype)xb_map:(ObjectObjectBlock)gatheringBlock
 {
 	NSMutableArray *values = [NSMutableArray array];
 	
@@ -44,7 +44,7 @@
 	return values;
 }
 
-- (instancetype)xctt_distinct
+- (instancetype)xb_distinct
 {
 	NSMutableArray *distinct = [NSMutableArray array];
 	
@@ -57,7 +57,7 @@
 	return distinct;
 }
 
-- (BOOL)xctt_any:(BoolObjectBlock)testBlock
+- (BOOL)xb_any:(BoolObjectBlock)testBlock
 {
 	for (id object in self)
 		if (testBlock(object)) return YES;

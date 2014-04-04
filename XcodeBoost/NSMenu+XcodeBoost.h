@@ -12,7 +12,7 @@ typedef BOOL (^BoolItemBlock)(NSMenuItem *item);
 
 @interface NSMenu (XcodeBoost)
 
-- (void)xctt_insertItem:(NSMenuItem *)item beforeItem:(NSUInteger)itemIndexInMatches where:(BoolItemBlock)condition;
-- (void)xctt_insertItems:(NSArray *)items beforeItem:(NSUInteger)itemIndexInMatches where:(BoolItemBlock)condition;
+- (void)xb_insertItem:(NSMenuItem *)item beforeItem:(NSUInteger)itemIndexInMatches where:(BoolItemBlock)condition;
+- (void)xb_insertItems:(NSArray *)items beforeItem:(NSUInteger)itemIndexInMatches where:(BoolItemBlock)condition;
 
 @end
