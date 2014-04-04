@@ -12,7 +12,6 @@
 #import "NSArray+XcodeBoost.h"
 #import "NSString+XcodeBoost.h"
 #import "NSColor+XcodeBoost.h"
-#import "NSAlert+XcodeBoost.h"
 #import "DVTSourceTextView+XcodeBoost.h"
 #import "MFHighlighter.h"
 

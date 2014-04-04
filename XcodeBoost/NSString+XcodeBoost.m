@@ -7,7 +7,6 @@
 //
 
 #import "NSString+XcodeBoost.h"
-#import "NSAlert+XcodeBoost.h"
 #import "NSArray+XcodeBoost.h"
 
 @implementation NSString (XcodeBoost)
