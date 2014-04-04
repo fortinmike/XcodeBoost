@@ -95,66 +95,66 @@
 
 - (void)cutLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] cutLines];
+	[[[self currentSourceTextView] xctt_manipulator] cutLines];
 }
 
 - (void)copyLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] copyLines];
+	[[[self currentSourceTextView] xctt_manipulator] copyLines];
 }
 
 - (void)pasteLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] pasteLinesWithReindent:YES];
+	[[[self currentSourceTextView] xctt_manipulator] pasteLinesWithReindent:YES];
 }
 
 - (void)pasteLinesWithoutReindent_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] pasteLinesWithReindent:NO];
+	[[[self currentSourceTextView] xctt_manipulator] pasteLinesWithReindent:NO];
 }
 
 - (void)duplicateLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] duplicateLines];
+	[[[self currentSourceTextView] xctt_manipulator] duplicateLines];
 }
 
 - (void)deleteLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] deleteLines];
+	[[[self currentSourceTextView] xctt_manipulator] deleteLines];
 }
 
 #pragma mark Method Manipulation Action Methods
 
 - (void)selectMethods_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] selectMethods];
+	[[[self currentSourceTextView] xctt_manipulator] selectMethods];
 }
 
 - (void)selectMethodSignatures_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] selectMethodSignatures];
+	[[[self currentSourceTextView] xctt_manipulator] selectMethodSignatures];
 }
 
 - (void)duplicateMethods_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] duplicateMethods];
+	[[[self currentSourceTextView] xctt_manipulator] duplicateMethods];
 }
 
 - (void)copyMethodDeclarations_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] copyMethodDeclarations];
+	[[[self currentSourceTextView] xctt_manipulator] copyMethodDeclarations];
 }
 
 #pragma mark Highlighting Action Methods
 
 - (void)highlightSelectedStrings_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] highlightSelectedStrings];
+	[[[self currentSourceTextView] xctt_manipulator] highlightSelectedStrings];
 }
 
 - (void)highlightSelectedSymbols_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] highlightSelectedSymbols];
+	[[[self currentSourceTextView] xctt_manipulator] highlightSelectedSymbols];
 }
 
 - (void)highlightRegexMatches_clicked:(id)sender
@@ -172,7 +172,7 @@
 			
 			if (!pattern) return;
 			
-			[[[sSelf currentSourceTextView] manipulator] highlightRegexMatchesWithPattern:pattern options:options];
+			[[[sSelf currentSourceTextView] xctt_manipulator] highlightRegexMatchesWithPattern:pattern options:options];
 		}];
 	}
 	
@@ -181,12 +181,12 @@
 
 - (void)removeMostRecentlyAddedHighlight_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] removeMostRecentlyAddedHighlight];
+	[[[self currentSourceTextView] xctt_manipulator] removeMostRecentlyAddedHighlight];
 }
 
 - (void)removeAllHighlighting_clicked:(id)sender
 {
-	[[[self currentSourceTextView] manipulator] removeAllHighlighting];
+	[[[self currentSourceTextView] xctt_manipulator] removeAllHighlighting];
 }
 
 #pragma mark Implementation

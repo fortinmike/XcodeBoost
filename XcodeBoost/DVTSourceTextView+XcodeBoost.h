@@ -12,6 +12,15 @@
 
 @interface DVTSourceTextView (XcodeBoost)
 
-- (MFSourceTextViewManipulator *)manipulator;
+#pragma mark Obtaining the Manipulator Instance
+
+- (MFSourceTextViewManipulator *)xctt_manipulator;
+
+#pragma mark Working With Selections
+
+- (NSArray *)xctt_selectedLineRanges;
+- (NSRange)xctt_firstSelectedLineRange;
+- (NSString *)xctt_firstSelectedLineRangeString;
+- (NSArray *)xctt_rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines;
 
 @end

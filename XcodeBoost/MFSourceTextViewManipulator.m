@@ -12,6 +12,7 @@
 #import "NSString+XcodeBoost.h"
 #import "NSColor+XcodeBoost.h"
 #import "NSAlert+XcodeBoost.h"
+#import "DVTSourceTextView+XcodeBoost.h"
 #import "DVTKit.h"
 
 @interface MFSourceTextViewManipulator ()
@@ -53,36 +54,6 @@
 }
 
 #pragma mark Line Manipulation Helpers
-
-- (NSArray *)selectedLineRanges
-{
-	NSArray *selectedRanges = [self.sourceTextView selectedRanges];
-	return [self.string xctt_lineRangesForRanges:selectedRanges];
-}
-
-- (NSRange)firstSelectedLineRange
-{
-	NSValue *selectedRange = [[self.sourceTextView selectedRanges] firstObject];
-	if (!selectedRange) return NSMakeRange(NSNotFound, 0);
-	
-	return [self.string lineRangeForRange:[selectedRange rangeValue]];
-}
-
-- (NSString *)firstSelectedLineRangeString
-{
-	NSRange linesRange = [self firstSelectedLineRange];
-	NSString *sourceString = [[self.textStorage attributedSubstringFromRange:linesRange] string];
-	NSString *trimmedString = [sourceString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-	return trimmedString;
-}
-
-- (NSArray *)rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines
-{
-	NSArray *selectedRanges = wholeLines ? [self selectedLineRanges] : [self.sourceTextView selectedRanges];
-	NSArray *rangesOverlappingSelection = [MFRangeHelper ranges:rangesToFilter fullyOrPartiallyContainedInRanges:selectedRanges];
-	
-	return rangesOverlappingSelection;
-}
 
 - (void)conditionallyChangeTextInRange:(NSRange)range replacementString:(NSString *)replacementString operation:(Block)operation
 {
@@ -201,31 +172,31 @@
 
 - (void)cutLines
 {
-	[self setPasteboardString:[self firstSelectedLineRangeString]];
+	[self setPasteboardString:[self.sourceTextView xctt_firstSelectedLineRangeString]];
 	[self deleteLines];
 }
 
 - (void)copyLines
 {
-	[self setPasteboardString:[self.string xctt_concatenatedStringForRanges:[self selectedLineRanges]]];
+	[self setPasteboardString:[self.string xctt_concatenatedStringForRanges:[self.sourceTextView xctt_selectedLineRanges]]];
 }
 
 - (void)pasteLinesWithReindent:(BOOL)reindent
 {
 	NSMutableString *pasteboardString = [[self getPasteboardString] mutableCopy];
-	NSRange linesRange = [self firstSelectedLineRange];
+	NSRange linesRange = [self.sourceTextView xctt_firstSelectedLineRange];
 	
 	[self insertString:pasteboardString afterRange:linesRange reindent:reindent];
 }
 
 - (void)duplicateLines
 {
-	[self duplicateLines:[self firstSelectedLineRange]];
+	[self duplicateLines:[self.sourceTextView xctt_firstSelectedLineRange]];
 }
 
 - (void)deleteLines
 {
-	NSRange linesRange = [self firstSelectedLineRange];
+	NSRange linesRange = [self.sourceTextView xctt_firstSelectedLineRange];
 	[self conditionallyChangeTextInRange:linesRange replacementString:@"" operation:^
 	{
 		[self.textStorage deleteCharactersInRange:linesRange];
@@ -238,7 +209,7 @@
 - (void)selectMethods
 {
 	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *rangesToSelect = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
+	NSArray *rangesToSelect = [self.sourceTextView xctt_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	
 	if ([rangesToSelect count] > 0)
 		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
@@ -247,7 +218,7 @@
 - (void)selectMethodSignatures
 {
 	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
+	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xctt_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	NSArray *methodSignatureRanges = [self.string xctt_methodSignatureRanges];
 	
 	NSMutableArray *rangesToSelect = [NSMutableArray array];
@@ -267,7 +238,7 @@
 - (void)copyMethodDeclarations
 {
 	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
+	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xctt_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	
 	NSRange overarchingRange = [MFRangeHelper unionRangeWithRanges:selectedMethodDefinitionRanges];
 	if (overarchingRange.location == NSNotFound) return;
@@ -281,7 +252,7 @@
 - (void)duplicateMethods
 {
 	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
+	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xctt_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	NSArray *selectedMethodDefinitionLineRanges = [self.string xctt_lineRangesForRanges:selectedMethodDefinitionRanges];
 	
 	if ([selectedMethodDefinitionLineRanges count] == 0) return;
@@ -309,7 +280,7 @@
 - (void)highlightSelectedSymbols
 {
 	NSArray *symbolRanges = [self.string xctt_symbolRanges];
-	NSArray *selectedSymbolRanges = [self rangesFullyOrPartiallyContainedInSelection:symbolRanges wholeLines:NO];
+	NSArray *selectedSymbolRanges = [self.sourceTextView xctt_rangesFullyOrPartiallyContainedInSelection:symbolRanges wholeLines:NO];
 	NSArray *methodDefinitionRanges = [self.string xctt_methodDefinitionRanges];
 	
 	for (NSValue *selectedSymbolRange in selectedSymbolRanges)
@@ -323,7 +294,7 @@
 		if ([symbolsInMethodDefinitions count] == [occurenceRanges count])
 		{
 			// All symbol occurences were found in method definitions; consider symbol as local
-			NSValue *currentMethodDefinitionRange = [[self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES] firstObject];
+			NSValue *currentMethodDefinitionRange = [[self.sourceTextView xctt_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES] firstObject];
 			if (!currentMethodDefinitionRange) continue;
 			
 			[self highlightRanges:[MFRangeHelper ranges:occurenceRanges fullyOrPartiallyContainedInRanges:@[currentMethodDefinitionRange]]];
