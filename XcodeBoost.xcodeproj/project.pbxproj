@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C0A53BD18DCE7EE00E82F1C /* NSColor+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0A53BC18DCE7EE00E82F1C /* NSColor+XcodeBoost.m */; };
+		4C1E8CCB18EE3F39006869D5 /* MFRangeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E8CCA18EE3F39006869D5 /* MFRangeHelper.m */; };
 		4C2868AD18D331B7006C780C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2868AC18D331B7006C780C /* AppKit.framework */; };
 		4C2868AF18D331B7006C780C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C2868AE18D331B7006C780C /* Foundation.framework */; };
 		4C2868B518D331B7006C780C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C2868B318D331B7006C780C /* InfoPlist.strings */; };
@@ -33,6 +34,8 @@
 /* Begin PBXFileReference section */
 		4C0A53BB18DCE7EE00E82F1C /* NSColor+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+XcodeBoost.h"; sourceTree = "<group>"; };
 		4C0A53BC18DCE7EE00E82F1C /* NSColor+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+XcodeBoost.m"; sourceTree = "<group>"; };
+		4C1E8CC918EE3F39006869D5 /* MFRangeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFRangeHelper.h; sourceTree = "<group>"; };
+		4C1E8CCA18EE3F39006869D5 /* MFRangeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFRangeHelper.m; sourceTree = "<group>"; };
 		4C2868A918D331B7006C780C /* XcodeBoost.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XcodeBoost.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C2868AC18D331B7006C780C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		4C2868AE18D331B7006C780C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -91,6 +94,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C1E8CC818EE3F26006869D5 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4C1E8CC918EE3F39006869D5 /* MFRangeHelper.h */,
+				4C1E8CCA18EE3F39006869D5 /* MFRangeHelper.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		4C2868A018D331B7006C780C = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +141,7 @@
 				4C4A8DB018DD0F7200256B20 /* XcodeBoostFoundation.h */,
 				4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */,
 				4CD521E718D384240025F2A1 /* Categories */,
+				4C1E8CC818EE3F26006869D5 /* Helpers */,
 				4CAC524E18D380A000E88C70 /* Logic */,
 				4C30388218E1AAB000F570E4 /* Window Controllers */,
 				4C30388618E2303600F570E4 /* Xibs */,
@@ -294,6 +307,7 @@
 				4CB7D0A618DD311D00087503 /* NSAlert+XcodeBoost.m in Sources */,
 				4CD521ED18D384EC0025F2A1 /* NSArray+XcodeBoost.m in Sources */,
 				4CBBA80518DA9CB600C48649 /* NSString+XcodeBoost.m in Sources */,
+				4C1E8CCB18EE3F39006869D5 /* MFRangeHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

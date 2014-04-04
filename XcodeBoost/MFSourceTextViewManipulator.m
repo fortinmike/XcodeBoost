@@ -7,6 +7,7 @@
 //
 
 #import "MFSourceTextViewManipulator.h"
+#import "MFRangeHelper.h"
 #import "NSArray+XcodeBoost.h"
 #import "NSString+XcodeBoost.h"
 #import "NSColor+XcodeBoost.h"
@@ -97,37 +98,9 @@
 - (NSArray *)rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines
 {
 	NSArray *selectedRanges = wholeLines ? [self selectedLineRanges] : [self.sourceTextView selectedRanges];
-	NSArray *rangesOverlappingSelection = [self ranges:rangesToFilter fullyOrPartiallyContainedInRanges:selectedRanges];
+	NSArray *rangesOverlappingSelection = [MFRangeHelper ranges:rangesToFilter fullyOrPartiallyContainedInRanges:selectedRanges];
 	
 	return rangesOverlappingSelection;
-}
-
-- (NSArray *)ranges:(NSArray *)rangesToFilter fullyOrPartiallyContainedInRanges:(NSArray *)targetRanges
-{
-	NSMutableArray *rangesOverlappingSelection = [NSMutableArray array];
-	for (NSValue *range in rangesToFilter)
-	{
-		for (NSValue *selectedRange in targetRanges)
-		{
-			if (MFRangeOverlaps([range rangeValue], [selectedRange rangeValue]))
-				[rangesOverlappingSelection addObject:range];
-		}
-	}
-	
-	return rangesOverlappingSelection;
-}
-
-- (NSRange)unionRangeWithRanges:(NSArray *)ranges
-{
-	if ([ranges count] == 0)
-		return NSMakeRange(NSNotFound, 0);
-	
-	NSRange unionRange = [ranges[0] rangeValue];
-	
-	for (int i = 1; i < [ranges count]; i++)
-		unionRange = NSUnionRange([ranges[i] rangeValue], unionRange);
-	
-	return unionRange;
 }
 
 - (void)conditionallyChangeTextInRange:(NSRange)range replacementString:(NSString *)replacementString operation:(Block)operation
@@ -365,14 +338,14 @@
 		
 		// Basic scope-checking
 		
-		NSArray *symbolsInMethodDefinitions = [self ranges:occurenceRanges fullyOrPartiallyContainedInRanges:methodDefinitionRanges];
+		NSArray *symbolsInMethodDefinitions = [MFRangeHelper ranges:occurenceRanges fullyOrPartiallyContainedInRanges:methodDefinitionRanges];
 		if ([symbolsInMethodDefinitions count] == [occurenceRanges count])
 		{
 			// All symbol occurences were found in method definitions; consider symbol as local
 			NSValue *currentMethodDefinitionRange = [[self rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES] firstObject];
 			if (!currentMethodDefinitionRange) continue;
 			
-			[self highlightRanges:[self ranges:occurenceRanges fullyOrPartiallyContainedInRanges:@[currentMethodDefinitionRange]]];
+			[self highlightRanges:[MFRangeHelper ranges:occurenceRanges fullyOrPartiallyContainedInRanges:@[currentMethodDefinitionRange]]];
 		}
 		else
 		{
