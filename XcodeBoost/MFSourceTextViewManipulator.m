@@ -7,13 +7,14 @@
 //
 
 #import "MFSourceTextViewManipulator.h"
+#import "DVTKit.h"
 #import "MFRangeHelper.h"
 #import "NSArray+XcodeBoost.h"
 #import "NSString+XcodeBoost.h"
 #import "NSColor+XcodeBoost.h"
 #import "NSAlert+XcodeBoost.h"
 #import "DVTSourceTextView+XcodeBoost.h"
-#import "DVTKit.h"
+#import "MFHighlighter.h"
 
 @interface MFSourceTextViewManipulator ()
 
@@ -25,8 +26,7 @@
 
 @implementation MFSourceTextViewManipulator
 {
-	NSUInteger _highlightCount;
-	NSMutableArray *_highlightColors;
+	MFHighlighter *_highlighter;
 }
 
 #pragma mark Lifetime
@@ -38,19 +38,9 @@
 	{
 		_sourceTextView = textView;
 		
-		[self setupHighlightColors];
+		_highlighter = [[MFHighlighter alloc] init];
 	}
 	return self;
-}
-
-- (void)setupHighlightColors
-{
-	NSColor *yellowColor = [NSColor colorWithCalibratedRed:0.91 green:0.74 blue:0.14 alpha:1];
-	NSColor *blueColor = [NSColor colorWithCalibratedRed:0.05 green:0.24 blue:1 alpha:1];
-	NSColor *redColor = [NSColor colorWithCalibratedRed:0.69 green:0.07 blue:0.14 alpha:1];
-	NSColor *purpleColor = [NSColor colorWithCalibratedRed:0.58 green:0.09 blue:0.93 alpha:1];
-	
-	_highlightColors = [@[purpleColor, redColor, blueColor, yellowColor] mutableCopy];
 }
 
 #pragma mark Line Manipulation Helpers
@@ -107,7 +97,7 @@
 
 - (void)highlightRanges:(NSArray *)ranges
 {
-	NSColor *highlightColor = [self pushHighlightColor];
+	NSColor *highlightColor = [_highlighter pushHighlightColor];
 	
 	for (NSValue *range in ranges)
 	{
@@ -117,41 +107,6 @@
 		// the text view won't update to show the newly added highlighting.
 		[self.sourceTextView setNeedsDisplay:YES];
 	}
-}
-
-- (NSColor *)pushHighlightColor
-{
-	NSColor *color;
-	
-	if (_highlightCount < [_highlightColors count])
-	{
-		color = _highlightColors[_highlightCount];
-	}
-	else
-	{
-		color = [NSColor xb_randomColor];
-		
-		// Add the color to the array of colors so that we can undo highlighting
-		// step-by-step afterwards (by enumerating over ranges with those background colors).
-		[_highlightColors addObject:color];
-	}
-	
-	_highlightCount++;
-	
-	return color;
-}
-
-- (NSColor *)popHighlightColor
-{
-	if (_highlightCount == 0) return nil;
-	_highlightCount--;
-	
-	return _highlightColors[_highlightCount];
-}
-
-- (void)popAllHighlightColors
-{
-	_highlightCount = 0;
 }
 
 #pragma mark Pasteboard Helpers
@@ -315,7 +270,7 @@
 
 - (void)removeMostRecentlyAddedHighlight
 {
-	NSColor *highlightColorToRemove = [self popHighlightColor];
+	NSColor *highlightColorToRemove = [_highlighter popHighlightColor];
 	if (!highlightColorToRemove) return;
 	
 	NSTextStorage *textStorage = self.textStorage;
@@ -338,7 +293,7 @@
 		[textStorage removeAttribute:NSBackgroundColorAttributeName range:range];
 	}];
 	
-	[self popAllHighlightColors];
+	[_highlighter popAllHighlightColors];
 }
 
 #pragma mark Accessor Overrides
