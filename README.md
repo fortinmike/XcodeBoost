@@ -19,8 +19,10 @@ XcodeBoost automates some tedious operations such as **extracting method declara
 #### Regex Match Highlighting
 ![image](Images/highlight-regex.gif)
 
-#### Paste Without Reindent
+#### Paste Lines (with or without reindent)
 ![image](Images/paste-without-reindent.gif)
+
+*Pastes the copied string after the selected lines, unlike Xcode's "Paste" and "Paste and Preserve Formatting" which paste everything at the exact caret position. No need to precisely position the caret; code will be pasted on the next line.*
 
 ## Installation
 
