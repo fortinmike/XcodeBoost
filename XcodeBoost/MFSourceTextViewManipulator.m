@@ -108,7 +108,10 @@
 		[self.textStorage addAttribute:NSBackgroundColorAttributeName value:highlightColor range:highlightRange];
 		
 		// Add a color mark to the scroller
-		CGFloat rangeRatio = (CGFloat)highlightRange.location / [self.textStorage length];
+		NSLayoutManager *layoutManager = [self.sourceTextView layoutManager];
+		NSRange glyphRange = [layoutManager glyphRangeForCharacterRange:highlightRange actualCharacterRange:NULL];
+		NSRect lineRect = [layoutManager lineFragmentRectForGlyphAtIndex:glyphRange.location effectiveRange:NULL];
+		CGFloat rangeRatio = lineRect.origin.y / [self.sourceTextView bounds].size.height;
 		[scroller xb_addMarkWithColor:highlightColor atRatio:rangeRatio];
 		
 		// Sometimes when the window is not key (such as when a panel is opened in front of it)
