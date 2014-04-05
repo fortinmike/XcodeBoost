@@ -12,7 +12,9 @@
 #import "NSArray+XcodeBoost.h"
 #import "NSString+XcodeBoost.h"
 #import "NSColor+XcodeBoost.h"
+#import "NSView+XcodeBoost.h"
 #import "DVTSourceTextView+XcodeBoost.h"
+#import "DVTMarkedScroller+XcodeBoost.h"
 #import "MFHighlighter.h"
 
 @interface MFSourceTextViewManipulator ()
@@ -97,10 +99,17 @@
 - (void)highlightRanges:(NSArray *)ranges
 {
 	NSColor *highlightColor = [_highlighter pushHighlightColor];
+	DVTMarkedScroller *scroller = self.scroller;
 	
 	for (NSValue *range in ranges)
 	{
-		[self.textStorage addAttribute:NSBackgroundColorAttributeName value:highlightColor range:[range rangeValue]];
+		NSRange highlightRange = [range rangeValue];
+		
+		[self.textStorage addAttribute:NSBackgroundColorAttributeName value:highlightColor range:highlightRange];
+		
+		// Add a color mark to the scroller
+		CGFloat rangeRatio = (CGFloat)highlightRange.location / [self.textStorage length];
+		[scroller xb_addMarkWithColor:highlightColor atRatio:rangeRatio];
 		
 		// Sometimes when the window is not key (such as when a panel is opened in front of it)
 		// the text view won't update to show the newly added highlighting.
@@ -272,6 +281,8 @@
 	NSColor *highlightColorToRemove = [_highlighter popHighlightColor];
 	if (!highlightColorToRemove) return;
 	
+	[self.scroller xb_removeMarksWithColor:highlightColorToRemove];
+	
 	NSTextStorage *textStorage = self.textStorage;
 	NSRange documentRange = NSMakeRange(0, [[textStorage string] length]);
 	
@@ -286,6 +297,8 @@
 {
 	NSTextStorage *textStorage = self.textStorage;
 	NSRange documentRange = NSMakeRange(0, [[textStorage string] length]);
+	
+	[self.scroller xb_removeAllMarks];
 	
 	[textStorage enumerateAttribute:NSBackgroundColorAttributeName inRange:documentRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop)
 	{
@@ -305,6 +318,14 @@
 - (NSString *)string
 {
 	return [self.textStorage string];
+}
+
+- (DVTMarkedScroller *)scroller
+{
+	NSScrollView *scrollView = (NSScrollView *)[self.sourceTextView ancestorOfKind:[NSScrollView class]];
+	DVTMarkedScroller *scroller = (DVTMarkedScroller *)[[scrollView descendantsOfKind:[DVTMarkedScroller class]] firstObject];
+	
+	return scroller;
 }
 
 @end

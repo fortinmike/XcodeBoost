@@ -21,6 +21,8 @@
 		4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m */; };
 		4C44F69318DAA7020061D68E /* NSObject+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */; };
 		4C4A8DB218DD0F7200256B20 /* XcodeBoostFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */; };
+		4C82FF0C18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82FF0B18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m */; };
+		4C82FF1318F0ABD4000C0E8D /* MFScrollerMark.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82FF1218F0ABD4000C0E8D /* MFScrollerMark.m */; };
 		4C87F33418EF99CF00D63FD0 /* NSView+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87F33318EF99CF00D63FD0 /* NSView+XcodeBoost.m */; };
 		4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC525018D380B800E88C70 /* MFPluginController.m */; };
 		4CBBA80518DA9CB600C48649 /* NSString+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBBA80418DA9CB600C48649 /* NSString+XcodeBoost.m */; };
@@ -61,6 +63,10 @@
 		4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XcodeBoost.m"; sourceTree = "<group>"; };
 		4C4A8DB018DD0F7200256B20 /* XcodeBoostFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XcodeBoostFoundation.h; sourceTree = "<group>"; };
 		4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeBoostFoundation.m; sourceTree = "<group>"; };
+		4C82FF0A18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DVTMarkedScroller+XcodeBoost.h"; sourceTree = "<group>"; };
+		4C82FF0B18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DVTMarkedScroller+XcodeBoost.m"; sourceTree = "<group>"; };
+		4C82FF1118F0ABD4000C0E8D /* MFScrollerMark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFScrollerMark.h; sourceTree = "<group>"; };
+		4C82FF1218F0ABD4000C0E8D /* MFScrollerMark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFScrollerMark.m; sourceTree = "<group>"; };
 		4C87F33218EF99CF00D63FD0 /* NSView+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+XcodeBoost.h"; sourceTree = "<group>"; };
 		4C87F33318EF99CF00D63FD0 /* NSView+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+XcodeBoost.m"; sourceTree = "<group>"; };
 		4CAC524F18D380B800E88C70 /* MFPluginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPluginController.h; sourceTree = "<group>"; };
@@ -152,6 +158,7 @@
 				4CD521E718D384240025F2A1 /* Categories */,
 				4C1E8CC818EE3F26006869D5 /* Helpers */,
 				4CAC524E18D380A000E88C70 /* Logic */,
+				4C82FF0D18F0ABAE000C0E8D /* Model */,
 				4C30388218E1AAB000F570E4 /* Window Controllers */,
 				4C30388618E2303600F570E4 /* Xibs */,
 				4CEBB15818D37F6C0091E9FC /* Class-Dumps */,
@@ -196,6 +203,15 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		4C82FF0D18F0ABAE000C0E8D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4C82FF1118F0ABD4000C0E8D /* MFScrollerMark.h */,
+				4C82FF1218F0ABD4000C0E8D /* MFScrollerMark.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		4CAC524E18D380A000E88C70 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +228,8 @@
 		4CD521E718D384240025F2A1 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				4C82FF0A18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.h */,
+				4C82FF0B18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m */,
 				4C44F68E18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.h */,
 				4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m */,
 				4CD521EB18D384EC0025F2A1 /* NSArray+XcodeBoost.h */,
@@ -352,9 +370,11 @@
 				4C30388518E1AAC800F570E4 /* MFHighlightRegexWindowController.m in Sources */,
 				4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */,
 				4CD521ED18D384EC0025F2A1 /* NSArray+XcodeBoost.m in Sources */,
+				4C82FF0C18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m in Sources */,
 				4C87F33418EF99CF00D63FD0 /* NSView+XcodeBoost.m in Sources */,
 				4CBBA80518DA9CB600C48649 /* NSString+XcodeBoost.m in Sources */,
 				4C1E8CCB18EE3F39006869D5 /* MFRangeHelper.m in Sources */,
+				4C82FF1318F0ABD4000C0E8D /* MFScrollerMark.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
