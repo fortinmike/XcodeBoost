@@ -30,9 +30,11 @@
 		4CE2088418DA8E2800070212 /* IDEFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088318DA8E2800070212 /* IDEFoundation.framework */; };
 		4CE2088618DA8E4800070212 /* DVTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088518DA8E4800070212 /* DVTKit.framework */; };
 		4CE2088818DA8E5400070212 /* DVTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088718DA8E5400070212 /* DVTFoundation.framework */; };
+		FB829DE1E4B44F00A0760E32 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 534B2E341B6C46478E20E400 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08EF59C59A844A9886BBFE49 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		4C0A53BB18DCE7EE00E82F1C /* NSColor+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+XcodeBoost.h"; sourceTree = "<group>"; };
 		4C0A53BC18DCE7EE00E82F1C /* NSColor+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+XcodeBoost.m"; sourceTree = "<group>"; };
 		4C1E8CC918EE3F39006869D5 /* MFRangeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFRangeHelper.h; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		4CE2088318DA8E2800070212 /* IDEFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDEFoundation.framework; path = ../../../../../../Applications/Xcode.app/Contents/Frameworks/IDEFoundation.framework; sourceTree = "<group>"; };
 		4CE2088518DA8E4800070212 /* DVTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DVTKit.framework; path = ../../../../../../Applications/Xcode.app/Contents/SharedFrameworks/DVTKit.framework; sourceTree = "<group>"; };
 		4CE2088718DA8E5400070212 /* DVTFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DVTFoundation.framework; path = ../../../../../../Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework; sourceTree = "<group>"; };
+		534B2E341B6C46478E20E400 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +94,7 @@
 				4CE2088218DA8E0F00070212 /* IDEKit.framework in Frameworks */,
 				4C2868AD18D331B7006C780C /* AppKit.framework in Frameworks */,
 				4C2868AF18D331B7006C780C /* Foundation.framework in Frameworks */,
+				FB829DE1E4B44F00A0760E32 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +116,7 @@
 				4C2868B018D331B7006C780C /* XcodeBoost */,
 				4C2868AB18D331B7006C780C /* Frameworks */,
 				4C2868AA18D331B7006C780C /* Products */,
+				08EF59C59A844A9886BBFE49 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,6 +137,7 @@
 				4CE2088118DA8E0F00070212 /* IDEKit.framework */,
 				4C2868AC18D331B7006C780C /* AppKit.framework */,
 				4C2868AE18D331B7006C780C /* Foundation.framework */,
+				534B2E341B6C46478E20E400 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -243,9 +249,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C2868BC18D331B7006C780C /* Build configuration list for PBXNativeTarget "XcodeBoost" */;
 			buildPhases = (
+				27C360171DB2478D82A768CC /* Check Pods Manifest.lock */,
 				4C2868A518D331B7006C780C /* Sources */,
 				4C2868A618D331B7006C780C /* Frameworks */,
 				4C2868A718D331B7006C780C /* Resources */,
+				468ACE695E244874874EDFA9 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -294,6 +302,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		27C360171DB2478D82A768CC /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		468ACE695E244874874EDFA9 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4C2868A518D331B7006C780C /* Sources */ = {
@@ -411,6 +452,7 @@
 		};
 		4C2868BD18D331B7006C780C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08EF59C59A844A9886BBFE49 /* Pods.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
@@ -431,6 +473,7 @@
 		};
 		4C2868BE18D331B7006C780C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08EF59C59A844A9886BBFE49 /* Pods.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
