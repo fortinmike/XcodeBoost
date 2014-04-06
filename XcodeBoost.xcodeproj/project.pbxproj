@@ -21,6 +21,8 @@
 		4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m */; };
 		4C44F69318DAA7020061D68E /* NSObject+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */; };
 		4C4A8DB218DD0F7200256B20 /* XcodeBoostFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */; };
+		4C82377918F1F67B00349623 /* libclang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C82377818F1F67B00349623 /* libclang.dylib */; };
+		4C82377C18F1F72E00349623 /* MFClangHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82377B18F1F72E00349623 /* MFClangHelper.m */; };
 		4C82FF0C18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82FF0B18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m */; };
 		4C82FF1318F0ABD4000C0E8D /* MFScrollerMark.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82FF1218F0ABD4000C0E8D /* MFScrollerMark.m */; };
 		4C87F33418EF99CF00D63FD0 /* NSView+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87F33318EF99CF00D63FD0 /* NSView+XcodeBoost.m */; };
@@ -63,6 +65,20 @@
 		4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XcodeBoost.m"; sourceTree = "<group>"; };
 		4C4A8DB018DD0F7200256B20 /* XcodeBoostFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XcodeBoostFoundation.h; sourceTree = "<group>"; };
 		4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeBoostFoundation.m; sourceTree = "<group>"; };
+		4C82377818F1F67B00349623 /* libclang.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libclang.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib; sourceTree = DEVELOPER_DIR; };
+		4C82377A18F1F72E00349623 /* MFClangHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFClangHelper.h; sourceTree = "<group>"; };
+		4C82377B18F1F72E00349623 /* MFClangHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFClangHelper.m; sourceTree = "<group>"; };
+		4C82377F18F1F86200349623 /* DVTFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DVTFoundation.h; sourceTree = "<group>"; };
+		4C82378018F1F86200349623 /* DVTKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DVTKit.h; sourceTree = "<group>"; };
+		4C82378118F1F86200349623 /* IDEFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDEFoundation.h; sourceTree = "<group>"; };
+		4C82378218F1F86200349623 /* IDEKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDEKit.h; sourceTree = "<group>"; };
+		4C82378318F1F86200349623 /* IDESourceEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDESourceEditor.h; sourceTree = "<group>"; };
+		4C82379318F1F92600349623 /* BuildSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildSystem.h; sourceTree = "<group>"; };
+		4C82379418F1F92600349623 /* CXCompilationDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXCompilationDatabase.h; sourceTree = "<group>"; };
+		4C82379518F1F92600349623 /* CXErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXErrorCode.h; sourceTree = "<group>"; };
+		4C82379618F1F92600349623 /* CXString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXString.h; sourceTree = "<group>"; };
+		4C82379718F1F92600349623 /* Index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index.h; sourceTree = "<group>"; };
+		4C82379818F1F92600349623 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
 		4C82FF0A18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DVTMarkedScroller+XcodeBoost.h"; sourceTree = "<group>"; };
 		4C82FF0B18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DVTMarkedScroller+XcodeBoost.m"; sourceTree = "<group>"; };
 		4C82FF1118F0ABD4000C0E8D /* MFScrollerMark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFScrollerMark.h; sourceTree = "<group>"; };
@@ -73,11 +89,6 @@
 		4CAC525018D380B800E88C70 /* MFPluginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPluginController.m; sourceTree = "<group>"; };
 		4CBBA80318DA9CB600C48649 /* NSString+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XcodeBoost.h"; sourceTree = "<group>"; };
 		4CBBA80418DA9CB600C48649 /* NSString+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XcodeBoost.m"; sourceTree = "<group>"; };
-		4CCAC8EE18DA936600A1F908 /* DVTFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DVTFoundation.h; path = "Class-Dumps/DVTFoundation.h"; sourceTree = SOURCE_ROOT; };
-		4CCAC8EF18DA936600A1F908 /* DVTKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DVTKit.h; path = "Class-Dumps/DVTKit.h"; sourceTree = SOURCE_ROOT; };
-		4CCAC8F018DA936600A1F908 /* IDEFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDEFoundation.h; path = "Class-Dumps/IDEFoundation.h"; sourceTree = SOURCE_ROOT; };
-		4CCAC8F118DA936600A1F908 /* IDEKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDEKit.h; path = "Class-Dumps/IDEKit.h"; sourceTree = SOURCE_ROOT; };
-		4CCAC8F218DA936600A1F908 /* IDESourceEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDESourceEditor.h; path = "Class-Dumps/IDESourceEditor.h"; sourceTree = SOURCE_ROOT; };
 		4CD521E818D384360025F2A1 /* NSMenu+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMenu+XcodeBoost.h"; sourceTree = "<group>"; };
 		4CD521E918D384360025F2A1 /* NSMenu+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMenu+XcodeBoost.m"; sourceTree = "<group>"; };
 		4CD521EB18D384EC0025F2A1 /* NSArray+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+XcodeBoost.h"; sourceTree = "<group>"; };
@@ -98,6 +109,7 @@
 				4CE2088618DA8E4800070212 /* DVTKit.framework in Frameworks */,
 				4CE2088418DA8E2800070212 /* IDEFoundation.framework in Frameworks */,
 				4CE2088218DA8E0F00070212 /* IDEKit.framework in Frameworks */,
+				4C82377918F1F67B00349623 /* libclang.dylib in Frameworks */,
 				4C2868AD18D331B7006C780C /* AppKit.framework in Frameworks */,
 				4C2868AF18D331B7006C780C /* Foundation.framework in Frameworks */,
 				FB829DE1E4B44F00A0760E32 /* libPods.a in Frameworks */,
@@ -110,6 +122,8 @@
 		4C1E8CC818EE3F26006869D5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				4C82377A18F1F72E00349623 /* MFClangHelper.h */,
+				4C82377B18F1F72E00349623 /* MFClangHelper.m */,
 				4C1E8CC918EE3F39006869D5 /* MFRangeHelper.h */,
 				4C1E8CCA18EE3F39006869D5 /* MFRangeHelper.m */,
 			);
@@ -137,6 +151,7 @@
 		4C2868AB18D331B7006C780C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C82377818F1F67B00349623 /* libclang.dylib */,
 				4CE2088718DA8E5400070212 /* DVTFoundation.framework */,
 				4CE2088518DA8E4800070212 /* DVTKit.framework */,
 				4CE2088318DA8E2800070212 /* IDEFoundation.framework */,
@@ -161,7 +176,7 @@
 				4C82FF0D18F0ABAE000C0E8D /* Model */,
 				4C30388218E1AAB000F570E4 /* Window Controllers */,
 				4C30388618E2303600F570E4 /* Xibs */,
-				4CEBB15818D37F6C0091E9FC /* Class-Dumps */,
+				4CEBB15818D37F6C0091E9FC /* Headers */,
 				4C30388918E2F88700F570E4 /* Resources */,
 				4C2868B118D331B7006C780C /* Supporting Files */,
 			);
@@ -201,6 +216,19 @@
 				4C30388A18E2F89400F570E4 /* Defaults.plist */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		4C82379218F1F92600349623 /* clang-c */ = {
+			isa = PBXGroup;
+			children = (
+				4C82379318F1F92600349623 /* BuildSystem.h */,
+				4C82379418F1F92600349623 /* CXCompilationDatabase.h */,
+				4C82379518F1F92600349623 /* CXErrorCode.h */,
+				4C82379618F1F92600349623 /* CXString.h */,
+				4C82379718F1F92600349623 /* Index.h */,
+				4C82379818F1F92600349623 /* Platform.h */,
+			);
+			path = "clang-c";
 			sourceTree = "<group>";
 		};
 		4C82FF0D18F0ABAE000C0E8D /* Model */ = {
@@ -248,16 +276,18 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		4CEBB15818D37F6C0091E9FC /* Class-Dumps */ = {
+		4CEBB15818D37F6C0091E9FC /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				4CCAC8EE18DA936600A1F908 /* DVTFoundation.h */,
-				4CCAC8EF18DA936600A1F908 /* DVTKit.h */,
-				4CCAC8F018DA936600A1F908 /* IDEFoundation.h */,
-				4CCAC8F118DA936600A1F908 /* IDEKit.h */,
-				4CCAC8F218DA936600A1F908 /* IDESourceEditor.h */,
+				4C82379218F1F92600349623 /* clang-c */,
+				4C82377F18F1F86200349623 /* DVTFoundation.h */,
+				4C82378018F1F86200349623 /* DVTKit.h */,
+				4C82378118F1F86200349623 /* IDEFoundation.h */,
+				4C82378218F1F86200349623 /* IDEKit.h */,
+				4C82378318F1F86200349623 /* IDESourceEditor.h */,
 			);
-			name = "Class-Dumps";
+			name = Headers;
+			path = ../Headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,6 +396,7 @@
 				4C4A8DB218DD0F7200256B20 /* XcodeBoostFoundation.m in Sources */,
 				4CD521EA18D384360025F2A1 /* NSMenu+XcodeBoost.m in Sources */,
 				4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m in Sources */,
+				4C82377C18F1F72E00349623 /* MFClangHelper.m in Sources */,
 				4C44F68D18DAA56C0061D68E /* MFSourceTextViewManipulator.m in Sources */,
 				4C30388518E1AAC800F570E4 /* MFHighlightRegexWindowController.m in Sources */,
 				4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */,
@@ -484,8 +515,17 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XcodeBoost/XcodeBoost-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/JRSwizzle\"",
+					"\"${SOURCE_ROOT}/Headers/\"",
+				);
 				INFOPLIST_FILE = "XcodeBoost/XcodeBoost-Info.plist";
 				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+				);
 				PRODUCT_NAME = XcodeBoost;
 				WRAPPER_EXTENSION = xcplugin;
 			};
@@ -505,8 +545,17 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XcodeBoost/XcodeBoost-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/JRSwizzle\"",
+					"\"${SOURCE_ROOT}/Headers/\"",
+				);
 				INFOPLIST_FILE = "XcodeBoost/XcodeBoost-Info.plist";
 				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+				);
 				PRODUCT_NAME = XcodeBoost;
 				WRAPPER_EXTENSION = xcplugin;
 			};
