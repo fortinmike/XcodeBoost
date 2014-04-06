@@ -33,6 +33,8 @@
 - (NSString *)xb_extractMethodDeclarations;
 - (NSArray *)xb_methodDefinitionRanges;
 - (NSArray *)xb_methodSignatureRanges;
+- (NSArray *)xb_functionDefinitionRanges;
+- (NSArray *)xb_methodAndFunctionDefinitionRanges;
 - (NSArray *)xb_symbolRanges;
 - (NSArray *)xb_commentRanges;
 
