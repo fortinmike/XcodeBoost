@@ -21,6 +21,7 @@
 		4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m */; };
 		4C44F69318DAA7020061D68E /* NSObject+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */; };
 		4C4A8DB218DD0F7200256B20 /* XcodeBoostFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */; };
+		4C4B64EF18F33CD6008F3EAA /* MFIDEHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4B64EE18F33CD6008F3EAA /* MFIDEHelper.m */; };
 		4C82377918F1F67B00349623 /* libclang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C82377818F1F67B00349623 /* libclang.dylib */; };
 		4C82377C18F1F72E00349623 /* MFClangHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82377B18F1F72E00349623 /* MFClangHelper.m */; };
 		4C82FF0C18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82FF0B18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m */; };
@@ -65,6 +66,8 @@
 		4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XcodeBoost.m"; sourceTree = "<group>"; };
 		4C4A8DB018DD0F7200256B20 /* XcodeBoostFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XcodeBoostFoundation.h; sourceTree = "<group>"; };
 		4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeBoostFoundation.m; sourceTree = "<group>"; };
+		4C4B64ED18F33CD6008F3EAA /* MFIDEHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFIDEHelper.h; sourceTree = "<group>"; };
+		4C4B64EE18F33CD6008F3EAA /* MFIDEHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFIDEHelper.m; sourceTree = "<group>"; };
 		4C82377818F1F67B00349623 /* libclang.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libclang.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib; sourceTree = DEVELOPER_DIR; };
 		4C82377A18F1F72E00349623 /* MFClangHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFClangHelper.h; sourceTree = "<group>"; };
 		4C82377B18F1F72E00349623 /* MFClangHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFClangHelper.m; sourceTree = "<group>"; };
@@ -126,6 +129,8 @@
 				4C82377B18F1F72E00349623 /* MFClangHelper.m */,
 				4C1E8CC918EE3F39006869D5 /* MFRangeHelper.h */,
 				4C1E8CCA18EE3F39006869D5 /* MFRangeHelper.m */,
+				4C4B64ED18F33CD6008F3EAA /* MFIDEHelper.h */,
+				4C4B64EE18F33CD6008F3EAA /* MFIDEHelper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -391,6 +396,7 @@
 			files = (
 				4C44F69318DAA7020061D68E /* NSObject+XcodeBoost.m in Sources */,
 				4C2868B818D331B7006C780C /* XcodeBoost.m in Sources */,
+				4C4B64EF18F33CD6008F3EAA /* MFIDEHelper.m in Sources */,
 				4C1E8CCE18EE488E006869D5 /* MFHighlighter.m in Sources */,
 				4C0A53BD18DCE7EE00E82F1C /* NSColor+XcodeBoost.m in Sources */,
 				4C4A8DB218DD0F7200256B20 /* XcodeBoostFoundation.m in Sources */,

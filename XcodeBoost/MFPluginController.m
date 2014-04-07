@@ -11,6 +11,7 @@
 #import "DVTSourceTextView+XcodeBoost.h"
 #import "MFHighlightRegexWindowController.h"
 #import "IDEKit.h"
+#import "MFIDEHelper.h"
 
 @implementation MFPluginController
 {
@@ -95,66 +96,66 @@
 
 - (void)cutLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] cutLines];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] cutLines];
 }
 
 - (void)copyLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] copyLines];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] copyLines];
 }
 
 - (void)pasteLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] pasteLinesWithReindent:YES];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] pasteLinesWithReindent:YES];
 }
 
 - (void)pasteLinesWithoutReindent_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] pasteLinesWithReindent:NO];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] pasteLinesWithReindent:NO];
 }
 
 - (void)duplicateLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] duplicateLines];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] duplicateLines];
 }
 
 - (void)deleteLines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] deleteLines];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] deleteLines];
 }
 
 #pragma mark Method Manipulation Action Methods
 
 - (void)selectMethods_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] selectMethods];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] selectMethods];
 }
 
 - (void)selectMethodSignatures_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] selectMethodSignatures];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] selectMethodSignatures];
 }
 
 - (void)duplicateMethods_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] duplicateMethods];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] duplicateMethods];
 }
 
 - (void)copyMethodDeclarations_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] copyMethodDeclarations];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] copyMethodDeclarations];
 }
 
 #pragma mark Highlighting Action Methods
 
 - (void)highlightSelectedStrings_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] highlightSelectedStrings];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] highlightSelectedStrings];
 }
 
 - (void)highlightSelectedSymbols_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] highlightSelectedSymbols];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] highlightSelectedSymbols];
 }
 
 - (void)highlightRegexMatches_clicked:(id)sender
@@ -172,7 +173,7 @@
 			
 			if (!pattern) return;
 			
-			[[[sSelf currentSourceTextView] xb_manipulator] highlightRegexMatchesWithPattern:pattern options:options];
+			[[[MFIDEHelper currentSourceTextView] xb_manipulator] highlightRegexMatchesWithPattern:pattern options:options];
 		}];
 	}
 	
@@ -181,40 +182,12 @@
 
 - (void)removeMostRecentlyAddedHighlight_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] removeMostRecentlyAddedHighlight];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] removeMostRecentlyAddedHighlight];
 }
 
 - (void)removeAllHighlighting_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] removeAllHighlighting];
-}
-
-#pragma mark Implementation
-
-- (IDEEditor *)currentEditor
-{
-	NSWindowController *mainWindowController = [[NSApp mainWindow] windowController];
-	if ([mainWindowController isKindOfClass:NSClassFromString(@"IDEWorkspaceWindowController")])
-	{
-		IDEWorkspaceWindowController *workspaceController = (IDEWorkspaceWindowController *)mainWindowController;
-		IDEEditorArea *editorArea = [workspaceController editorArea];
-		IDEEditorContext *editorContext = [editorArea lastActiveEditorContext];
-		return [editorContext editor];
-	}
-	return nil;
-}
-
-- (DVTSourceTextView *)currentSourceTextView
-{
-	IDEEditor *currentEditor = [self currentEditor];
-	
-    if ([currentEditor isKindOfClass:NSClassFromString(@"IDESourceCodeEditor")])
-        return (DVTSourceTextView *)[(id)currentEditor textView];
-    
-    if ([currentEditor isKindOfClass:NSClassFromString(@"IDESourceCodeComparisonEditor")])
-        return [(id)currentEditor performSelector:NSSelectorFromString(@"keyTextView")];
-    
-    return nil;
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] removeAllHighlighting];
 }
 
 @end
