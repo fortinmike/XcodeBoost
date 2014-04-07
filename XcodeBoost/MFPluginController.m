@@ -12,6 +12,7 @@
 #import "MFHighlightRegexWindowController.h"
 #import "IDEKit.h"
 #import "MFIDEHelper.h"
+#import "MFClangHelper.h"
 
 @implementation MFPluginController
 {
@@ -73,6 +74,8 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Regex Matches" action:@selector(highlightRegexMatches_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove Most Recently Added Highlight" action:@selector(removeMostRecentlyAddedHighlight_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove All Highlighting" action:@selector(removeAllHighlighting_clicked:)]];
+	[submenu addItem:[NSMenuItem separatorItem]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Test Clang Helper" action:@selector(testClangHelper_clicked:)]];
 	
 	NSMenuItem *textToolsMenuItem = [[NSMenuItem alloc] initWithTitle:@"XcodeBoost" action:NULL keyEquivalent:@""];
 	[textToolsMenuItem setSubmenu:submenu];
@@ -188,6 +191,13 @@
 - (void)removeAllHighlighting_clicked:(id)sender
 {
 	[[[MFIDEHelper currentSourceTextView] xb_manipulator] removeAllHighlighting];
+}
+
+#pragma mark Test
+
+- (void)testClangHelper_clicked:(id)sender
+{
+	[MFClangHelper printDiagnostics];
 }
 
 @end

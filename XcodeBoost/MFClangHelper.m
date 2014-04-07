@@ -8,19 +8,20 @@
 
 #import "MFClangHelper.h"
 #import "Index.h"
+#import "MFIDEHelper.h"
 
 // Reference: https://www.mikeash.com/pyblog/friday-qa-2014-01-24-introduction-to-libclang.html
 //            http://clang.llvm.org/docs/index.html
 
 @implementation MFClangHelper
 
-- (NSArray *)printDiagnostics
++ (NSArray *)printDiagnostics
 {
 	CXTranslationUnit tu = [self translationUnit];
 	
 	unsigned diagnosticCount = clang_getNumDiagnostics(tu);
 	
-	for(unsigned i = 0; i < diagnosticCount; i++)
+	for (unsigned i = 0; i < diagnosticCount; i++)
 	{
         CXDiagnostic diagnostic = clang_getDiagnostic(tu, i);
 		CXSourceLocation location = clang_getDiagnosticLocation(diagnostic);
@@ -36,7 +37,7 @@
 	return nil;
 }
 
-- (CXTranslationUnit)translationUnit
++ (CXTranslationUnit)translationUnit
 {
 	// TODO: Use project's include paths
 	const char *args[] =
@@ -47,7 +48,8 @@
 	int numArgs = sizeof(args) / sizeof(*args);
 	
 	CXIndex index = clang_createIndex(0, 0);
-	CXTranslationUnit translationUnit = clang_parseTranslationUnit(index, "somefile.m", args, numArgs, NULL, 0, CXTranslationUnit_None);
+	const char *currentFile = [[MFIDEHelper currentFile] cStringUsingEncoding:NSUTF8StringEncoding];
+	CXTranslationUnit translationUnit = clang_parseTranslationUnit(index, currentFile, args, numArgs, NULL, 0, CXTranslationUnit_None);
 	
 	return translationUnit;
 }

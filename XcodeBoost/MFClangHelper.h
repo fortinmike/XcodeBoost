@@ -10,6 +10,6 @@
 
 @interface MFClangHelper : NSObject
 
-- (NSArray *)printDiagnostics;
++ (NSArray *)printDiagnostics;
 
 @end
