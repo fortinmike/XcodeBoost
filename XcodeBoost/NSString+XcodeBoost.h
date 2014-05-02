@@ -27,14 +27,29 @@
 - (NSArray *)xb_rangesOfSymbol:(NSString *)symbol;
 - (NSArray *)xb_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options;
 
-#pragma mark Code Patterns
+#pragma mark Code Patterns - Subroutines
+
+- (BOOL)xb_startsWithSubroutineDefinition;
+- (NSString *)xb_extractSubroutineDeclarations;
+- (NSArray *)xb_subroutineDefinitionRanges;
+- (NSArray *)xb_subroutineSignatureRanges;
+
+#pragma mark Code Patterns - Methods
 
 - (BOOL)xb_startsWithMethodDefinition;
 - (NSString *)xb_extractMethodDeclarations;
 - (NSArray *)xb_methodDefinitionRanges;
 - (NSArray *)xb_methodSignatureRanges;
+
+#pragma mark Code Patterns - Functions
+
+- (BOOL)xb_startsWithFunctionDefinition;
+- (NSString *)xb_extractFunctionDeclarations;
 - (NSArray *)xb_functionDefinitionRanges;
-- (NSArray *)xb_methodAndFunctionDefinitionRanges;
+- (NSArray *)xb_functionSignatureRanges;
+
+#pragma mark Code Patterns - Other
+
 - (NSArray *)xb_symbolRanges;
 - (NSArray *)xb_commentRanges;
 

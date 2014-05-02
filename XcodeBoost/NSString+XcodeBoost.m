@@ -13,20 +13,44 @@
 
 static BOOL s_regexesPrepared;
 
-static NSString *s_symbolCharacterPattern = @"[a-zA-Z0-9_]";
-static NSString *s_stringLiteralPattern = @"@\".+?\""; // Unescaped: @".+?"
-static NSString *s_numberLiteralPattern = @"@\\(.+\\)|@[0-9]+?.??[0-9]+?"; // Unescaped: @\(.+?\)|@[0-9]+.?[0-9]+
-static NSString *s_selectorPattern = @"@selector\\(.+?\\)"; // Unescaped: @selector\(.+?\)
-static NSString *s_methodDefinitionPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}"; // Unescaped: ([-\+] ?\(.+?\).*)(\n?)\{(.*\n)+?(\n?)\}
-static NSString *s_commentPattern = @"//.+?(?=\\n)|/\\*.+?\\*/"; // Unescaped: //.+?(?=\n)|/\*.+?\*/
+#pragma mark Basic Patterns
 
-// Primitives
+// Unescaped: [a-zA-Z0-9_]
+static NSString *s_symbolCharacterPattern = @"[a-zA-Z0-9_]";
+
+// Unescaped: @".+?"
+static NSString *s_stringLiteralPattern = @"@\".+?\"";
+
+// Unescaped: @\(.+?\)|@[0-9]+.?[0-9]+
+static NSString *s_numberLiteralPattern = @"@\\(.+\\)|@[0-9]+?.??[0-9]+?";
+
+// Unescaped: @selector\(.+?\)
+static NSString *s_selectorPattern = @"@selector\\(.+?\\)";
+
+// Unescaped: //.+?(?=\n)|/\*.+?\*/
+static NSString *s_commentPattern = @"//.+?(?=\\n)|/\\*.+?\\*/";
+
+#pragma mark Complex Patterns
+
+// Unescaped: ((([-\+] ?\(.+?\).*)|[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.+?\))\n?)\{(.*\n)+?(\n?)\}
+static NSString *s_subroutinePattern = @"((([-\\+] ?\\(.+?\\).*)|[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\\n?)\\{(.*\\n)+?(\\n?)\\}";
+
+// Unescaped: ([-\+] ?\(.+?\).*)(\n?)\{(.*\n)+?(\n?)\}
+static NSString *s_methodPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}";
+
+// Unescaped: [a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.+?\)\n?\{(.*\n)+?(\n?)\}
+static NSString *s_functionPattern = @"[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\)\\n?\\{(.*\\n)+?(\\n?)\\}";
+
+#pragma mark Regexes
+
+// Basic
 static NSRegularExpression *s_genericSymbolRegex;
 static NSRegularExpression *s_stringLiteralRegex;
 static NSRegularExpression *s_numberLiteralRegex;
 static NSRegularExpression *s_selectorRegex;
-static NSRegularExpression *s_methodDefinitionRegex;
-static NSRegularExpression *s_functionDefinitionRegex;
+static NSRegularExpression *s_subroutineRegex;
+static NSRegularExpression *s_methodRegex;
+static NSRegularExpression *s_functionRegex;
 static NSRegularExpression *s_commentRegex;
 
 // Composite
@@ -135,7 +159,32 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 	return [self xb_rangesForMatches:matches];
 }
 
-#pragma mark Code Patterns
+#pragma mark Code Patterns - Subroutines
+
+- (BOOL)xb_startsWithSubroutineDefinition
+{
+	return [self xb_startsWithMethodDefinition] || [self xb_startsWithFunctionDefinition];
+}
+
+- (NSString *)xb_extractSubroutineDeclarations
+{
+	[self xb_prepareRegexes];
+	NSString *declarations = [s_methodRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length]) withTemplate:@"$1;"];
+	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	return trimmedDeclarations;
+}
+
+- (NSArray *)xb_subroutineDefinitionRanges
+{
+	return [[self xb_methodDefinitionRanges] arrayByAddingObjectsFromArray:[self xb_functionDefinitionRanges]];
+}
+
+- (NSArray *)xb_subroutineSignatureRanges
+{
+	return [[self xb_methodSignatureRanges] arrayByAddingObjectsFromArray:[self xb_functionSignatureRanges]];
+}
+
+#pragma mark Code Patterns - Methods
 
 - (BOOL)xb_startsWithMethodDefinition
 {
@@ -147,7 +196,7 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 - (NSString *)xb_extractMethodDeclarations
 {
 	[self xb_prepareRegexes];
-	NSString *declarations = [s_methodDefinitionRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length]) withTemplate:@"$1;"];
+	NSString *declarations = [s_methodRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length]) withTemplate:@"$1;"];
 	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	return trimmedDeclarations;
 }
@@ -155,28 +204,27 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 - (NSArray *)xb_methodDefinitionRanges
 {
 	[self xb_prepareRegexes];
-	NSArray *matches = [s_methodDefinitionRegex matchesInString:self options:0 range:[self xb_range]];
+	NSArray *matches = [s_methodRegex matchesInString:self options:0 range:[self xb_range]];
 	return [self xb_rangesForMatches:matches];
 }
 
 - (NSArray *)xb_methodSignatureRanges
 {
 	[self xb_prepareRegexes];
-	NSArray *matches = [s_methodDefinitionRegex matchesInString:self options:0 range:[self xb_range]];
+	NSArray *matches = [s_methodRegex matchesInString:self options:0 range:[self xb_range]];
 	return [self xb_rangesForMatches:matches captureGroup:1];
 }
+
+#pragma mark Code Patterns - Functions
 
 - (NSArray *)xb_functionDefinitionRanges
 {
 	[self xb_prepareRegexes];
-	NSArray *matches = [s_functionDefinitionRegex matchesInString:self options:0 range:[self xb_range]];
+	NSArray *matches = [s_functionRegex matchesInString:self options:0 range:[self xb_range]];
 	return [self xb_rangesForMatches:matches];
 }
 
-- (NSArray *)xb_methodAndFunctionDefinitionRanges
-{
-	return [[self xb_methodDefinitionRanges] arrayByAddingObjectsFromArray:[self xb_functionDefinitionRanges]];
-}
+#pragma mark Code Patterns - Other
 
 - (NSArray *)xb_symbolRanges
 {
@@ -207,11 +255,11 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 		
 		s_selectorRegex = [NSRegularExpression regularExpressionWithPattern:s_selectorPattern options:0 error:nil];
 		
-		s_methodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:s_methodDefinitionPattern options:0 error:nil];
+		s_methodRegex = [NSRegularExpression regularExpressionWithPattern:s_methodPattern options:0 error:nil];
 		
 		NSString *functionDefinitionsFormat = @"%@+? %@+?\\(.+?\\)(\\n?)\\{(.*\\n)+?(\\n?)\\}";
 		NSString *functionDefinitionsPattern = [NSString stringWithFormat:functionDefinitionsFormat, s_symbolCharacterPattern, s_symbolCharacterPattern];
-		s_functionDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:functionDefinitionsPattern options:0 error:nil];
+		s_functionRegex = [NSRegularExpression regularExpressionWithPattern:functionDefinitionsPattern options:0 error:nil];
 		
 		s_commentRegex = [NSRegularExpression regularExpressionWithPattern:s_commentPattern options:0 error:nil];
 		
@@ -221,7 +269,7 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 		s_symbolRegex = [NSRegularExpression regularExpressionWithPattern:symbolPattern options:0 error:nil];
 		
 		
-		NSString *startsWithMethodDefinitionPattern = [@"^" stringByAppendingString:s_methodDefinitionPattern];
+		NSString *startsWithMethodDefinitionPattern = [@"^" stringByAppendingString:s_methodPattern];
 		s_singleMethodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:startsWithMethodDefinitionPattern options:0 error:nil];
 		
 		s_regexesPrepared = YES;
