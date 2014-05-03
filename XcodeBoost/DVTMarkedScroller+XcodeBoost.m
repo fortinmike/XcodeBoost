@@ -9,7 +9,7 @@
 #import "DVTMarkedScroller+XcodeBoost.h"
 #import "MFScrollerMark.h"
 #import "NSObject+XcodeBoost.h"
-#import <JRSwizzle.h>
+#import "JRSwizzle.h"
 
 @implementation DVTMarkedScroller (XcodeBoost)
 
