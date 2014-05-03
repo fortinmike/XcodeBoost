@@ -27,10 +27,12 @@ XcodeBoost automates some tedious operations such as **extracting method declara
 ## Installation
 
 1. Install through [Alcatraz](https://github.com/supermarin/Alcatraz) or download the source and build the XcodeBoost target, then restart Xcode.
-2. Assign a keyboard shortcut to each XcodeBoost menu item through System Preferences' *Keyboard Shortcuts* panel.
-
-![image](Images/shortcuts.png)
-
-<div style="text-align: center; margin-top: 60px;">
-	<img src="Images/menu.png"/>
-</div>
+2. Assign keyboard shortcuts to XcodeBoost's menu items through System Preferences' *Keyboard Shortcuts* panel.
+	- Add Xcode.app in "App Shortcuts" if not already present.
+	- For each XcodeBoost menu item that you wish to trigger using the keyboard, add a shortcut and fill the "Menu Title" field with the exact name of the menu item, like so:
+	
+	![image](Images/shortcuts.png)
+	
+	- Suggested keyboard shortcuts:
+	
+	![image](Images/menu.png)
