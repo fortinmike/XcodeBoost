@@ -18,8 +18,6 @@
 		4C30388518E1AAC800F570E4 /* MFHighlightRegexWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C30388418E1AAC800F570E4 /* MFHighlightRegexWindowController.m */; };
 		4C30388818E2304A00F570E4 /* HighlightRegexWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C30388718E2304A00F570E4 /* HighlightRegexWindow.xib */; };
 		4C30388B18E2F89400F570E4 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C30388A18E2F89400F570E4 /* Defaults.plist */; };
-		4C39DE111914B1AF00F47703 /* NSString+Regexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C39DE0E1914B1AF00F47703 /* NSString+Regexer.m */; };
-		4C39DE121914B1AF00F47703 /* RXRegexCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C39DE101914B1AF00F47703 /* RXRegexCache.m */; };
 		4C44F68D18DAA56C0061D68E /* MFSourceTextViewManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68C18DAA56C0061D68E /* MFSourceTextViewManipulator.m */; };
 		4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m */; };
 		4C44F69318DAA7020061D68E /* NSObject+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */; };
@@ -27,6 +25,10 @@
 		4C82FF0C18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82FF0B18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m */; };
 		4C82FF1318F0ABD4000C0E8D /* MFScrollerMark.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82FF1218F0ABD4000C0E8D /* MFScrollerMark.m */; };
 		4C87F33418EF99CF00D63FD0 /* NSView+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87F33318EF99CF00D63FD0 /* NSView+XcodeBoost.m */; };
+		4C9C724819161AE700C4BFA8 /* NSString+Regexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C724119161AE700C4BFA8 /* NSString+Regexer.m */; };
+		4C9C724919161AE700C4BFA8 /* RXCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C724319161AE700C4BFA8 /* RXCapture.m */; };
+		4C9C724A19161AE700C4BFA8 /* RXMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C724519161AE700C4BFA8 /* RXMatch.m */; };
+		4C9C724B19161AE700C4BFA8 /* RXRegexCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C724719161AE700C4BFA8 /* RXRegexCache.m */; };
 		4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC525018D380B800E88C70 /* MFPluginController.m */; };
 		4CBBA80518DA9CB600C48649 /* NSString+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBBA80418DA9CB600C48649 /* NSString+XcodeBoost.m */; };
 		4CD521EA18D384360025F2A1 /* NSMenu+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD521E918D384360025F2A1 /* NSMenu+XcodeBoost.m */; };
@@ -58,10 +60,6 @@
 		4C30388418E1AAC800F570E4 /* MFHighlightRegexWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHighlightRegexWindowController.m; sourceTree = "<group>"; };
 		4C30388718E2304A00F570E4 /* HighlightRegexWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HighlightRegexWindow.xib; sourceTree = "<group>"; };
 		4C30388A18E2F89400F570E4 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
-		4C39DE0D1914B1AF00F47703 /* NSString+Regexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Regexer.h"; sourceTree = "<group>"; };
-		4C39DE0E1914B1AF00F47703 /* NSString+Regexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Regexer.m"; sourceTree = "<group>"; };
-		4C39DE0F1914B1AF00F47703 /* RXRegexCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXRegexCache.h; sourceTree = "<group>"; };
-		4C39DE101914B1AF00F47703 /* RXRegexCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXRegexCache.m; sourceTree = "<group>"; };
 		4C44F68B18DAA56C0061D68E /* MFSourceTextViewManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFSourceTextViewManipulator.h; sourceTree = "<group>"; };
 		4C44F68C18DAA56C0061D68E /* MFSourceTextViewManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFSourceTextViewManipulator.m; sourceTree = "<group>"; };
 		4C44F68E18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DVTSourceTextView+XcodeBoost.h"; sourceTree = "<group>"; };
@@ -76,6 +74,14 @@
 		4C82FF1218F0ABD4000C0E8D /* MFScrollerMark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFScrollerMark.m; sourceTree = "<group>"; };
 		4C87F33218EF99CF00D63FD0 /* NSView+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+XcodeBoost.h"; sourceTree = "<group>"; };
 		4C87F33318EF99CF00D63FD0 /* NSView+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+XcodeBoost.m"; sourceTree = "<group>"; };
+		4C9C724019161AE700C4BFA8 /* NSString+Regexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Regexer.h"; sourceTree = "<group>"; };
+		4C9C724119161AE700C4BFA8 /* NSString+Regexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Regexer.m"; sourceTree = "<group>"; };
+		4C9C724219161AE700C4BFA8 /* RXCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXCapture.h; sourceTree = "<group>"; };
+		4C9C724319161AE700C4BFA8 /* RXCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXCapture.m; sourceTree = "<group>"; };
+		4C9C724419161AE700C4BFA8 /* RXMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXMatch.h; sourceTree = "<group>"; };
+		4C9C724519161AE700C4BFA8 /* RXMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXMatch.m; sourceTree = "<group>"; };
+		4C9C724619161AE700C4BFA8 /* RXRegexCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXRegexCache.h; sourceTree = "<group>"; };
+		4C9C724719161AE700C4BFA8 /* RXRegexCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXRegexCache.m; sourceTree = "<group>"; };
 		4CAC524F18D380B800E88C70 /* MFPluginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPluginController.h; sourceTree = "<group>"; };
 		4CAC525018D380B800E88C70 /* MFPluginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPluginController.m; sourceTree = "<group>"; };
 		4CBBA80318DA9CB600C48649 /* NSString+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XcodeBoost.h"; sourceTree = "<group>"; };
@@ -230,10 +236,14 @@
 		4C39DE0C1914B1AF00F47703 /* Regexer */ = {
 			isa = PBXGroup;
 			children = (
-				4C39DE0D1914B1AF00F47703 /* NSString+Regexer.h */,
-				4C39DE0E1914B1AF00F47703 /* NSString+Regexer.m */,
-				4C39DE0F1914B1AF00F47703 /* RXRegexCache.h */,
-				4C39DE101914B1AF00F47703 /* RXRegexCache.m */,
+				4C9C724019161AE700C4BFA8 /* NSString+Regexer.h */,
+				4C9C724119161AE700C4BFA8 /* NSString+Regexer.m */,
+				4C9C724219161AE700C4BFA8 /* RXCapture.h */,
+				4C9C724319161AE700C4BFA8 /* RXCapture.m */,
+				4C9C724419161AE700C4BFA8 /* RXMatch.h */,
+				4C9C724519161AE700C4BFA8 /* RXMatch.m */,
+				4C9C724619161AE700C4BFA8 /* RXRegexCache.h */,
+				4C9C724719161AE700C4BFA8 /* RXRegexCache.m */,
 			);
 			path = Regexer;
 			sourceTree = "<group>";
@@ -362,7 +372,10 @@
 				4C44F69318DAA7020061D68E /* NSObject+XcodeBoost.m in Sources */,
 				4C2868B818D331B7006C780C /* XcodeBoost.m in Sources */,
 				4C1E8CCE18EE488E006869D5 /* MFHighlighter.m in Sources */,
+				4C9C724A19161AE700C4BFA8 /* RXMatch.m in Sources */,
 				4C0A53BD18DCE7EE00E82F1C /* NSColor+XcodeBoost.m in Sources */,
+				4C9C724B19161AE700C4BFA8 /* RXRegexCache.m in Sources */,
+				4C9C724919161AE700C4BFA8 /* RXCapture.m in Sources */,
 				4C4A8DB218DD0F7200256B20 /* XcodeBoostFoundation.m in Sources */,
 				4CD521EA18D384360025F2A1 /* NSMenu+XcodeBoost.m in Sources */,
 				4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m in Sources */,
@@ -373,10 +386,9 @@
 				4CD521ED18D384EC0025F2A1 /* NSArray+XcodeBoost.m in Sources */,
 				4C82FF0C18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m in Sources */,
 				4C87F33418EF99CF00D63FD0 /* NSView+XcodeBoost.m in Sources */,
-				4C39DE111914B1AF00F47703 /* NSString+Regexer.m in Sources */,
+				4C9C724819161AE700C4BFA8 /* NSString+Regexer.m in Sources */,
 				4CBBA80518DA9CB600C48649 /* NSString+XcodeBoost.m in Sources */,
 				4C1E8CCB18EE3F39006869D5 /* MFRangeHelper.m in Sources */,
-				4C39DE121914B1AF00F47703 /* RXRegexCache.m in Sources */,
 				4C82FF1318F0ABD4000C0E8D /* MFScrollerMark.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

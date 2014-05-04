@@ -43,20 +43,6 @@ static NSString *s_methodPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n
 // Unescaped: [a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.+?\)\n?\{(.*\n)+?(\n?)\}
 static NSString *s_functionPattern = @"[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\)\\n?\\{(.*\\n)+?(\\n?)\\}";
 
-#pragma mark Dynamic Patterns (Created From Other Patterns)
-
-static NSString *s_symbolPattern;
-
-#pragma mark Lifetime
-
-+ (void)load
-{
-	// Generate dynamic symbols
-	s_symbolPattern = [NSString stringWithFormat:@"%@|%@|%@|%@",
-					   s_genericSymbolPattern, s_stringLiteralPattern,
-					   s_numberLiteralPattern, s_selectorPattern];
-}
-
 #pragma mark Creating Instances
 
 - (NSAttributedString *)xb_attributedString
@@ -150,10 +136,7 @@ static NSString *s_symbolPattern;
 
 - (NSArray *)xb_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options
 {
-	NSError *error;
-	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:&error];
-	NSArray *matches = [regex matchesInString:self options:0 range:[self xb_range]];
-	return [self xb_rangesForCaptures:matches];
+	
 }
 
 #pragma mark Code Patterns - Subroutines
@@ -197,7 +180,7 @@ static NSString *s_symbolPattern;
 
 - (NSArray *)xb_methodDefinitionRanges
 {
-	return [self xb_rangesForCaptures:[self rx_capturesWithPattern:s_methodPattern]];
+	return [self xb_rangesForCaptures:[self rx_capturesForGroup:0 withPattern:s_methodPattern]];
 }
 
 - (NSArray *)xb_methodSignatureRanges
@@ -231,14 +214,14 @@ static NSString *s_symbolPattern;
 
 - (NSArray *)xb_symbolRanges
 {
-	NSArray *matches = [self rx_capturesWithPattern:s_symbolPattern];
-	return [self xb_rangesForCaptures:matches];
+	NSString *symbolPattern = [NSString stringWithFormat:@"%@|%@|%@|%@", s_genericSymbolPattern, s_stringLiteralPattern,
+																		 s_numberLiteralPattern, s_selectorPattern];
+	return [self xb_rangesForCaptures:[self rx_capturesWithPattern:symbolPattern]];
 }
 
 - (NSArray *)xb_commentRanges
 {
-	NSArray *matches = [self rx_capturesWithPattern:s_commentPattern];
-	return [self xb_rangesForCaptures:matches];
+	return [self xb_rangesForCaptures:[self rx_capturesWithPattern:s_commentPattern]];
 }
 
 #pragma mark Private Methods
