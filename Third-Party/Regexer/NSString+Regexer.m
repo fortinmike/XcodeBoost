@@ -58,6 +58,17 @@ static RXRegexCache *_regexCache;
 
 #pragma mark Matches
 
+- (NSUInteger)rx_numberOfMatchesWithPattern:(NSString *)regexPattern
+{
+	return [self rx_numberOfMatchesWithPattern:regexPattern options:0];
+}
+
+- (NSUInteger)rx_numberOfMatchesWithPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options
+{
+	NSRegularExpression *regex = [regexPattern rx_regexWithOptions:options];
+	return [regex numberOfMatchesInString:self options:0 range:NSMakeRange(0, [self length])];
+}
+
 - (NSArray *)rx_textsForMatchesWithPattern:(NSString *)regexPattern
 {
 	return [self rx_textsForMatchesWithPattern:regexPattern options:0];

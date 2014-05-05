@@ -25,6 +25,8 @@
 
 #pragma mark Matches
 
+- (NSUInteger)rx_numberOfMatchesWithPattern:(NSString *)regexPattern;
+- (NSUInteger)rx_numberOfMatchesWithPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options;
 - (NSArray *)rx_textsForMatchesWithPattern:(NSString *)regexPattern;
 - (NSArray *)rx_textsForMatchesWithPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options;
 - (NSArray *)rx_rangesForMatchesWithPattern:(NSString *)regexPattern;

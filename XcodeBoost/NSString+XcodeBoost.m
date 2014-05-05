@@ -160,9 +160,7 @@ static NSString *s_functionPattern = @"[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\)\\n
 
 - (BOOL)xb_startsWithMethodDefinition
 {
-	NSRegularExpression *startsWithDefinitionPattern = [[@"^" stringByAppendingString:s_methodPattern] rx_regex];
-	NSUInteger numberOfMatches = [startsWithDefinitionPattern numberOfMatchesInString:self options:0 range:[self xb_range]];
-	return numberOfMatches == 1;
+	return [self rx_matchesPattern:[@"^" stringByAppendingString:s_methodPattern]];
 }
 
 - (NSString *)xb_extractMethodDeclarations
