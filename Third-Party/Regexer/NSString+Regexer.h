@@ -23,13 +23,22 @@
 - (BOOL)rx_matchesPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options;
 - (BOOL)rx_matchesRegex:(NSRegularExpression *)regex;
 
-#pragma mark Matches and Capturing Groups
+#pragma mark Matches
 
-- (NSArray *)rx_capturesWithPattern:(NSString *)regexPattern;
-- (NSArray *)rx_capturesWithPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options;
-- (NSArray *)rx_capturesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern;
-- (NSArray *)rx_capturesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options;
+- (NSArray *)rx_textsForMatchesWithPattern:(NSString *)regexPattern;
+- (NSArray *)rx_textsForMatchesWithPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options;
+- (NSArray *)rx_rangesForMatchesWithPattern:(NSString *)regexPattern;
+- (NSArray *)rx_rangesForMatchesWithPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options;
 - (NSArray *)rx_matchesWithPattern:(NSString *)regexPattern;
 - (NSArray *)rx_matchesWithPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options;
+
+#pragma mark Capturing Groups
+
+- (NSArray *)rx_textsForGroup:(NSInteger)group withPattern:(NSString *)regexPattern;
+- (NSArray *)rx_textsForGroup:(NSInteger)group withPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options;
+- (NSArray *)rx_rangesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern;
+- (NSArray *)rx_rangesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options;
+- (NSArray *)rx_capturesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern;
+- (NSArray *)rx_capturesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options;
 
 @end

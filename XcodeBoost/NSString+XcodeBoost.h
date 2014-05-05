@@ -25,7 +25,6 @@
 - (NSArray *)xb_lineRangesForRanges:(NSArray *)ranges;
 - (NSArray *)xb_rangesOfString:(NSString *)string;
 - (NSArray *)xb_rangesOfSymbol:(NSString *)symbol;
-- (NSArray *)xb_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options;
 
 #pragma mark Code Patterns - Subroutines
 
@@ -52,5 +51,6 @@
 
 - (NSArray *)xb_symbolRanges;
 - (NSArray *)xb_commentRanges;
+- (NSArray *)xb_stringRanges;
 
 @end

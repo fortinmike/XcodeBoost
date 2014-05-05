@@ -107,16 +107,16 @@ static NSString *s_functionPattern = @"[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\)\\n
 
 - (NSArray *)xb_rangesOfSymbol:(NSString *)symbol
 {
-	// Using negative look-behind and look-ahead so that we obtain
-	// the actual symbols and not all occurences of the string in
-	// the text. Enough for helpful results.
+	// Using negative look-behind and look-ahead so that we obtain the actual symbols
+	// and not all occurences of the string in the text. Enough for helpful results.
 	
 	NSString *symbolPattern = [NSString stringWithFormat:@"(?<!(%@))%@(?!(%@))", s_symbolCharacterPattern, symbol, s_symbolCharacterPattern];
-	NSArray *rawSymbolRanges = [self xb_rangesOfRegex:symbolPattern options:0];
+	NSArray *rawSymbolRanges = [self rx_rangesForMatchesWithPattern:symbolPattern];
 	
 	// Simple, brute-force approach to removing symbols detected in strings, comments, ...
 	
-	NSMutableArray *invalidRanges = [[self xb_rangesOfRegex:@"@\".+?\"" options:0] mutableCopy];
+	NSMutableArray *invalidRanges = [NSMutableArray array];
+	[invalidRanges addObjectsFromArray:[self xb_stringRanges]];
 	[invalidRanges addObjectsFromArray:[self xb_commentRanges]];
 	
 	NSMutableArray *symbolRanges = [NSMutableArray array];
@@ -132,11 +132,6 @@ static NSString *s_functionPattern = @"[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\)\\n
 	}
 	
 	return symbolRanges;
-}
-
-- (NSArray *)xb_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options
-{
-	
 }
 
 #pragma mark Code Patterns - Subroutines
@@ -180,12 +175,12 @@ static NSString *s_functionPattern = @"[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\)\\n
 
 - (NSArray *)xb_methodDefinitionRanges
 {
-	return [self xb_rangesForCaptures:[self rx_capturesForGroup:0 withPattern:s_methodPattern]];
+	return [self rx_rangesForMatchesWithPattern:s_methodPattern];
 }
 
 - (NSArray *)xb_methodSignatureRanges
 {
-	return [self xb_rangesForCaptures:[self rx_capturesWithPattern:s_methodPattern] group:1];
+	return [self rx_rangesForGroup:1 withPattern:s_methodPattern];
 }
 
 #pragma mark Code Patterns - Functions
@@ -216,12 +211,17 @@ static NSString *s_functionPattern = @"[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\)\\n
 {
 	NSString *symbolPattern = [NSString stringWithFormat:@"%@|%@|%@|%@", s_genericSymbolPattern, s_stringLiteralPattern,
 																		 s_numberLiteralPattern, s_selectorPattern];
-	return [self xb_rangesForCaptures:[self rx_capturesWithPattern:symbolPattern]];
+	return [self rx_rangesForMatchesWithPattern:symbolPattern];
 }
 
 - (NSArray *)xb_commentRanges
 {
-	return [self xb_rangesForCaptures:[self rx_capturesWithPattern:s_commentPattern]];
+	return [self rx_rangesForMatchesWithPattern:s_commentPattern];
+}
+
+- (NSArray *)xb_stringRanges
+{
+	return [self rx_rangesForMatchesWithPattern:s_stringLiteralPattern];
 }
 
 #pragma mark Private Methods

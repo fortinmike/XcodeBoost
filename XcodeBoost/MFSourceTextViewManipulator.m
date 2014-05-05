@@ -16,6 +16,7 @@
 #import "DVTSourceTextView+XcodeBoost.h"
 #import "DVTMarkedScroller+XcodeBoost.h"
 #import "MFHighlighter.h"
+#import "NSString+Regexer.h"
 
 @interface MFSourceTextViewManipulator ()
 
@@ -276,7 +277,7 @@
 
 - (void)highlightRegexMatchesWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options
 {
-	[self highlightRanges:[self.string xb_rangesOfRegex:pattern options:options]];
+	[self highlightRanges:[self.string rx_rangesForMatchesWithPattern:pattern options:options]];
 }
 
 - (void)removeMostRecentlyAddedHighlight

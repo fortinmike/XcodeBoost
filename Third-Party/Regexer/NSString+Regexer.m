@@ -8,6 +8,7 @@
 
 #import "NSString+Regexer.h"
 #import "RXRegexCache.h"
+#import "NSArray+Regexer.h"
 
 @implementation NSString (Regexer)
 
@@ -55,35 +56,26 @@ static RXRegexCache *_regexCache;
 	return ([regex numberOfMatchesInString:self options:0 range:NSMakeRange(0, [self length])] > 0);
 }
 
-#pragma mark Matches and Capturing Groups
+#pragma mark Matches
 
-- (NSArray *)rx_capturesWithPattern:(NSString *)regexPattern
+- (NSArray *)rx_textsForMatchesWithPattern:(NSString *)regexPattern
 {
-	return [self rx_capturesWithPattern:regexPattern options:0];
+	return [self rx_textsForMatchesWithPattern:regexPattern options:0];
 }
 
-- (NSArray *)rx_capturesWithPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options
+- (NSArray *)rx_textsForMatchesWithPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options
 {
-	return [self rx_capturesForGroup:0 withPattern:regexPattern options:options];
+	return [self rx_textsForGroup:0 withPattern:regexPattern options:options];
 }
 
-- (NSArray *)rx_capturesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern
+- (NSArray *)rx_rangesForMatchesWithPattern:(NSString *)regexPattern
 {
-	return [self rx_capturesForGroup:group withPattern:regexPattern options:0];
+	return [self rx_rangesForMatchesWithPattern:regexPattern options:0];
 }
 
-- (NSArray *)rx_capturesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options
+- (NSArray *)rx_rangesForMatchesWithPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options
 {
-	NSArray *matches = [self rx_matchesWithPattern:regexPattern];
-	
-	[self validateGroup:group inMatches:matches];
-	
-	NSMutableArray *captures = [NSMutableArray array];
-	
-	for (RXMatch *match in matches)
-		[captures addObject:[[match captures] objectAtIndex:group]];
-	
-	return captures;
+	return [self rx_rangesForGroup:0 withPattern:regexPattern options:options];
 }
 
 - (NSArray *)rx_matchesWithPattern:(NSString *)regexPattern
@@ -122,6 +114,49 @@ static RXRegexCache *_regexCache;
 	}
 	
 	return matches;
+}
+
+#pragma mark Capturing Groups
+
+- (NSArray *)rx_textsForGroup:(NSInteger)group withPattern:(NSString *)regexPattern
+{
+	return [self rx_textsForGroup:group withPattern:regexPattern options:0];
+}
+
+- (NSArray *)rx_textsForGroup:(NSInteger)group withPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options
+{
+	NSArray *captures = [self rx_capturesForGroup:group withPattern:regexPattern options:options];
+	return [captures rx_map:^id(RXCapture *capture) { return [capture text]; }];
+}
+
+- (NSArray *)rx_rangesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern
+{
+	return [self rx_rangesForGroup:group withPattern:regexPattern options:0];
+}
+
+- (NSArray *)rx_rangesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options
+{
+	NSArray *captures = [self rx_capturesForGroup:group withPattern:regexPattern options:options];
+	return [captures rx_map:^id(RXCapture *capture) { return [NSValue valueWithRange:[capture range]]; }];
+}
+
+- (NSArray *)rx_capturesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern
+{
+	return [self rx_capturesForGroup:group withPattern:regexPattern options:0];
+}
+
+- (NSArray *)rx_capturesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options
+{
+	NSArray *matches = [self rx_matchesWithPattern:regexPattern];
+	
+	[self validateGroup:group inMatches:matches];
+	
+	NSMutableArray *captures = [NSMutableArray array];
+	
+	for (RXMatch *match in matches)
+		[captures addObject:[[match captures] objectAtIndex:group]];
+	
+	return captures;
 }
 
 #pragma mark Private Helpers
