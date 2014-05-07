@@ -43,4 +43,9 @@
 - (NSArray *)rx_capturesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern;
 - (NSArray *)rx_capturesForGroup:(NSInteger)group withPattern:(NSString *)regexPattern options:(NSRegularExpressionOptions)options;
 
+#pragma mark Replacement
+
+- (NSString *)rx_stringByReplacingMatchesOfPattern:(NSString *)regexPattern withTemplate:(NSString *)templateString;
+- (NSString *)rx_stringByReplacingMatchesOfPattern:(NSString *)regexPattern withTemplate:(NSString *)templateString options:(NSMatchingOptions)options;
+
 @end

@@ -170,6 +170,18 @@ static RXRegexCache *_regexCache;
 	return captures;
 }
 
+#pragma mark Replacement
+
+- (NSString *)rx_stringByReplacingMatchesOfPattern:(NSString *)regexPattern withTemplate:(NSString *)templateString
+{
+	return [self rx_stringByReplacingMatchesOfPattern:regexPattern withTemplate:templateString options:0];
+}
+
+- (NSString *)rx_stringByReplacingMatchesOfPattern:(NSString *)regexPattern withTemplate:(NSString *)templateString options:(NSMatchingOptions)options
+{
+	return [[regexPattern rx_regex] stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length]) withTemplate:@"$1;"];
+}
+
 #pragma mark Private Helpers
 
 - (void)validateGroup:(NSUInteger)group inMatches:(NSArray *)matches
