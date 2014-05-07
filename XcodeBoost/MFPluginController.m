@@ -62,10 +62,10 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Lines" action:@selector(duplicateLines_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Delete Lines" action:@selector(deleteLines_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Select Methods" action:@selector(selectSubroutines_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Select Method Signatures" action:@selector(selectSubroutineSignatures_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Methods" action:@selector(duplicateSubroutines_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Copy Method Declarations" action:@selector(copySubroutineDeclarations_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Select Methods and Functions" action:@selector(selectSubroutines_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Select Method and Function Signatures" action:@selector(selectSubroutineSignatures_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Methods and Functions" action:@selector(duplicateSubroutines_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Copy Method and Function Declarations" action:@selector(copySubroutineDeclarations_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of Symbol" action:@selector(highlightSelectedSymbols_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of String" action:@selector(highlightSelectedStrings_clicked:)]];
