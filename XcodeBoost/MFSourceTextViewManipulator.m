@@ -65,7 +65,7 @@
 	
 	NSMutableString *insertedString = [[NSMutableString alloc] init];
 	
-	if ([selectedLinesString xb_startsWithMethodDefinition])
+	if ([selectedLinesString xb_startsWithSubroutineDefinition])
 		[insertedString appendString:@"\n"];
 	
 	[insertedString appendString:selectedLinesString];
@@ -171,30 +171,30 @@
 	}];
 }
 
-#pragma mark Working With Methods
+#pragma mark Working With Subroutines (Methods and Functions)
 
-- (void)selectMethods
+- (void)selectSubroutines
 {
-	NSArray *methodDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
-	NSArray *rangesToSelect = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
+	NSArray *subroutineDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
+	NSArray *rangesToSelect = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:subroutineDefinitionRanges wholeLines:YES];
 	
 	if ([rangesToSelect count] > 0)
 		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
 }
 
-- (void)selectMethodSignatures
+- (void)selectSubroutineSignatures
 {
-	NSArray *methodDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
-	NSArray *methodSignatureRanges = [self.string xb_subroutineSignatureRanges];
+	NSArray *subroutineDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
+	NSArray *selectedSubroutineDefinitionRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:subroutineDefinitionRanges wholeLines:YES];
+	NSArray *subroutineSignatureRanges = [self.string xb_subroutineSignatureRanges];
 	
 	NSMutableArray *rangesToSelect = [NSMutableArray array];
-	for (NSValue *methodSignatureRange in methodSignatureRanges)
+	for (NSValue *subroutineSignatureRange in subroutineSignatureRanges)
 	{
-		for (NSValue *selectedMethodDefinitionRange in selectedMethodDefinitionRanges)
+		for (NSValue *selectedSubroutineDefinitionRange in selectedSubroutineDefinitionRanges)
 		{
-			if (NSIntersectionRange([methodSignatureRange rangeValue], [selectedMethodDefinitionRange rangeValue]).length != 0)
-				[rangesToSelect addObject:methodSignatureRange];
+			if (NSIntersectionRange([subroutineSignatureRange rangeValue], [selectedSubroutineDefinitionRange rangeValue]).length != 0)
+				[rangesToSelect addObject:subroutineSignatureRange];
 		}
 	}
 	
@@ -202,30 +202,30 @@
 		[self.sourceTextView setSelectedRanges:rangesToSelect affinity:NSSelectionAffinityUpstream stillSelecting:NO];
 }
 
-- (void)copyMethodDeclarations
+- (void)copySubroutineDeclarations
 {
-	NSArray *methodDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
+	NSArray *subroutineDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
+	NSArray *selectedSubroutineDefinitionRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:subroutineDefinitionRanges wholeLines:YES];
 	
-	NSRange overarchingRange = [MFRangeHelper unionRangeWithRanges:selectedMethodDefinitionRanges];
+	NSRange overarchingRange = [MFRangeHelper unionRangeWithRanges:selectedSubroutineDefinitionRanges];
 	if (overarchingRange.location == NSNotFound) return;
 	
 	NSString *overarchingString = [[self.textStorage string] substringWithRange:overarchingRange];
-	NSString *methodDeclarations = [overarchingString xb_extractSubroutineDeclarations];
+	NSString *subroutineDeclarations = [overarchingString xb_extractSubroutineDeclarations];
 	
-	[self setPasteboardString:methodDeclarations];
+	[self setPasteboardString:subroutineDeclarations];
 }
 
-- (void)duplicateMethods
+- (void)duplicateSubroutines
 {
-	NSArray *methodDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
-	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
-	NSArray *selectedMethodDefinitionLineRanges = [self.string xb_lineRangesForRanges:selectedMethodDefinitionRanges];
+	NSArray *subroutineDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
+	NSArray *selectedSubroutineDefinitionRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:subroutineDefinitionRanges wholeLines:YES];
+	NSArray *selectedSubroutineDefinitionLineRanges = [self.string xb_lineRangesForRanges:selectedSubroutineDefinitionRanges];
 	
-	if ([selectedMethodDefinitionLineRanges count] == 0) return;
+	if ([selectedSubroutineDefinitionLineRanges count] == 0) return;
 	
-	NSRange unionRange = [selectedMethodDefinitionLineRanges[0] rangeValue];
-	for (NSValue *range in selectedMethodDefinitionLineRanges)
+	NSRange unionRange = [selectedSubroutineDefinitionLineRanges[0] rangeValue];
+	for (NSValue *range in selectedSubroutineDefinitionLineRanges)
 		unionRange = NSUnionRange(unionRange, [range rangeValue]);
 	
 	[self duplicateLines:unionRange];
@@ -248,7 +248,7 @@
 {
 	NSArray *symbolRanges = [self.string xb_symbolRanges];
 	NSArray *selectedSymbolRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:symbolRanges wholeLines:NO];
-	NSArray *methodDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
+	NSArray *subroutineDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
 	
 	for (NSValue *selectedSymbolRange in selectedSymbolRanges)
 	{
@@ -257,18 +257,18 @@
 		
 		// Basic scope-checking
 		
-		NSArray *symbolsInMethodDefinitions = [MFRangeHelper ranges:occurenceRanges fullyOrPartiallyContainedInRanges:methodDefinitionRanges];
-		if ([symbolsInMethodDefinitions count] == [occurenceRanges count])
+		NSArray *symbolsInSubroutineDefinitions = [MFRangeHelper ranges:occurenceRanges fullyOrPartiallyContainedInRanges:subroutineDefinitionRanges];
+		if ([symbolsInSubroutineDefinitions count] == [occurenceRanges count])
 		{
-			// All symbol occurences were found in method definitions; consider symbol as local
-			NSValue *currentMethodDefinitionRange = [[self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES] firstObject];
-			if (!currentMethodDefinitionRange) continue;
+			// All symbol occurences were found in subroutine definitions; consider symbol as local
+			NSValue *currentSubroutineDefinitionRange = [[self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:subroutineDefinitionRanges wholeLines:YES] firstObject];
+			if (!currentSubroutineDefinitionRange) continue;
 			
-			[self highlightRanges:[MFRangeHelper ranges:occurenceRanges fullyOrPartiallyContainedInRanges:@[currentMethodDefinitionRange]]];
+			[self highlightRanges:[MFRangeHelper ranges:occurenceRanges fullyOrPartiallyContainedInRanges:@[currentSubroutineDefinitionRange]]];
 		}
 		else
 		{
-			// Some of the symbol occurences were found outside of method definitions;
+			// Some of the symbol occurences were found outside of subroutine definitions;
 			// consider symbol as global and highlight all occurences.
 			[self highlightRanges:occurenceRanges];
 		}

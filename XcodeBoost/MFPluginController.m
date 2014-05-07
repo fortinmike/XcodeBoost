@@ -62,10 +62,10 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Lines" action:@selector(duplicateLines_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Delete Lines" action:@selector(deleteLines_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Select Methods" action:@selector(selectMethods_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Select Method Signatures" action:@selector(selectMethodSignatures_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Methods" action:@selector(duplicateMethods_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Copy Method Declarations" action:@selector(copyMethodDeclarations_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Select Methods" action:@selector(selectSubroutines_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Select Method Signatures" action:@selector(selectSubroutineSignatures_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Methods" action:@selector(duplicateSubroutines_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Copy Method Declarations" action:@selector(copySubroutineDeclarations_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of Symbol" action:@selector(highlightSelectedSymbols_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of String" action:@selector(highlightSelectedStrings_clicked:)]];
@@ -123,26 +123,26 @@
 	[[[self currentSourceTextView] xb_manipulator] deleteLines];
 }
 
-#pragma mark Method Manipulation Action Methods
+#pragma mark Subroutine Manipulation Action Methods
 
-- (void)selectMethods_clicked:(id)sender
+- (void)selectSubroutines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] selectMethods];
+	[[[self currentSourceTextView] xb_manipulator] selectSubroutines];
 }
 
-- (void)selectMethodSignatures_clicked:(id)sender
+- (void)selectSubroutineSignatures_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] selectMethodSignatures];
+	[[[self currentSourceTextView] xb_manipulator] selectSubroutineSignatures];
 }
 
-- (void)duplicateMethods_clicked:(id)sender
+- (void)duplicateSubroutines_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] duplicateMethods];
+	[[[self currentSourceTextView] xb_manipulator] duplicateSubroutines];
 }
 
-- (void)copyMethodDeclarations_clicked:(id)sender
+- (void)copySubroutineDeclarations_clicked:(id)sender
 {
-	[[[self currentSourceTextView] xb_manipulator] copyMethodDeclarations];
+	[[[self currentSourceTextView] xb_manipulator] copySubroutineDeclarations];
 }
 
 #pragma mark Highlighting Action Methods
