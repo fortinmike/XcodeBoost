@@ -175,7 +175,7 @@
 
 - (void)selectMethods
 {
-	NSArray *methodDefinitionRanges = [self.string xb_methodDefinitionRanges];
+	NSArray *methodDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
 	NSArray *rangesToSelect = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	
 	if ([rangesToSelect count] > 0)
@@ -184,9 +184,9 @@
 
 - (void)selectMethodSignatures
 {
-	NSArray *methodDefinitionRanges = [self.string xb_methodDefinitionRanges];
+	NSArray *methodDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
 	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
-	NSArray *methodSignatureRanges = [self.string xb_methodSignatureRanges];
+	NSArray *methodSignatureRanges = [self.string xb_subroutineSignatureRanges];
 	
 	NSMutableArray *rangesToSelect = [NSMutableArray array];
 	for (NSValue *methodSignatureRange in methodSignatureRanges)
@@ -204,21 +204,21 @@
 
 - (void)copyMethodDeclarations
 {
-	NSArray *methodDefinitionRanges = [self.string xb_methodDefinitionRanges];
+	NSArray *methodDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
 	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	
 	NSRange overarchingRange = [MFRangeHelper unionRangeWithRanges:selectedMethodDefinitionRanges];
 	if (overarchingRange.location == NSNotFound) return;
 	
 	NSString *overarchingString = [[self.textStorage string] substringWithRange:overarchingRange];
-	NSString *methodDeclarations = [overarchingString xb_extractMethodDeclarations];
+	NSString *methodDeclarations = [overarchingString xb_extractSubroutineDeclarations];
 	
 	[self setPasteboardString:methodDeclarations];
 }
 
 - (void)duplicateMethods
 {
-	NSArray *methodDefinitionRanges = [self.string xb_methodDefinitionRanges];
+	NSArray *methodDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
 	NSArray *selectedMethodDefinitionRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:methodDefinitionRanges wholeLines:YES];
 	NSArray *selectedMethodDefinitionLineRanges = [self.string xb_lineRangesForRanges:selectedMethodDefinitionRanges];
 	
@@ -248,7 +248,7 @@
 {
 	NSArray *symbolRanges = [self.string xb_symbolRanges];
 	NSArray *selectedSymbolRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:symbolRanges wholeLines:NO];
-	NSArray *methodDefinitionRanges = [self.string xb_methodDefinitionRanges];
+	NSArray *methodDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
 	
 	for (NSValue *selectedSymbolRange in selectedSymbolRanges)
 	{

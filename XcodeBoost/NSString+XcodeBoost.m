@@ -34,14 +34,11 @@ static NSString *s_commentPattern = @"//.+?(?=\\n)|/\\*.+?\\*/";
 
 #pragma mark Complex Patterns
 
-// Unescaped: ((([-\+] ?\(.+?\).*)|[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.+?\))\n?)\{(.*\n)+?(\n?)\}
-static NSString *s_subroutinePattern = @"((([-\\+] ?\\(.+?\\).*)|[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\\n?)\\{(.*\\n)+?(\\n?)\\}";
-
 // Unescaped: ([-\+] ?\(.+?\).*)(\n?)\{(.*\n)+?(\n?)\}
 static NSString *s_methodPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}";
 
-// Unescaped: [a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.+?\)\n?\{(.*\n)+?(\n?)\}
-static NSString *s_functionPattern = @"[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\)\\n?\\{(.*\\n)+?(\\n?)\\}";
+// Unescaped: ([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.+?\))\n?\{(.*\n)+?(\n?)\}
+static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\\n?\\{(.*\\n)+?(\\n?)\\}";
 
 #pragma mark Creating Instances
 
@@ -138,22 +135,22 @@ static NSString *s_functionPattern = @"[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\)\\n
 
 - (BOOL)xb_startsWithSubroutineDefinition
 {
-	@throw [NSException exceptionWithName:@"TODO" reason:@"TODO" userInfo:nil];
+	return [self xb_startsWithMethodDefinition] || [self xb_startsWithFunctionDefinition];
 }
 
 - (NSString *)xb_extractSubroutineDeclarations
 {
-	@throw [NSException exceptionWithName:@"TODO" reason:@"TODO" userInfo:nil];
+	return [[self xb_extractMethodDeclarations] xb_extractFunctionDeclarations];
 }
 
 - (NSArray *)xb_subroutineDefinitionRanges
 {
-	@throw [NSException exceptionWithName:@"TODO" reason:@"TODO" userInfo:nil];
+	return [[self xb_methodDefinitionRanges] arrayByAddingObjectsFromArray:[self xb_functionDefinitionRanges]];
 }
 
 - (NSArray *)xb_subroutineSignatureRanges
 {
-	@throw [NSException exceptionWithName:@"TODO" reason:@"TODO" userInfo:nil];
+	return [[self xb_methodSignatureRanges] arrayByAddingObjectsFromArray:[self xb_functionSignatureRanges]];
 }
 
 #pragma mark Code Patterns - Methods
@@ -165,8 +162,7 @@ static NSString *s_functionPattern = @"[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\)\\n
 
 - (NSString *)xb_extractMethodDeclarations
 {
-	NSRegularExpression *methodRegex = [s_methodPattern rx_regex];
-	NSString *declarations = [methodRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length]) withTemplate:@"$1;"];
+	NSString *declarations = [self rx_stringByReplacingMatchesOfPattern:s_methodPattern withTemplate:@"$1;"];
 	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	return trimmedDeclarations;
 }
@@ -185,22 +181,24 @@ static NSString *s_functionPattern = @"[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\)\\n
 
 - (BOOL)xb_startsWithFunctionDefinition
 {
-	@throw [NSException exceptionWithName:@"TODO" reason:@"TODO" userInfo:nil];
+	return [self rx_matchesPattern:[@"^" stringByAppendingString:s_functionPattern]];
 }
 
 - (NSString *)xb_extractFunctionDeclarations
 {
-	@throw [NSException exceptionWithName:@"TODO" reason:@"TODO" userInfo:nil];
+	NSString *declarations = [self rx_stringByReplacingMatchesOfPattern:s_functionPattern withTemplate:@"$1;"];
+	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	return trimmedDeclarations;
 }
 
 - (NSArray *)xb_functionDefinitionRanges
 {
-	@throw [NSException exceptionWithName:@"TODO" reason:@"TODO" userInfo:nil];
+	return [self rx_rangesForMatchesWithPattern:s_functionPattern];
 }
 
 - (NSArray *)xb_functionSignatureRanges
 {
-	@throw [NSException exceptionWithName:@"TODO" reason:@"TODO" userInfo:nil];
+	return [self rx_rangesForGroup:1 withPattern:s_functionPattern];
 }
 
 #pragma mark Code Patterns - Other
@@ -220,24 +218,6 @@ static NSString *s_functionPattern = @"[a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\)\\n
 - (NSArray *)xb_stringRanges
 {
 	return [self rx_rangesForMatchesWithPattern:s_stringLiteralPattern];
-}
-
-#pragma mark Private Methods
-
-- (NSArray *)xb_rangesForCaptures:(NSArray *)captures
-{
-	return [self xb_rangesForCaptures:captures group:-1];
-}
-
-- (NSArray *)xb_rangesForCaptures:(NSArray *)captures group:(NSUInteger)captureGroup
-{
-	NSMutableArray *ranges = [NSMutableArray array];
-	for (NSTextCheckingResult *match in captures)
-	{
-		NSRange matchRange = (captureGroup == -1) ? [match range] : [match rangeAtIndex:captureGroup];
-		[ranges addObject:[NSValue valueWithRange:matchRange]];
-	}
-	return ranges;
 }
 
 @end
