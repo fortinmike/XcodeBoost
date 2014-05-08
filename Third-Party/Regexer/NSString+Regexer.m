@@ -179,7 +179,7 @@ static RXRegexCache *_regexCache;
 
 - (NSString *)rx_stringByReplacingMatchesOfPattern:(NSString *)regexPattern withTemplate:(NSString *)templateString options:(NSMatchingOptions)options
 {
-	return [[regexPattern rx_regex] stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length]) withTemplate:@"$1;"];
+	return [[regexPattern rx_regex] stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length]) withTemplate:templateString];
 }
 
 #pragma mark Private Helpers
