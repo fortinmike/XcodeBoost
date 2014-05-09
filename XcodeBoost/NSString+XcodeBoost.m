@@ -8,31 +8,37 @@
 
 #import "NSString+XcodeBoost.h"
 #import "NSArray+XcodeBoost.h"
+#import "NSString+Regexer.h"
 
 @implementation NSString (XcodeBoost)
 
-static BOOL s_regexesPrepared;
+#pragma mark Basic Patterns
 
+// Unescaped: [a-zA-Z0-9_]
 static NSString *s_symbolCharacterPattern = @"[a-zA-Z0-9_]";
-static NSString *s_stringLiteralPattern = @"@\".+?\""; // Unescaped: @".+?"
-static NSString *s_numberLiteralPattern = @"@\\(.+\\)|@[0-9]+?.??[0-9]+?"; // Unescaped: @\(.+?\)|@[0-9]+.?[0-9]+
-static NSString *s_selectorPattern = @"@selector\\(.+?\\)"; // Unescaped: @selector\(.+?\)
-static NSString *s_methodDefinitionsPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}"; // Unescaped: ([-\+] ?\(.+?\).*)(\n?)\{(.*\n)+?(\n?)\}
-static NSString *s_commentPattern = @"//.+?(?=\\n)|/\\*.+?\\*/"; // Unescaped: //.+?(?=\n)|/\*.+?\*/
 
-// Primitives
-static NSRegularExpression *s_genericSymbolRegex;
-static NSRegularExpression *s_stringLiteralRegex;
-static NSRegularExpression *s_numberLiteralRegex;
-static NSRegularExpression *s_selectorRegex;
-static NSRegularExpression *s_methodDefinitionRegex;
-static NSRegularExpression *s_commentRegex;
+// Unescaped: [a-zA-Z0-9_]+
+static NSString *s_genericSymbolPattern = @"[a-zA-Z0-9_]+";
 
-// Composite
-static NSRegularExpression *s_symbolRegex;
+// Unescaped: @".+?"
+static NSString *s_stringLiteralPattern = @"@\".+?\"";
 
-// Special Cases
-static NSRegularExpression *s_singleMethodDefinitionRegex;
+// Unescaped: @\(.+?\)|@[0-9]+.?[0-9]+
+static NSString *s_numberLiteralPattern = @"@\\(.+\\)|@[0-9]+?.??[0-9]+?";
+
+// Unescaped: @selector\(.+?\)
+static NSString *s_selectorPattern = @"@selector\\(.+?\\)";
+
+// Unescaped: //.+?(?=\n)|/\*.+?\*/
+static NSString *s_commentPattern = @"//.+?(?=\\n)|/\\*.+?\\*/";
+
+#pragma mark Complex Patterns
+
+// Unescaped: ([-\+] ?\(.+?\).*)(\n?)\{(.*\n)+?(\n?)\}
+static NSString *s_methodPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}";
+
+// Unescaped: ([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.+?\))\n?\{(.*\n)+?(\n?)\}
+static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\\n?\\{(.*\\n)+?(\\n?)\\}";
 
 #pragma mark Creating Instances
 
@@ -98,17 +104,16 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 
 - (NSArray *)xb_rangesOfSymbol:(NSString *)symbol
 {
-	// Using negative look-behind and look-ahead so that we obtain
-	// the actual symbols and not all occurences of the string in
-	// the text. Enough for helpful results.
+	// Using negative look-behind and look-ahead so that we obtain the actual symbols
+	// and not all occurences of the string in the text. Enough for helpful results.
 	
-	[self xb_prepareRegexes];
 	NSString *symbolPattern = [NSString stringWithFormat:@"(?<!(%@))%@(?!(%@))", s_symbolCharacterPattern, symbol, s_symbolCharacterPattern];
-	NSArray *rawSymbolRanges = [self xb_rangesOfRegex:symbolPattern options:0];
+	NSArray *rawSymbolRanges = [self rx_rangesForMatchesWithPattern:symbolPattern];
 	
 	// Simple, brute-force approach to removing symbols detected in strings, comments, ...
 	
-	NSMutableArray *invalidRanges = [[self xb_rangesOfRegex:@"@\".+?\"" options:0] mutableCopy];
+	NSMutableArray *invalidRanges = [NSMutableArray array];
+	[invalidRanges addObjectsFromArray:[self xb_stringRanges]];
 	[invalidRanges addObjectsFromArray:[self xb_commentRanges]];
 	
 	NSMutableArray *symbolRanges = [NSMutableArray array];
@@ -126,105 +131,93 @@ static NSRegularExpression *s_singleMethodDefinitionRegex;
 	return symbolRanges;
 }
 
-- (NSArray *)xb_rangesOfRegex:(NSString *)pattern options:(NSRegularExpressionOptions)options
+#pragma mark Code Patterns - Subroutines
+
+- (BOOL)xb_startsWithSubroutineDefinition
 {
-	NSError *error;
-	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:&error];
-	NSArray *matches = [regex matchesInString:self options:0 range:[self xb_range]];
-	return [self xb_rangesForMatches:matches];
+	return [self xb_startsWithMethodDefinition] || [self xb_startsWithFunctionDefinition];
 }
 
-#pragma mark Code Patterns
+- (NSString *)xb_extractSubroutineDeclarations
+{
+	return [[self xb_extractMethodDeclarations] xb_extractFunctionDeclarations];
+}
+
+- (NSArray *)xb_subroutineDefinitionRanges
+{
+	return [[self xb_methodDefinitionRanges] arrayByAddingObjectsFromArray:[self xb_functionDefinitionRanges]];
+}
+
+- (NSArray *)xb_subroutineSignatureRanges
+{
+	return [[self xb_methodSignatureRanges] arrayByAddingObjectsFromArray:[self xb_functionSignatureRanges]];
+}
+
+#pragma mark Code Patterns - Methods
 
 - (BOOL)xb_startsWithMethodDefinition
 {
-	[self xb_prepareRegexes];
-	NSUInteger numberOfMatches = [s_singleMethodDefinitionRegex numberOfMatchesInString:self options:0 range:[self xb_range]];
-	return numberOfMatches == 1;
+	return [self rx_matchesPattern:[@"^" stringByAppendingString:s_methodPattern]];
 }
 
 - (NSString *)xb_extractMethodDeclarations
 {
-	[self xb_prepareRegexes];
-	NSString *declarations = [s_methodDefinitionRegex stringByReplacingMatchesInString:self options:0 range:NSMakeRange(0, [self length]) withTemplate:@"$1;"];
+	NSString *declarations = [self rx_stringByReplacingMatchesOfPattern:s_methodPattern withTemplate:@"$1;"];
 	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	return trimmedDeclarations;
 }
 
 - (NSArray *)xb_methodDefinitionRanges
 {
-	[self xb_prepareRegexes];
-	NSArray *matches = [s_methodDefinitionRegex matchesInString:self options:0 range:[self xb_range]];
-	return [self xb_rangesForMatches:matches];
+	return [self rx_rangesForMatchesWithPattern:s_methodPattern];
 }
 
 - (NSArray *)xb_methodSignatureRanges
 {
-	[self xb_prepareRegexes];
-	NSArray *matches = [s_methodDefinitionRegex matchesInString:self options:0 range:[self xb_range]];
-	return [self xb_rangesForMatches:matches captureGroup:1];
+	return [self rx_rangesForGroup:1 withPattern:s_methodPattern];
 }
+
+#pragma mark Code Patterns - Functions
+
+- (BOOL)xb_startsWithFunctionDefinition
+{
+	return [self rx_matchesPattern:[@"^" stringByAppendingString:s_functionPattern]];
+}
+
+- (NSString *)xb_extractFunctionDeclarations
+{
+	NSString *declarations = [self rx_stringByReplacingMatchesOfPattern:s_functionPattern withTemplate:@"$1;"];
+	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	return trimmedDeclarations;
+}
+
+- (NSArray *)xb_functionDefinitionRanges
+{
+	return [self rx_rangesForMatchesWithPattern:s_functionPattern];
+}
+
+- (NSArray *)xb_functionSignatureRanges
+{
+	return [self rx_rangesForGroup:1 withPattern:s_functionPattern];
+}
+
+#pragma mark Code Patterns - Other
 
 - (NSArray *)xb_symbolRanges
 {
-	[self xb_prepareRegexes];
-	NSArray *matches = [s_symbolRegex matchesInString:self options:0 range:[self xb_range]];
-	return [self xb_rangesForMatches:matches];
+	NSString *symbolPattern = [NSString stringWithFormat:@"%@|%@|%@|%@", s_genericSymbolPattern, s_stringLiteralPattern,
+																		 s_numberLiteralPattern, s_selectorPattern];
+	return [self rx_rangesForMatchesWithPattern:symbolPattern];
 }
 
 - (NSArray *)xb_commentRanges
 {
-	[self xb_prepareRegexes];
-	NSArray *matches = [s_commentRegex matchesInString:self options:0 range:[self xb_range]];
-	return [self xb_rangesForMatches:matches];
+	return [self rx_rangesForMatchesWithPattern:s_commentPattern];
 }
 
-#pragma mark Private Methods
-
-- (void)xb_prepareRegexes
+- (NSArray *)xb_stringRanges
 {
-	if (!s_regexesPrepared)
-	{
-		NSString *genericSymbolPattern = [NSString stringWithFormat:@"%@+", s_symbolCharacterPattern];
-		s_genericSymbolRegex = [NSRegularExpression regularExpressionWithPattern:genericSymbolPattern options:0 error:nil];
-		
-		s_stringLiteralRegex = [NSRegularExpression regularExpressionWithPattern:s_stringLiteralPattern options:0 error:nil];
-		
-		s_numberLiteralRegex = [NSRegularExpression regularExpressionWithPattern:s_numberLiteralPattern options:0 error:nil];
-		
-		s_selectorRegex = [NSRegularExpression regularExpressionWithPattern:s_selectorPattern options:0 error:nil];
-		
-		s_methodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:s_methodDefinitionsPattern options:0 error:nil];
-		
-		s_commentRegex = [NSRegularExpression regularExpressionWithPattern:s_commentPattern options:0 error:nil];
-		
-		NSString *symbolPattern = [NSString stringWithFormat:@"%@|%@|%@|%@",
-								   genericSymbolPattern, s_stringLiteralPattern,
-								   s_numberLiteralPattern, s_selectorPattern];
-		s_symbolRegex = [NSRegularExpression regularExpressionWithPattern:symbolPattern options:0 error:nil];
-		
-		
-		NSString *startsWithMethodDefinitionPattern = [@"^" stringByAppendingString:s_methodDefinitionsPattern];
-		s_singleMethodDefinitionRegex = [NSRegularExpression regularExpressionWithPattern:startsWithMethodDefinitionPattern options:0 error:nil];
-		
-		s_regexesPrepared = YES;
-	}
-}
-
-- (NSArray *)xb_rangesForMatches:(NSArray *)matches
-{
-	return [self xb_rangesForMatches:matches captureGroup:-1];
-}
-
-- (NSArray *)xb_rangesForMatches:(NSArray *)matches captureGroup:(NSUInteger)captureGroup
-{
-	NSMutableArray *ranges = [NSMutableArray array];
-	for (NSTextCheckingResult *match in matches)
-	{
-		NSRange matchRange = (captureGroup == -1) ? [match range] : [match rangeAtIndex:captureGroup];
-		[ranges addObject:[NSValue valueWithRange:matchRange]];
-	}
-	return ranges;
+	return [self rx_rangesForMatchesWithPattern:s_stringLiteralPattern];
 }
 
 @end
