@@ -13,6 +13,7 @@
 #import "IDEKit.h"
 #import "MFIDEHelper.h"
 #import "MFClangHelper.h"
+#import "MFMigrationManager.h"
 
 @implementation MFPluginController
 {
@@ -33,6 +34,7 @@
 		
 		[self registerDefaults];
 		[self insertMenuItems];
+		[self showNewVersionWarningIfAppropriate];
     }
     return self;
 }
@@ -54,6 +56,18 @@
 	[editMenu xb_insertItems:menuItems beforeItem:1 where:^BOOL(NSMenuItem *item) { return [item isSeparatorItem]; }];
 }
 
+- (void)showNewVersionWarningIfAppropriate
+{
+	MFMigrationManager *manager = [MFMigrationManager migrationManagerWithCurrentVersion:@"1.1"];
+	
+	[manager whenMigratingToVersion:@"1.1" run:^
+	{
+		NSString *text = @"Some of XcodeBoost's menu titles have changed. Please update your XcodeBoost keyboard shortcuts through System Preferences!";
+		NSAlert *alert = [NSAlert alertWithMessageText:@"Please update your XcodeBoost shortcuts" defaultButton:@"Understood!" alternateButton:nil otherButton:nil informativeTextWithFormat:text];
+		[alert runModal];
+	}];
+}
+
 - (NSMenuItem *)createTextToolsMenuItem
 {
 	NSMenu *submenu = [[NSMenu alloc] init];
@@ -64,10 +78,10 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Lines" action:@selector(duplicateLines_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Delete Lines" action:@selector(deleteLines_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Select Methods" action:@selector(selectMethods_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Select Method Signatures" action:@selector(selectMethodSignatures_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Methods" action:@selector(duplicateMethods_clicked:)]];
-	[submenu addItem:[self createMenuItemWithTitle:@"Copy Method Declarations" action:@selector(copyMethodDeclarations_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Select Methods and Functions" action:@selector(selectSubroutines_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Select Method and Function Signatures" action:@selector(selectSubroutineSignatures_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Duplicate Methods and Functions" action:@selector(duplicateSubroutines_clicked:)]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Copy Method and Function Declarations" action:@selector(copySubroutineDeclarations_clicked:)]];
 	[submenu addItem:[NSMenuItem separatorItem]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of Symbol" action:@selector(highlightSelectedSymbols_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Occurences of String" action:@selector(highlightSelectedStrings_clicked:)]];
@@ -127,26 +141,26 @@
 	[[[MFIDEHelper currentSourceTextView] xb_manipulator] deleteLines];
 }
 
-#pragma mark Method Manipulation Action Methods
+#pragma mark Subroutine Manipulation Action Methods
 
-- (void)selectMethods_clicked:(id)sender
+- (void)selectSubroutines_clicked:(id)sender
 {
-	[[[MFIDEHelper currentSourceTextView] xb_manipulator] selectMethods];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] selectSubroutines];
 }
 
-- (void)selectMethodSignatures_clicked:(id)sender
+- (void)selectSubroutineSignatures_clicked:(id)sender
 {
-	[[[MFIDEHelper currentSourceTextView] xb_manipulator] selectMethodSignatures];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] selectSubroutineSignatures];
 }
 
-- (void)duplicateMethods_clicked:(id)sender
+- (void)duplicateSubroutines_clicked:(id)sender
 {
-	[[[MFIDEHelper currentSourceTextView] xb_manipulator] duplicateMethods];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] duplicateSubroutines];
 }
 
-- (void)copyMethodDeclarations_clicked:(id)sender
+- (void)copySubroutineDeclarations_clicked:(id)sender
 {
-	[[[MFIDEHelper currentSourceTextView] xb_manipulator] copyMethodDeclarations];
+	[[[MFIDEHelper currentSourceTextView] xb_manipulator] copySubroutineDeclarations];
 }
 
 #pragma mark Highlighting Action Methods

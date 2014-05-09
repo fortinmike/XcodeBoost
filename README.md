@@ -36,3 +36,7 @@ XcodeBoost automates some tedious operations such as **extracting method declara
 	- Suggested keyboard shortcuts:
 	
 	![image](Images/menu.png)
+	
+## Like the color theme in those screenshots?
+
+You can also install the [Irradiated](https://github.com/fortinmike/irradiated-xcode-theme) color theme using Alcatraz.

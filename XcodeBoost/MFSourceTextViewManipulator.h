@@ -22,12 +22,12 @@
 - (void)duplicateLines;
 - (void)deleteLines;
 
-#pragma mark Working With Methods
+#pragma mark Working With Subroutines (Methods and Functions)
 
-- (void)selectMethods;
-- (void)selectMethodSignatures;
-- (void)copyMethodDeclarations;
-- (void)duplicateMethods;
+- (void)selectSubroutines;
+- (void)selectSubroutineSignatures;
+- (void)copySubroutineDeclarations;
+- (void)duplicateSubroutines;
 
 #pragma mark Highlighting
 
