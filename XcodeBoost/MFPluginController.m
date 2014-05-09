@@ -11,6 +11,7 @@
 #import "DVTSourceTextView+XcodeBoost.h"
 #import "MFHighlightRegexWindowController.h"
 #import "IDEKit.h"
+#import "MFMigrationManager.h"
 
 @implementation MFPluginController
 {
@@ -31,6 +32,7 @@
 		
 		[self registerDefaults];
 		[self insertMenuItems];
+		[self showNewVersionWarningIfAppropriate];
     }
     return self;
 }
@@ -50,6 +52,18 @@
 	
 	NSMenu *editMenu = [[[NSApp mainMenu] itemWithTitle:@"Edit"] submenu];
 	[editMenu xb_insertItems:menuItems beforeItem:1 where:^BOOL(NSMenuItem *item) { return [item isSeparatorItem]; }];
+}
+
+- (void)showNewVersionWarningIfAppropriate
+{
+	MFMigrationManager *manager = [MFMigrationManager migrationManagerWithCurrentVersion:@"1.1"];
+	
+	[manager whenMigratingToVersion:@"1.1" run:^
+	{
+		NSString *text = @"Some of XcodeBoost's menu titles have changed. Please update your XcodeBoost keyboard shortcuts through System Preferences!";
+		NSAlert *alert = [NSAlert alertWithMessageText:@"Please update your XcodeBoost shortcuts" defaultButton:@"Understood!" alternateButton:nil otherButton:nil informativeTextWithFormat:text];
+		[alert runModal];
+	}];
 }
 
 - (NSMenuItem *)createTextToolsMenuItem
