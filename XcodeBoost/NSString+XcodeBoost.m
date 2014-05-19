@@ -6,11 +6,16 @@
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
+#import "NSString+Regexer.h"
 #import "NSString+XcodeBoost.h"
 #import "NSArray+XcodeBoost.h"
-#import "NSString+Regexer.h"
 
 @implementation NSString (XcodeBoost)
+
+// Note for contributors:
+//
+// Using regexes to interpret code gets unwieldy pretty quickly...
+// If you want to help get rid of those, investigate the clang-playground branch!
 
 #pragma mark Basic Patterns
 
@@ -34,8 +39,8 @@ static NSString *s_commentPattern = @"//.+?(?=\\n)|/\\*.+?\\*/";
 
 #pragma mark Complex Patterns
 
-// Unescaped: ([-\+] ?\(.+?\).*)(\n?)\{(.*\n)+?(\n?)\}
-static NSString *s_methodPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}";
+// Unescaped: ([-\+] \([a-zA-Z0-9 \(\)_\*^]+\) ?([a-zA-Z0-9_\*]+(:\([a-zA-Z0-9 \(\)_\*^]+\)[a-zA-Z0-9_]+[ \n]?)?\s*)+)\{(.*\n)+?(\n?)\}
+static NSString *s_methodPattern = @"([-\\+] \\([a-zA-Z0-9 \\(\\)_\\*^]+\\) ?([a-zA-Z0-9_\\*]+(:\\([a-zA-Z0-9 \\(\\)_\\*^]+\\)[a-zA-Z0-9_]+[ \\n]?)?\\s*)+)\\{(.*\\n)+?(\\n?)\\}";
 
 // Unescaped: ([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.+?\))\n?\{(.*\n)+?(\n?)\}
 static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\\n?\\{(.*\\n)+?(\\n?)\\}";
