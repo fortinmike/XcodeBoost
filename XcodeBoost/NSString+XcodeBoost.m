@@ -43,8 +43,8 @@ static NSString *s_commentPattern = @"//.+?(?=\\n)|/\\*.+?\\*/";
 // Unescaped: ([-\+] ?[a-zA-Z0-9 \(\)_\*^:\n\s]+)\{(?:.*\n)+?(?:\n?)\}
 static NSString *s_methodPattern = @"([-\\+] ?[a-zA-Z0-9 \\(\\)_\\*^:\\n\\s]+)\\{(?:.*\\n)+?(?:\\n?)\\}";
 
-// Unescaped: ([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.*?\))\n?\{(?:.*\n)+?(?:\n?)\}
-static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.*?\\))\\n?\\{(?:.*\\n)+?(?:\\n?)\\}";
+// Unescaped: ([a-zA-Z0-9_ \*^]+? [a-zA-Z0-9_]+?\((?:.|\n\s)*?\))[\s\n]?\{(?:.*\n)+?(?:\n?)\}
+static NSString *s_functionPattern = @"([a-zA-Z0-9_ \\*^]+? [a-zA-Z0-9_]+?\\((?:.|\\n\\s)*?\\))[\\s\\n]?\\{(?:.*\\n)+?(?:\\n?)\\}";
 
 #pragma mark Creating Instances
 
