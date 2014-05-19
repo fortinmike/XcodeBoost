@@ -48,6 +48,21 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\
 
 #pragma mark Creating Instances
 
++ (NSString *)xb_stringByConcatenatingStringsInArray:(NSArray *)stringsArray delimiter:(NSString *)delimiter
+{
+	NSMutableString *concatenated = [[NSMutableString alloc] init];
+	
+	[stringsArray enumerateObjectsUsingBlock:^(NSString *string, NSUInteger index, BOOL *stop)
+	{
+		[concatenated appendString:string];
+		
+		if (index != [stringsArray count] - 1)
+			[concatenated appendString:delimiter];
+	}];
+	
+	return concatenated;
+}
+
 - (NSAttributedString *)xb_attributedString
 {
 	return [[NSAttributedString alloc] initWithString:self];
@@ -168,9 +183,7 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\
 
 - (NSString *)xb_extractMethodDeclarations
 {
-	NSString *declarations = [self rx_stringByReplacingMatchesOfPattern:s_methodPattern withTemplate:@"$1;"];
-	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	return trimmedDeclarations;
+	return [self xb_extractDeclarationsWithPattern:s_methodPattern];
 }
 
 - (NSArray *)xb_methodDefinitionRanges
@@ -192,9 +205,7 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\
 
 - (NSString *)xb_extractFunctionDeclarations
 {
-	NSString *declarations = [self rx_stringByReplacingMatchesOfPattern:s_functionPattern withTemplate:@"$1;"];
-	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	return trimmedDeclarations;
+	return [self xb_extractDeclarationsWithPattern:s_functionPattern];
 }
 
 - (NSArray *)xb_functionDefinitionRanges
@@ -224,6 +235,20 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\
 - (NSArray *)xb_stringRanges
 {
 	return [self rx_rangesForMatchesWithPattern:s_stringLiteralPattern];
+}
+
+#pragma mark Helpers
+
+- (NSString *)xb_extractDeclarationsWithPattern:(NSString *)pattern
+{
+	NSArray *declarations = [self rx_textsForGroup:1 withPattern:pattern];
+	NSArray *trimmedDeclarations = [declarations xb_map:^id(NSString *declaration)
+	{
+		NSString *trimmedDeclaration = [declaration stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		return [trimmedDeclaration stringByAppendingString:@";"];
+	}];
+	
+	return [NSString xb_stringByConcatenatingStringsInArray:trimmedDeclarations delimiter:@"\n\n"];
 }
 
 @end

@@ -12,6 +12,7 @@
 
 #pragma mark Creating Instances
 
++ (NSString *)xb_stringByConcatenatingStringsInArray:(NSArray *)stringsArray delimiter:(NSString *)delimiter;
 - (NSAttributedString *)xb_attributedString;
 - (NSString *)xb_concatenatedStringForRanges:(NSArray *)ranges;
 
