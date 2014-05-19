@@ -16,6 +16,7 @@
 //
 // Using regexes to interpret code gets unwieldy pretty quickly...
 // If you want to help get rid of those, investigate the clang-playground branch!
+// In the meantime, I recommend something like Patterns.app to experiment with the unescape patterns below.
 
 #pragma mark Basic Patterns
 
