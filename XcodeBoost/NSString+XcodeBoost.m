@@ -40,11 +40,11 @@ static NSString *s_commentPattern = @"//.+?(?=\\n)|/\\*.+?\\*/";
 
 #pragma mark Complex Patterns
 
-// Unescaped: ([-\+] ?[a-zA-Z0-9 \(\)_\*^:\n\s]+)\{(.*\n)+?(\n?)\}
-static NSString *s_methodPattern = @"([-\\+] ?[a-zA-Z0-9 \\(\\)_\\*^:\\n\\s]+)\\{(.*\\n)+?(\\n?)\\}";
+// Unescaped: ([-\+] ?[a-zA-Z0-9 \(\)_\*^:\n\s]+)\{(?:.*\n)+?(?:\n?)\}
+static NSString *s_methodPattern = @"([-\\+] ?[a-zA-Z0-9 \\(\\)_\\*^:\\n\\s]+)\\{(?:.*\\n)+?(?:\\n?)\\}";
 
-// Unescaped: ([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.+?\))\n?\{(.*\n)+?(\n?)\}
-static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.*?\\))\\n?\\{(.*\\n)+?(\\n?)\\}";
+// Unescaped: ([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.*?\))\n?\{(?:.*\n)+?(?:\n?)\}
+static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.*?\\))\\n?\\{(?:.*\\n)+?(?:\\n?)\\}";
 
 #pragma mark Creating Instances
 
@@ -168,14 +168,14 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.*?\\))\
 	
 	for (RXMatch *match in matches)
 	{
-		NSAssert([[match captures] count] == 7, @"The capture group count has changed; this extraction code should be revised!");
+		NSAssert([[match captures] count] == 3, @"The capture group count has changed; this extraction code should be revised!");
 		
 		RXCapture *methodSignature = match[1];
 		
 		if ([methodSignature found])
 			[declarations addObject:[self xb_cleanupSubroutineDeclaration:[methodSignature text]]];
 		
-		RXCapture *functionSignature = match[4];
+		RXCapture *functionSignature = match[2];
 		
 		if ([functionSignature found])
 			[declarations addObject:[self xb_cleanupSubroutineDeclaration:[functionSignature text]]];
