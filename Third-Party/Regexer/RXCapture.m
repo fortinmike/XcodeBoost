@@ -8,11 +8,19 @@
 
 #import "RXCapture.h"
 
+@interface RXCapture ()
+
+@property (assign) BOOL found;
+
+@end
+
 @implementation RXCapture
 
 + (instancetype)notFoundCapture
 {
-	return [[self alloc] initWithRange:NSMakeRange(NSNotFound, 0) text:nil];
+	RXCapture *capture = [[self alloc] initWithRange:NSMakeRange(NSNotFound, 0) text:nil];
+	[capture setFound:NO];
+	return capture;
 }
 
 - (id)initWithRange:(NSRange)range text:(NSString *)text
@@ -20,6 +28,7 @@
 	self = [super init];
 	if (self)
 	{
+		_found = YES;
 		_range = range;
 		_text = text;
 	}

@@ -10,6 +10,7 @@
 
 @interface RXCapture : NSObject
 
+@property (readonly) BOOL found;
 @property (readonly) NSRange range;
 @property (readonly) NSString *text;
 
