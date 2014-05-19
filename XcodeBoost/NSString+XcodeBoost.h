@@ -12,6 +12,7 @@
 
 #pragma mark Creating Instances
 
++ (NSString *)xb_stringByConcatenatingStringsInArray:(NSArray *)stringsArray delimiter:(NSString *)delimiter;
 - (NSAttributedString *)xb_attributedString;
 - (NSString *)xb_concatenatedStringForRanges:(NSArray *)ranges;
 
@@ -36,14 +37,12 @@
 #pragma mark Code Patterns - Methods
 
 - (BOOL)xb_startsWithMethodDefinition;
-- (NSString *)xb_extractMethodDeclarations;
 - (NSArray *)xb_methodDefinitionRanges;
 - (NSArray *)xb_methodSignatureRanges;
 
 #pragma mark Code Patterns - Functions
 
 - (BOOL)xb_startsWithFunctionDefinition;
-- (NSString *)xb_extractFunctionDeclarations;
 - (NSArray *)xb_functionDefinitionRanges;
 - (NSArray *)xb_functionSignatureRanges;
 

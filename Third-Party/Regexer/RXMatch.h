@@ -18,4 +18,8 @@
 
 - (id)initWithCaptures:(NSArray *)captures;
 
+#pragma mark Subscripting Support
+
+- (id)objectAtIndexedSubscript:(NSUInteger)index;
+
 @end

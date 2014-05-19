@@ -6,11 +6,17 @@
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
+#import "NSString+Regexer.h"
 #import "NSString+XcodeBoost.h"
 #import "NSArray+XcodeBoost.h"
-#import "NSString+Regexer.h"
 
 @implementation NSString (XcodeBoost)
+
+// Note for contributors:
+//
+// Using regexes to interpret code gets unwieldy pretty quickly...
+// If you want to help get rid of those, investigate the clang-playground branch!
+// In the meantime, I recommend something like Patterns.app to experiment with the unescape patterns below.
 
 #pragma mark Basic Patterns
 
@@ -34,13 +40,28 @@ static NSString *s_commentPattern = @"//.+?(?=\\n)|/\\*.+?\\*/";
 
 #pragma mark Complex Patterns
 
-// Unescaped: ([-\+] ?\(.+?\).*)(\n?)\{(.*\n)+?(\n?)\}
-static NSString *s_methodPattern = @"([-\\+] ?\\(.+?\\).*)(\\n?)\\{(.*\\n)+?(\\n?)\\}";
+// Unescaped: ([-\+] ?[a-zA-Z0-9 \(\)_\*^:\n\s]+)\{(?:.*\n)+?(?:\n?)\}
+static NSString *s_methodPattern = @"([-\\+] ?[a-zA-Z0-9 \\(\\)_\\*^:\\n\\s]+)\\{(?:.*\\n)+?(?:\\n?)\\}";
 
-// Unescaped: ([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.+?\))\n?\{(.*\n)+?(\n?)\}
-static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\\n?\\{(.*\\n)+?(\\n?)\\}";
+// Unescaped: ([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.*?\))\n?\{(?:.*\n)+?(?:\n?)\}
+static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.*?\\))\\n?\\{(?:.*\\n)+?(?:\\n?)\\}";
 
 #pragma mark Creating Instances
+
++ (NSString *)xb_stringByConcatenatingStringsInArray:(NSArray *)stringsArray delimiter:(NSString *)delimiter
+{
+	NSMutableString *concatenated = [[NSMutableString alloc] init];
+	
+	[stringsArray enumerateObjectsUsingBlock:^(NSString *string, NSUInteger index, BOOL *stop)
+	{
+		[concatenated appendString:string];
+		
+		if (index != [stringsArray count] - 1)
+			[concatenated appendString:delimiter];
+	}];
+	
+	return concatenated;
+}
 
 - (NSAttributedString *)xb_attributedString
 {
@@ -88,7 +109,7 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\
 	NSRange foundRange = NSMakeRange(0, 0);
 
 	NSMutableArray *ranges = [NSMutableArray array];
-	while(YES)
+	while (YES)
 	{
 		foundRange = [self rangeOfString:string options:0 range:searchRange];
 		
@@ -140,7 +161,27 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\
 
 - (NSString *)xb_extractSubroutineDeclarations
 {
-	return [[self xb_extractMethodDeclarations] xb_extractFunctionDeclarations];
+	NSString *methodOrFunctionPattern = [NSString stringWithFormat:@"%@|%@", s_methodPattern, s_functionPattern];
+	NSArray *matches = [self rx_matchesWithPattern:methodOrFunctionPattern];
+	
+	NSMutableArray *declarations = [NSMutableArray array];
+	
+	for (RXMatch *match in matches)
+	{
+		NSAssert([[match captures] count] == 3, @"The capture group count has changed; this extraction code should be revised!");
+		
+		RXCapture *methodSignature = match[1];
+		
+		if ([methodSignature found])
+			[declarations addObject:[self xb_cleanupSubroutineDeclaration:[methodSignature text]]];
+		
+		RXCapture *functionSignature = match[2];
+		
+		if ([functionSignature found])
+			[declarations addObject:[self xb_cleanupSubroutineDeclaration:[functionSignature text]]];
+	}
+	
+	return [NSString xb_stringByConcatenatingStringsInArray:declarations delimiter:@"\n\n"];
 }
 
 - (NSArray *)xb_subroutineDefinitionRanges
@@ -160,13 +201,6 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\
 	return [self rx_matchesPattern:[@"^" stringByAppendingString:s_methodPattern]];
 }
 
-- (NSString *)xb_extractMethodDeclarations
-{
-	NSString *declarations = [self rx_stringByReplacingMatchesOfPattern:s_methodPattern withTemplate:@"$1;"];
-	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	return trimmedDeclarations;
-}
-
 - (NSArray *)xb_methodDefinitionRanges
 {
 	return [self rx_rangesForMatchesWithPattern:s_methodPattern];
@@ -182,13 +216,6 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\
 - (BOOL)xb_startsWithFunctionDefinition
 {
 	return [self rx_matchesPattern:[@"^" stringByAppendingString:s_functionPattern]];
-}
-
-- (NSString *)xb_extractFunctionDeclarations
-{
-	NSString *declarations = [self rx_stringByReplacingMatchesOfPattern:s_functionPattern withTemplate:@"$1;"];
-	NSString *trimmedDeclarations = [declarations stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	return trimmedDeclarations;
 }
 
 - (NSArray *)xb_functionDefinitionRanges
@@ -218,6 +245,14 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\
 - (NSArray *)xb_stringRanges
 {
 	return [self rx_rangesForMatchesWithPattern:s_stringLiteralPattern];
+}
+
+#pragma mark Helpers
+
+- (NSString *)xb_cleanupSubroutineDeclaration:(NSString *)declaration
+{
+	NSString *trimmedDeclaration = [declaration stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	return [trimmedDeclaration stringByAppendingString:@";"];
 }
 
 @end
