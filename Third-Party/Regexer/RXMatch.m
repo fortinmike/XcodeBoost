@@ -40,7 +40,7 @@
 {
 	if (index >= [_captures count])
 	{
-		NSString *reason = [NSString stringWithFormat:@"There is no capture group with index %lu", index];
+		NSString *reason = [NSString stringWithFormat:@"There is no capture group with index %lu", (unsigned long)index];
 		@throw [NSException exceptionWithName:@"Invalid Operation" reason:reason userInfo:nil];
 	}
 	

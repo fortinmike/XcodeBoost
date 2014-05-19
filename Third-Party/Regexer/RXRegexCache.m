@@ -49,7 +49,7 @@
 			
 			if (error)
 			{
-				NSString *reason = [NSString stringWithFormat:@"Could not create regex with pattern %@ and options %lu", self, options];
+				NSString *reason = [NSString stringWithFormat:@"Could not create regex with pattern %@ and options %lu", pattern, (unsigned long)options];
 				@throw [NSException exceptionWithName:@"Can't Create Regex" reason:reason userInfo:nil];
 			}
 			
