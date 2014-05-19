@@ -44,7 +44,7 @@ static NSString *s_commentPattern = @"//.+?(?=\\n)|/\\*.+?\\*/";
 static NSString *s_methodPattern = @"([-\\+] ?[a-zA-Z0-9 \\(\\)_\\*^:\\n\\s]+)\\{(.*\\n)+?(\\n?)\\}";
 
 // Unescaped: ([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\(.+?\))\n?\{(.*\n)+?(\n?)\}
-static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.+?\\))\\n?\\{(.*\\n)+?(\\n?)\\}";
+static NSString *s_functionPattern = @"([a-zA-Z0-9_]+? [a-zA-Z0-9_]+?\\(.*?\\))\\n?\\{(.*\\n)+?(\\n?)\\}";
 
 #pragma mark Creating Instances
 
