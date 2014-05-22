@@ -29,14 +29,15 @@
 	
 	NSTextContainer *textContainer = [self textContainerForGlyphAtIndex:glyphsToShow.location effectiveRange:NULL];
 	
-	NSUInteger rectCount;
-	NSRectArray rects = [self rectArrayForGlyphRange:glyphsToShow withinSelectedGlyphRange:NSMakeRange(NSNotFound, 0) inTextContainer:textContainer rectCount:&rectCount];
-	
-	CGFloat randomRed = 0 + ((float)arc4random() / 0x100000000) * 1;
-	CGFloat randomGreen = 0 + ((float)arc4random() / 0x100000000) * 1;
-	CGFloat randomBlue = 0 + ((float)arc4random() / 0x100000000) * 1;
-	[[NSColor colorWithRed:randomRed green:randomGreen blue:randomBlue alpha:1] set];
-	if (rectCount > 0) NSRectFill(rects[0]);
+	for (int i = 0; i < glyphsToShow.length; i++)
+	{
+		CGRect boundingRect = [self boundingRectForGlyphRange:NSMakeRange(glyphsToShow.location + i, 1) inTextContainer:textContainer];
+		CGFloat randomRed = 0 + ((float)arc4random() / 0x100000000) * 1;
+		CGFloat randomGreen = 0 + ((float)arc4random() / 0x100000000) * 1;
+		CGFloat randomBlue = 0 + ((float)arc4random() / 0x100000000) * 1;
+		[[NSColor colorWithRed:randomRed green:randomGreen blue:randomBlue alpha:1] set];
+		NSRectFill(boundingRect);
+	}
 }
 
 - (void)xb_drawGlyphsForGlyphRange:(NSRange)glyphsToShow atPoint:(NSPoint)origin
