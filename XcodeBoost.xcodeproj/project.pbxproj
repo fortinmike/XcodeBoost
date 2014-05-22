@@ -39,6 +39,7 @@
 		4CE2088418DA8E2800070212 /* IDEFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088318DA8E2800070212 /* IDEFoundation.framework */; };
 		4CE2088618DA8E4800070212 /* DVTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088518DA8E4800070212 /* DVTKit.framework */; };
 		4CE2088818DA8E5400070212 /* DVTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088718DA8E5400070212 /* DVTFoundation.framework */; };
+		4CE9E9D1192DA474001573BE /* DVTLayoutManager+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9E9D0192DA474001573BE /* DVTLayoutManager+XcodeBoost.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +106,8 @@
 		4CE2088318DA8E2800070212 /* IDEFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDEFoundation.framework; path = ../../../../../../Applications/Xcode.app/Contents/Frameworks/IDEFoundation.framework; sourceTree = "<group>"; };
 		4CE2088518DA8E4800070212 /* DVTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DVTKit.framework; path = ../../../../../../Applications/Xcode.app/Contents/SharedFrameworks/DVTKit.framework; sourceTree = "<group>"; };
 		4CE2088718DA8E5400070212 /* DVTFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DVTFoundation.framework; path = ../../../../../../Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework; sourceTree = "<group>"; };
+		4CE9E9CF192DA474001573BE /* DVTLayoutManager+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DVTLayoutManager+XcodeBoost.h"; sourceTree = "<group>"; };
+		4CE9E9D0192DA474001573BE /* DVTLayoutManager+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DVTLayoutManager+XcodeBoost.m"; sourceTree = "<group>"; };
 		534B2E341B6C46478E20E400 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -193,13 +196,14 @@
 				4C4A8DB018DD0F7200256B20 /* XcodeBoostFoundation.h */,
 				4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */,
 				4CD521E718D384240025F2A1 /* Categories */,
+				4CE9E9CD192DA3BA001573BE /* Swizzled */,
 				4C1E8CC818EE3F26006869D5 /* Helpers */,
 				4CAC524E18D380A000E88C70 /* Logic */,
-				4C82FF0D18F0ABAE000C0E8D /* Model */,
+				4CE9E9CE192DA403001573BE /* Model */,
 				4C30388218E1AAB000F570E4 /* Window Controllers */,
 				4C30388618E2303600F570E4 /* Xibs */,
-				4CEBB15818D37F6C0091E9FC /* Class-Dumps */,
 				4C30388918E2F88700F570E4 /* Resources */,
+				4CEBB15818D37F6C0091E9FC /* Class-Dumps */,
 				4C2868B118D331B7006C780C /* Supporting Files */,
 			);
 			path = XcodeBoost;
@@ -266,15 +270,6 @@
 			path = MFMigrationManager;
 			sourceTree = "<group>";
 		};
-		4C82FF0D18F0ABAE000C0E8D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				4C82FF1118F0ABD4000C0E8D /* MFScrollerMark.h */,
-				4C82FF1218F0ABD4000C0E8D /* MFScrollerMark.m */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		4CAC524E18D380A000E88C70 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,8 +286,6 @@
 		4CD521E718D384240025F2A1 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				4C82FF0A18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.h */,
-				4C82FF0B18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m */,
 				4C44F68E18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.h */,
 				4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m */,
 				4CD521EB18D384EC0025F2A1 /* NSArray+XcodeBoost.h */,
@@ -309,6 +302,26 @@
 				4C87F33318EF99CF00D63FD0 /* NSView+XcodeBoost.m */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		4CE9E9CD192DA3BA001573BE /* Swizzled */ = {
+			isa = PBXGroup;
+			children = (
+				4CE9E9CF192DA474001573BE /* DVTLayoutManager+XcodeBoost.h */,
+				4CE9E9D0192DA474001573BE /* DVTLayoutManager+XcodeBoost.m */,
+				4C82FF0A18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.h */,
+				4C82FF0B18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m */,
+			);
+			name = Swizzled;
+			sourceTree = "<group>";
+		};
+		4CE9E9CE192DA403001573BE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4C82FF1118F0ABD4000C0E8D /* MFScrollerMark.h */,
+				4C82FF1218F0ABD4000C0E8D /* MFScrollerMark.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		4CEBB15818D37F6C0091E9FC /* Class-Dumps */ = {
@@ -399,6 +412,7 @@
 				4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m in Sources */,
 				4C9C725C1917305500C4BFA8 /* NSArray+Regexer.m in Sources */,
 				4C1C38FC19057C6F00EE3992 /* JRSwizzle.m in Sources */,
+				4CE9E9D1192DA474001573BE /* DVTLayoutManager+XcodeBoost.m in Sources */,
 				4C44F68D18DAA56C0061D68E /* MFSourceTextViewManipulator.m in Sources */,
 				4C30388518E1AAC800F570E4 /* MFHighlightRegexWindowController.m in Sources */,
 				4C9C725E1917305500C4BFA8 /* RXCapture.m in Sources */,
