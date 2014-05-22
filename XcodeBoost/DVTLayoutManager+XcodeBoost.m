@@ -17,8 +17,11 @@
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^
 	{
-		[self jr_swizzleMethod:@selector(drawBackgroundForGlyphRange:atPoint:) withMethod:@selector(xb_drawBackgroundForGlyphRange:atPoint:) error:nil];
-		[self jr_swizzleMethod:@selector(drawGlyphsForGlyphRange:atPoint:) withMethod:@selector(xb_drawGlyphsForGlyphRange:atPoint:) error:nil];
+		[self jr_swizzleMethod:@selector(drawBackgroundForGlyphRange:atPoint:)
+					withMethod:@selector(xb_drawBackgroundForGlyphRange:atPoint:) error:nil];
+		
+		[self jr_swizzleMethod:@selector(drawGlyphsForGlyphRange:atPoint:)
+					withMethod:@selector(xb_drawGlyphsForGlyphRange:atPoint:) error:nil];
 	});
 }
 
