@@ -24,6 +24,8 @@ XcodeBoost automates some tedious operations such as **extracting method declara
 
 *Pastes the copied string after the selected lines, unlike Xcode's "Paste" and "Paste and Preserve Formatting" which paste everything at the exact caret position. No need to precisely position the caret; code will be pasted on the next line.*
 
+#### ... and more!
+
 ## Installation
 
 1. Install through [Alcatraz](https://github.com/supermarin/Alcatraz) or download the source and build the XcodeBoost target, then restart Xcode.
