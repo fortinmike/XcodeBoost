@@ -7,6 +7,7 @@
 //
 
 #import "MFSourceTextViewManipulator.h"
+#import "XcodeBoostConstants.h"
 #import "DVTKit.h"
 #import "MFRangeHelper.h"
 #import "NSArray+XcodeBoost.h"
@@ -264,10 +265,10 @@
 	NSTextStorage *textStorage = self.textStorage;
 	NSRange documentRange = NSMakeRange(0, [[textStorage string] length]);
 	
-	[textStorage enumerateAttribute:NSBackgroundColorAttributeName inRange:documentRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop)
+	[textStorage enumerateAttribute:XBHighlightColorAttributeName inRange:documentRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop)
 	{
 		if ([value isEqual:highlightColorToRemove])
-			[textStorage removeAttribute:NSBackgroundColorAttributeName range:range];
+			[textStorage removeAttribute:XBHighlightColorAttributeName range:range];
 	}];
 }
 
@@ -297,7 +298,7 @@
 
 - (void)highlightRange:(NSRange)range withColor:(NSColor *)color
 {
-	[self.textStorage addAttribute:NSBackgroundColorAttributeName value:color range:range];
+	[self.textStorage addAttribute:XBHighlightColorAttributeName value:color range:range];
 }
 
 - (void)removeAllHighlighting
@@ -307,9 +308,9 @@
 	
 	[self.scroller xb_removeAllMarks];
 	
-	[textStorage enumerateAttribute:NSBackgroundColorAttributeName inRange:documentRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop)
+	[textStorage enumerateAttribute:XBHighlightColorAttributeName inRange:documentRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop)
 	{
-		[textStorage removeAttribute:NSBackgroundColorAttributeName range:range];
+		[textStorage removeAttribute:XBHighlightColorAttributeName range:range];
 	}];
 	
 	[_highlighter popAllHighlightColors];

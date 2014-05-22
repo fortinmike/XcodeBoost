@@ -23,6 +23,7 @@
 		4C44F69318DAA7020061D68E /* NSObject+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */; };
 		4C4A8DB218DD0F7200256B20 /* XcodeBoostFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */; };
 		4C7598FF191C70ED009AD0A4 /* MFMigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7598FE191C70ED009AD0A4 /* MFMigrationManager.m */; };
+		4C7C1CB0192DB7E3006BF8D9 /* XcodeBoostConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C1CAF192DB7E3006BF8D9 /* XcodeBoostConstants.m */; };
 		4C82FF0C18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82FF0B18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m */; };
 		4C82FF1318F0ABD4000C0E8D /* MFScrollerMark.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82FF1218F0ABD4000C0E8D /* MFScrollerMark.m */; };
 		4C87F33418EF99CF00D63FD0 /* NSView+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87F33318EF99CF00D63FD0 /* NSView+XcodeBoost.m */; };
@@ -73,6 +74,8 @@
 		4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeBoostFoundation.m; sourceTree = "<group>"; };
 		4C7598FD191C70ED009AD0A4 /* MFMigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMigrationManager.h; sourceTree = "<group>"; };
 		4C7598FE191C70ED009AD0A4 /* MFMigrationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMigrationManager.m; sourceTree = "<group>"; };
+		4C7C1CAE192DB7E3006BF8D9 /* XcodeBoostConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XcodeBoostConstants.h; sourceTree = "<group>"; };
+		4C7C1CAF192DB7E3006BF8D9 /* XcodeBoostConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeBoostConstants.m; sourceTree = "<group>"; };
 		4C82FF0A18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DVTMarkedScroller+XcodeBoost.h"; sourceTree = "<group>"; };
 		4C82FF0B18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DVTMarkedScroller+XcodeBoost.m"; sourceTree = "<group>"; };
 		4C82FF1118F0ABD4000C0E8D /* MFScrollerMark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFScrollerMark.h; sourceTree = "<group>"; };
@@ -193,6 +196,8 @@
 			children = (
 				4C2868B618D331B7006C780C /* XcodeBoost.h */,
 				4C2868B718D331B7006C780C /* XcodeBoost.m */,
+				4C7C1CAE192DB7E3006BF8D9 /* XcodeBoostConstants.h */,
+				4C7C1CAF192DB7E3006BF8D9 /* XcodeBoostConstants.m */,
 				4C4A8DB018DD0F7200256B20 /* XcodeBoostFoundation.h */,
 				4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */,
 				4CD521E718D384240025F2A1 /* Categories */,
@@ -406,6 +411,7 @@
 				4C1E8CCE18EE488E006869D5 /* MFHighlighter.m in Sources */,
 				4C9C725D1917305500C4BFA8 /* NSString+Regexer.m in Sources */,
 				4C0A53BD18DCE7EE00E82F1C /* NSColor+XcodeBoost.m in Sources */,
+				4C7C1CB0192DB7E3006BF8D9 /* XcodeBoostConstants.m in Sources */,
 				4C4A8DB218DD0F7200256B20 /* XcodeBoostFoundation.m in Sources */,
 				4CD521EA18D384360025F2A1 /* NSMenu+XcodeBoost.m in Sources */,
 				4C9C72601917305500C4BFA8 /* RXRegexCache.m in Sources */,

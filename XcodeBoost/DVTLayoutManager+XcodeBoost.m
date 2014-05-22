@@ -7,6 +7,7 @@
 //
 
 #import "DVTLayoutManager+XcodeBoost.h"
+#import "XcodeBoostConstants.h"
 #import "JRSwizzle.h"
 
 @implementation DVTLayoutManager (XcodeBoost)
@@ -29,14 +30,26 @@
 	
 	NSTextContainer *textContainer = [self textContainerForGlyphAtIndex:glyphsToShow.location effectiveRange:NULL];
 	
-	for (int i = 0; i < glyphsToShow.length; i++)
+	for (unsigned long i = 0; i < glyphsToShow.length; i++)
 	{
-		CGRect boundingRect = [self boundingRectForGlyphRange:NSMakeRange(glyphsToShow.location + i, 1) inTextContainer:textContainer];
-		CGFloat randomRed = 0 + ((float)arc4random() / 0x100000000) * 1;
-		CGFloat randomGreen = 0 + ((float)arc4random() / 0x100000000) * 1;
-		CGFloat randomBlue = 0 + ((float)arc4random() / 0x100000000) * 1;
-		[[NSColor colorWithRed:randomRed green:randomGreen blue:randomBlue alpha:1] set];
-		NSRectFill(boundingRect);
+		NSRange highlightRange;
+		NSColor *color = [self.textStorage attribute:XBHighlightColorAttributeName atIndex:i effectiveRange:&highlightRange];
+		
+		NSRect rangeRect = [self boundingRectForGlyphRange:highlightRange inTextContainer:textContainer];
+		
+		NSRect insetRect = NSInsetRect(rangeRect, -1, -1);
+		NSBezierPath *bezierPath = [NSBezierPath bezierPathWithRoundedRect:insetRect xRadius:3 yRadius:3];
+		
+		if (color)
+		{
+			[[NSColor colorWithWhite:1.0 alpha:0.5] set];
+			[bezierPath stroke];
+			
+			[color set];
+			[bezierPath fill];
+			
+			i = highlightRange.location + highlightRange.length;
+		}
 	}
 }
 
