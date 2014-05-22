@@ -95,32 +95,6 @@
 	}];
 }
 
-#pragma mark Highlighting Helpers
-
-- (void)highlightRanges:(NSArray *)ranges
-{
-	NSColor *highlightColor = [_highlighter pushHighlightColor];
-	DVTMarkedScroller *scroller = self.scroller;
-	
-	for (NSValue *range in ranges)
-	{
-		NSRange highlightRange = [range rangeValue];
-		
-		[self.textStorage addAttribute:NSBackgroundColorAttributeName value:highlightColor range:highlightRange];
-		
-		// Add a color mark to the scroller
-		NSLayoutManager *layoutManager = [self.sourceTextView layoutManager];
-		NSRange glyphRange = [layoutManager glyphRangeForCharacterRange:highlightRange actualCharacterRange:NULL];
-		NSRect lineRect = [layoutManager lineFragmentRectForGlyphAtIndex:glyphRange.location effectiveRange:NULL];
-		CGFloat rangeRatio = lineRect.origin.y / [self.sourceTextView bounds].size.height;
-		[scroller xb_addMarkWithColor:highlightColor atRatio:rangeRatio];
-		
-		// Sometimes when the window is not key (such as when a panel is opened in front of it)
-		// the text view won't update to show the newly added highlighting.
-		[self.sourceTextView setNeedsDisplay:YES];
-	}
-}
-
 #pragma mark Pasteboard Helpers
 
 - (NSString *)getPasteboardString
@@ -295,6 +269,35 @@
 		if ([value isEqual:highlightColorToRemove])
 			[textStorage removeAttribute:NSBackgroundColorAttributeName range:range];
 	}];
+}
+
+- (void)highlightRanges:(NSArray *)ranges
+{
+	NSColor *highlightColor = [_highlighter pushHighlightColor];
+	DVTMarkedScroller *scroller = self.scroller;
+	
+	for (NSValue *range in ranges)
+	{
+		NSRange highlightRange = [range rangeValue];
+		
+		[self highlightRange:highlightRange withColor:highlightColor];
+		
+		// Add a color mark to the scroller
+		NSLayoutManager *layoutManager = [self.sourceTextView layoutManager];
+		NSRange glyphRange = [layoutManager glyphRangeForCharacterRange:highlightRange actualCharacterRange:NULL];
+		NSRect lineRect = [layoutManager lineFragmentRectForGlyphAtIndex:glyphRange.location effectiveRange:NULL];
+		CGFloat rangeRatio = lineRect.origin.y / [self.sourceTextView bounds].size.height;
+		[scroller xb_addMarkWithColor:highlightColor atRatio:rangeRatio];
+		
+		// Sometimes when the window is not key (such as when a panel is opened in front of it)
+		// the text view won't update to show the newly added highlighting.
+		[self.sourceTextView setNeedsDisplay:YES];
+	}
+}
+
+- (void)highlightRange:(NSRange)range withColor:(NSColor *)color
+{
+	[self.textStorage addAttribute:NSBackgroundColorAttributeName value:color range:range];
 }
 
 - (void)removeAllHighlighting
