@@ -36,17 +36,20 @@
 	for (unsigned long i = 0; i < glyphsToShow.length; i++)
 	{
 		unsigned long glyphIndex = glyphsToShow.location + i;
-		NSTextContainer *textContainer = [self textContainerForGlyphAtIndex:glyphIndex effectiveRange:NULL];
 		
 		NSRange highlightRange;
 		NSColor *color = [self.textStorage attribute:XBHighlightColorAttributeName atIndex:glyphIndex effectiveRange:&highlightRange];
 		
-		NSRect highlightRect = [self boundingRectForGlyphRange:highlightRange inTextContainer:textContainer];
-		
-		if (color && !NSEqualRects(highlightRect, lastHighlightRect))
+		if (color)
 		{
-			[color set];
-			NSRectFill(highlightRect);
+			NSTextContainer *textContainer = [self textContainerForGlyphAtIndex:glyphIndex effectiveRange:NULL];
+			NSRect highlightRect = [self boundingRectForGlyphRange:highlightRange inTextContainer:textContainer];
+			
+			if (!NSEqualRects(highlightRect, lastHighlightRect))
+			{
+				[color set];
+				NSRectFill(highlightRect);
+			}
 		}
 	}
 }
