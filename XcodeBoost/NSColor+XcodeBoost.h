@@ -12,4 +12,15 @@
 
 + (NSColor *)xb_randomColor;
 
+#pragma mark Derived Colors
+
+- (NSColor *)darkerByPercent:(CGFloat)percentage;
+- (NSColor *)lighterByPercent:(CGFloat)percentage;
+
+#pragma mark Interpolation
+
++ (NSColor *)interpolateFrom:(NSColor *)fromColor to:(NSColor *)toColor percentage:(float)percentage;
+- (NSColor *)interpolateFrom:(NSColor *)fromColor percentage:(float)percentage;
+- (NSColor *)interpolateTo:(NSColor *)toColor percentage:(float)percentage;
+
 @end
