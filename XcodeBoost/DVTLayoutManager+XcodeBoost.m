@@ -31,6 +31,8 @@
 {
 	[self xb_drawBackgroundForGlyphRange:glyphsToShow atPoint:origin];
 	
+	NSRect lastHighlightRect = NSZeroRect;
+	
 	for (unsigned long i = 0; i < glyphsToShow.length; i++)
 	{
 		unsigned long glyphIndex = glyphsToShow.location + i;
@@ -39,12 +41,12 @@
 		NSRange highlightRange;
 		NSColor *color = [self.textStorage attribute:XBHighlightColorAttributeName atIndex:glyphIndex effectiveRange:&highlightRange];
 		
-		NSRect rangeRect = [self boundingRectForGlyphRange:highlightRange inTextContainer:textContainer];
+		NSRect highlightRect = [self boundingRectForGlyphRange:highlightRange inTextContainer:textContainer];
 		
-		if (color)
+		if (color && !NSEqualRects(highlightRect, lastHighlightRect))
 		{
 			[color set];
-			NSRectFill(rangeRect);
+			NSRectFill(highlightRect);
 		}
 	}
 }
