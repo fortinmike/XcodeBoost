@@ -35,13 +35,13 @@
 	
 	for (unsigned long i = 0; i < glyphsToShow.length; i++)
 	{
-		NSRange highlightRange;
-		NSColor *color = [self.textStorage attribute:XBHighlightColorAttributeName atIndex:i effectiveRange:&highlightRange];
+		unsigned long glyphIndex = glyphsToShow.location + i;
+		
+		NSRange highlightRange = NSMakeRange(glyphsToShow.location + i, 1);
+		NSColor *color = [self.textStorage attribute:XBHighlightColorAttributeName atIndex:glyphIndex effectiveRange:&highlightRange];
 		
 		NSRect rangeRect = [self boundingRectForGlyphRange:highlightRange inTextContainer:textContainer];
-		
-		NSRect insetRect = NSInsetRect(rangeRect, -1, -1);
-		NSBezierPath *bezierPath = [NSBezierPath bezierPathWithRoundedRect:insetRect xRadius:3 yRadius:3];
+		NSBezierPath *bezierPath = [NSBezierPath bezierPathWithRoundedRect:rangeRect xRadius:2 yRadius:2];
 		
 		if (color)
 		{
