@@ -31,27 +31,20 @@
 {
 	[self xb_drawBackgroundForGlyphRange:glyphsToShow atPoint:origin];
 	
-	NSTextContainer *textContainer = [self textContainerForGlyphAtIndex:glyphsToShow.location effectiveRange:NULL];
-	
 	for (unsigned long i = 0; i < glyphsToShow.length; i++)
 	{
 		unsigned long glyphIndex = glyphsToShow.location + i;
+		NSTextContainer *textContainer = [self textContainerForGlyphAtIndex:glyphIndex effectiveRange:NULL];
 		
-		NSRange highlightRange = NSMakeRange(glyphsToShow.location + i, 1);
+		NSRange highlightRange;
 		NSColor *color = [self.textStorage attribute:XBHighlightColorAttributeName atIndex:glyphIndex effectiveRange:&highlightRange];
 		
-		NSRect rangeRect = [self boundingRectForGlyphRange:highlightRange inTextContainer:textContainer];
-		NSBezierPath *bezierPath = [NSBezierPath bezierPathWithRoundedRect:rangeRect xRadius:2 yRadius:2];
+		NSRect rangeRect = [self boundingRectForGlyphRange:NSMakeRange(glyphIndex, 1) inTextContainer:textContainer];
 		
 		if (color)
 		{
-			[[NSColor colorWithWhite:1.0 alpha:0.5] set];
-			[bezierPath stroke];
-			
 			[color set];
-			[bezierPath fill];
-			
-			i = highlightRange.location + highlightRange.length;
+			NSRectFill(rangeRect);
 		}
 	}
 }
