@@ -39,7 +39,7 @@
 		NSRange highlightRange;
 		NSColor *color = [self.textStorage attribute:XBHighlightColorAttributeName atIndex:glyphIndex effectiveRange:&highlightRange];
 		
-		NSRect rangeRect = [self boundingRectForGlyphRange:NSMakeRange(glyphIndex, 1) inTextContainer:textContainer];
+		NSRect rangeRect = [self boundingRectForGlyphRange:highlightRange inTextContainer:textContainer];
 		
 		if (color)
 		{
