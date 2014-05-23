@@ -49,6 +49,8 @@
 			{
 				[color set];
 				NSRectFill(highlightRect);
+				
+				lastHighlightRect = highlightRect;
 			}
 		}
 	}
