@@ -8,6 +8,7 @@
 
 #import "DVTLayoutManager+XcodeBoost.h"
 #import "XcodeBoostConstants.h"
+#import "NSColor+XcodeBoost.h"
 #import "JRSwizzle.h"
 
 @implementation DVTLayoutManager (XcodeBoost)
@@ -47,18 +48,19 @@
 			
 			if (!NSEqualRects(highlightRect, lastHighlightRect))
 			{
+				NSRect insetRect = NSInsetRect(highlightRect, -2, -1);
+				NSBezierPath *path = [NSBezierPath bezierPathWithRoundedRect:insetRect xRadius:2 yRadius:2];
+				
 				[color set];
-				NSRectFill(highlightRect);
+				[path fill];
+				
+				[[color lighterByPercent:0.5] set];
+				[path stroke];
 				
 				lastHighlightRect = highlightRect;
 			}
 		}
 	}
-}
-
-- (void)xb_drawGlyphsForGlyphRange:(NSRange)glyphsToShow atPoint:(NSPoint)origin
-{
-	[self xb_drawGlyphsForGlyphRange:glyphsToShow atPoint:origin];
 }
 
 @end
