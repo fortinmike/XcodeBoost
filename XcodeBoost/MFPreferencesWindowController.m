@@ -7,12 +7,14 @@
 //
 
 #import "XcodeBoostConstants.h"
+#import "NSColor+XcodeBoost.h"
 #import "NSUserDefaults+XcodeBoost.h"
 #import "MFPreferencesWindowController.h"
 
 @implementation MFPreferencesWindowController
 {
-	NSUserDefaults *_defaults;
+	NSDictionary *_defaults;
+	NSUserDefaults *_userDefaults;
 }
 
 #pragma mark Lifetime
@@ -23,41 +25,56 @@
 	self = [super initWithWindowNibPath:nibPath owner:self];
 	if (self)
 	{
-		_defaults = [NSUserDefaults standardUserDefaults];
+		NSString *defaultsFilePath = [bundle pathForResource:@"Defaults" ofType:@"plist"];
+		_defaults = [NSDictionary dictionaryWithContentsOfFile:defaultsFilePath];
+		_userDefaults = [NSUserDefaults standardUserDefaults];
 	}
 	return self;
 }
 
-- (void)windowDidLoad
+- (void)awakeFromNib
 {
-    [super windowDidLoad];
-	
 	[self loadHighlightColors];
 }
 
 #pragma mark Highlighting
 
+- (void)resetHighlightColors
+{
+	[self.colorWell1 setColor:[NSColor xb_colorWithStringRepresentation:[_defaults objectForKey:XBHighlightColor1Key]]];
+	[self.colorWell2 setColor:[NSColor xb_colorWithStringRepresentation:[_defaults objectForKey:XBHighlightColor2Key]]];
+	[self.colorWell3 setColor:[NSColor xb_colorWithStringRepresentation:[_defaults objectForKey:XBHighlightColor3Key]]];
+	[self.colorWell4 setColor:[NSColor xb_colorWithStringRepresentation:[_defaults objectForKey:XBHighlightColor4Key]]];
+	
+	[self saveHighlightColors];
+}
+
 - (void)loadHighlightColors
 {
-	[self.colorWell1 setColor:[_defaults xb_colorForKey:XBHighlightColor1Key]];
-	[self.colorWell2 setColor:[_defaults xb_colorForKey:XBHighlightColor2Key]];
-	[self.colorWell3 setColor:[_defaults xb_colorForKey:XBHighlightColor3Key]];
-	[self.colorWell4 setColor:[_defaults xb_colorForKey:XBHighlightColor4Key]];
+	[self.colorWell1 setColor:[_userDefaults xb_colorForKey:XBHighlightColor1Key]];
+	[self.colorWell2 setColor:[_userDefaults xb_colorForKey:XBHighlightColor2Key]];
+	[self.colorWell3 setColor:[_userDefaults xb_colorForKey:XBHighlightColor3Key]];
+	[self.colorWell4 setColor:[_userDefaults xb_colorForKey:XBHighlightColor4Key]];
 }
 
 - (void)saveHighlightColors
 {
-	[_defaults xb_setColor:self.colorWell1.color forKey:XBHighlightColor1Key];
-	[_defaults xb_setColor:self.colorWell2.color forKey:XBHighlightColor2Key];
-	[_defaults xb_setColor:self.colorWell3.color forKey:XBHighlightColor3Key];
-	[_defaults xb_setColor:self.colorWell4.color forKey:XBHighlightColor4Key];
+	[_userDefaults xb_setColor:self.colorWell1.color forKey:XBHighlightColor1Key];
+	[_userDefaults xb_setColor:self.colorWell2.color forKey:XBHighlightColor2Key];
+	[_userDefaults xb_setColor:self.colorWell3.color forKey:XBHighlightColor3Key];
+	[_userDefaults xb_setColor:self.colorWell4.color forKey:XBHighlightColor4Key];
 }
 
 #pragma mark Action Methods
 
-- (IBAction)colorChanged:(id)sender
+- (IBAction)well_colorChanged:(id)sender
 {
 	[self saveHighlightColors];
+}
+
+- (IBAction)resetColors_clicked:(id)sender
+{
+	[self resetHighlightColors];
 }
 
 @end

@@ -24,12 +24,12 @@
     self = [super init];
     if (self)
     {
-		[self setupHighlightColors];
+		[self updateHighlightColors];
     }
     return self;
 }
 
-- (void)setupHighlightColors
+- (void)updateHighlightColors
 {
 	NSColor *color1 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:XBHighlightColor1Key];
 	NSColor *color2 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:XBHighlightColor2Key];
@@ -47,6 +47,8 @@
 	
 	if (_highlightCount < [_highlightColors count])
 	{
+		[self updateHighlightColors];
+		
 		color = _highlightColors[_highlightCount];
 	}
 	else

@@ -21,6 +21,7 @@
 
 #pragma mark Action Methods
 
-- (IBAction)colorChanged:(id)sender;
+- (IBAction)well_colorChanged:(id)sender;
+- (IBAction)resetColors_clicked:(id)sender;
 
 @end

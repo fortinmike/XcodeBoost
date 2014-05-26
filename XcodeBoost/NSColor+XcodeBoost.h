@@ -23,4 +23,9 @@
 - (NSColor *)interpolateFrom:(NSColor *)fromColor percentage:(float)percentage;
 - (NSColor *)interpolateTo:(NSColor *)toColor percentage:(float)percentage;
 
+#pragma mark String Representation
+
++ (NSColor *)xb_colorWithStringRepresentation:(NSString *)stringRepresentation;
+- (NSString *)xb_stringRepresentation;
+
 @end
