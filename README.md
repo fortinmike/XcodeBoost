@@ -10,6 +10,8 @@ XcodeBoost automates some tedious operations such as **extracting method declara
 #### Symbol Highlighting
 ![image](Images/highlighting.gif)
 
+Notice the indicators in the scrollbar. They show where the symbols have been found in the current file, just like errors and warnings.
+
 #### Method Definition and Signature Selection
 ![image](Images/method-selection.gif)
 
