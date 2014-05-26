@@ -22,6 +22,7 @@
 		4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m */; };
 		4C44F69318DAA7020061D68E /* NSObject+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */; };
 		4C482ECF1932C5B300926822 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C482ECE1932C5B300926822 /* PreferencesWindow.xib */; };
+		4C482ED21932C79B00926822 /* MFPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C482ED11932C79B00926822 /* MFPreferencesWindowController.m */; };
 		4C4A8DB218DD0F7200256B20 /* XcodeBoostFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */; };
 		4C7598FF191C70ED009AD0A4 /* MFMigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7598FE191C70ED009AD0A4 /* MFMigrationManager.m */; };
 		4C7C1CB0192DB7E3006BF8D9 /* XcodeBoostConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C1CAF192DB7E3006BF8D9 /* XcodeBoostConstants.m */; };
@@ -72,6 +73,8 @@
 		4C44F69118DAA7020061D68E /* NSObject+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+XcodeBoost.h"; sourceTree = "<group>"; };
 		4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XcodeBoost.m"; sourceTree = "<group>"; };
 		4C482ECE1932C5B300926822 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
+		4C482ED01932C79B00926822 /* MFPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPreferencesWindowController.h; sourceTree = "<group>"; };
+		4C482ED11932C79B00926822 /* MFPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPreferencesWindowController.m; sourceTree = "<group>"; };
 		4C4A8DB018DD0F7200256B20 /* XcodeBoostFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XcodeBoostFoundation.h; sourceTree = "<group>"; };
 		4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeBoostFoundation.m; sourceTree = "<group>"; };
 		4C7598FD191C70ED009AD0A4 /* MFMigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMigrationManager.h; sourceTree = "<group>"; };
@@ -231,6 +234,8 @@
 			children = (
 				4C30388318E1AAC800F570E4 /* MFHighlightRegexWindowController.h */,
 				4C30388418E1AAC800F570E4 /* MFHighlightRegexWindowController.m */,
+				4C482ED01932C79B00926822 /* MFPreferencesWindowController.h */,
+				4C482ED11932C79B00926822 /* MFPreferencesWindowController.m */,
 			);
 			name = "Window Controllers";
 			sourceTree = "<group>";
@@ -420,6 +425,7 @@
 				4CD521EA18D384360025F2A1 /* NSMenu+XcodeBoost.m in Sources */,
 				4C9C72601917305500C4BFA8 /* RXRegexCache.m in Sources */,
 				4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m in Sources */,
+				4C482ED21932C79B00926822 /* MFPreferencesWindowController.m in Sources */,
 				4C9C725C1917305500C4BFA8 /* NSArray+Regexer.m in Sources */,
 				4C1C38FC19057C6F00EE3992 /* JRSwizzle.m in Sources */,
 				4CE9E9D1192DA474001573BE /* DVTLayoutManager+XcodeBoost.m in Sources */,
