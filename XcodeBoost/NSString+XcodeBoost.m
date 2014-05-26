@@ -35,6 +35,12 @@ static NSString *s_numberLiteralPattern = @"@\\(.+\\)|@[0-9]+?.??[0-9]+?";
 // Unescaped: @selector\(.+?\)
 static NSString *s_selectorPattern = @"@selector\\(.+?\\)";
 
+// Unescaped: (?<![a-zA-Z0-9_])_[a-zA-Z0-9_]+
+static NSString *s_fieldPattern = @"(?<![a-zA-Z0-9_])_[a-zA-Z0-9_]+";
+
+// Unescaped: (?<=\.)[a-zA-Z0-9_]+
+static NSString *s_propertyAccessPattern = @"(?<=\\.)[a-zA-Z0-9_]+";
+
 // Unescaped: //.+?(?=\n)|/\*.+?\*/
 static NSString *s_commentPattern = @"//.+?(?=\\n)|/\\*.+?\\*/";
 
@@ -230,7 +236,7 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9 \\(\\)_,\\*^:]+? [a-zA-Z0-9_]
 
 #pragma mark Code Patterns - Other
 
-- (NSArray *)xb_symbolRanges
+- (NSArray *)xb_symbols
 {
 	NSString *symbolPattern = [NSString stringWithFormat:@"%@|%@|%@|%@", s_genericSymbolPattern, s_stringLiteralPattern,
 																		 s_numberLiteralPattern, s_selectorPattern];

@@ -32,6 +32,7 @@
 		4C482EED1932CC9B00926822 /* NSMutableArray+Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C482EE51932CC9B00926822 /* NSMutableArray+Queue.m */; };
 		4C482EEE1932CC9B00926822 /* NSMutableArray+Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C482EE71932CC9B00926822 /* NSMutableArray+Stack.m */; };
 		4C4A8DB218DD0F7200256B20 /* XcodeBoostFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */; };
+		4C70ADF6193302B600FD3D2B /* MFSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C70ADF5193302B600FD3D2B /* MFSymbol.m */; };
 		4C7598FF191C70ED009AD0A4 /* MFMigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7598FE191C70ED009AD0A4 /* MFMigrationManager.m */; };
 		4C7C1CB0192DB7E3006BF8D9 /* XcodeBoostConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C1CAF192DB7E3006BF8D9 /* XcodeBoostConstants.m */; };
 		4C82FF0C18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82FF0B18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m */; };
@@ -103,6 +104,8 @@
 		4C482EE71932CC9B00926822 /* NSMutableArray+Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Stack.m"; sourceTree = "<group>"; };
 		4C4A8DB018DD0F7200256B20 /* XcodeBoostFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XcodeBoostFoundation.h; sourceTree = "<group>"; };
 		4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeBoostFoundation.m; sourceTree = "<group>"; };
+		4C70ADF4193302B600FD3D2B /* MFSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFSymbol.h; sourceTree = "<group>"; };
+		4C70ADF5193302B600FD3D2B /* MFSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFSymbol.m; sourceTree = "<group>"; };
 		4C7598FD191C70ED009AD0A4 /* MFMigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMigrationManager.h; sourceTree = "<group>"; };
 		4C7598FE191C70ED009AD0A4 /* MFMigrationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMigrationManager.m; sourceTree = "<group>"; };
 		4C7C1CAE192DB7E3006BF8D9 /* XcodeBoostConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XcodeBoostConstants.h; sourceTree = "<group>"; };
@@ -385,6 +388,8 @@
 			children = (
 				4C82FF1118F0ABD4000C0E8D /* MFScrollerMark.h */,
 				4C82FF1218F0ABD4000C0E8D /* MFScrollerMark.m */,
+				4C70ADF4193302B600FD3D2B /* MFSymbol.h */,
+				4C70ADF5193302B600FD3D2B /* MFSymbol.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -494,6 +499,7 @@
 				4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */,
 				4C482EEE1932CC9B00926822 /* NSMutableArray+Stack.m in Sources */,
 				4CD521ED18D384EC0025F2A1 /* NSArray+XcodeBoost.m in Sources */,
+				4C70ADF6193302B600FD3D2B /* MFSymbol.m in Sources */,
 				4C482EEB1932CC9B00926822 /* NSArray+Sorting.m in Sources */,
 				4C82FF0C18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m in Sources */,
 				4C87F33418EF99CF00D63FD0 /* NSView+XcodeBoost.m in Sources */,

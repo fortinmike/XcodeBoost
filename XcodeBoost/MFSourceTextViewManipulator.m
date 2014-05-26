@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
+#import "Collector.h"
 #import "MFSourceTextViewManipulator.h"
 #import "XcodeBoostConstants.h"
 #import "DVTKit.h"
@@ -221,19 +222,25 @@
 
 - (void)highlightSelectedSymbols
 {
-	NSArray *symbolRanges = [self.string xb_symbolRanges];
-	NSArray *selectedSymbolRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:symbolRanges wholeLines:NO];
+	NSArray *symbols = [self.string xb_symbols];
 	NSArray *subroutineDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
 	
-	for (NSValue *selectedSymbolRange in selectedSymbolRanges)
+	NSArray *selectedSymbolRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:symbolRanges wholeLines:NO];
+	
+	for (MFSymbol *symbol in symbols)
 	{
-		NSString *symbolString = [self.string substringWithRange:[selectedSymbolRange rangeValue]];
+		NSString *symbolString = [self.string substringWithRange:[symbol range]];
 		NSArray *occurenceRanges = [self.string xb_rangesOfSymbol:symbolString];
 		
 		// Basic scope-checking
 		
 		NSArray *symbolsInSubroutineDefinitions = [MFRangeHelper ranges:occurenceRanges fullyOrPartiallyContainedInRanges:subroutineDefinitionRanges];
-		if ([symbolsInSubroutineDefinitions count] == [occurenceRanges count])
+		
+		BOOL isGlobal = [symbolsInSubroutineDefinitions count] == [occurenceRanges count];
+		BOOL isField = [symbol type] == MFSymbolTypeField;
+		BOOL isPropertyAccess = [symbol type] == MFSymbolTypePropertyAccess;
+		
+		if (isGlobal && !isField && !isPropertyAccess)
 		{
 			// All symbol occurences were found in subroutine definitions; consider symbol as local
 			NSValue *currentSubroutineDefinitionRange = [[self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:subroutineDefinitionRanges wholeLines:YES] firstObject];

@@ -60,4 +60,12 @@ static NSString *kXBManipulatorKey = @"XBManipulator";
 	return rangesOverlappingSelection;
 }
 
+- (BOOL)xb_rangeIsFullyOrPartiallyContainedInSelection:(NSRange)range wholeLines:(BOOL)wholeLines
+{
+	NSArray *selectedRanges = wholeLines ? [self xb_selectedLineRanges] : [self selectedRanges];
+	NSArray *rangesOverlappingSelection = [MFRangeHelper ranges:@[] fullyOrPartiallyContainedInRanges:selectedRanges];
+	
+	return rangesOverlappingSelection;
+}
+
 @end
