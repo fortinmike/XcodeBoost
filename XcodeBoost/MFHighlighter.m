@@ -29,12 +29,17 @@
 
 - (void)setupHighlightColors
 {
-	NSColor *blueColor = [NSColor colorWithCalibratedRed:0.000 green:0.145 blue:0.806 alpha:1.000];
-	NSColor *greenColor = [NSColor colorWithCalibratedRed:0.266 green:0.798 blue:0.049 alpha:1.000];
-	NSColor *purpleColor = [NSColor colorWithCalibratedRed:0.386 green:0.000 blue:0.831 alpha:1.000];
-	NSColor *pinkColor = [NSColor colorWithCalibratedRed:0.930 green:0.090 blue:0.750 alpha:1.000];
+	NSColor *color1 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:@"XcodeBoostHighlightColor1"];
+	NSColor *color2 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:@"XcodeBoostHighlightColor2"];
+	NSColor *color3 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:@"XcodeBoostHighlightColor3"];
+	NSColor *color4 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:@"XcodeBoostHighlightColor4"];
 	
-	_highlightColors = [@[blueColor, greenColor, purpleColor, pinkColor] mutableCopy];
+	if (!color1) color1 = [NSColor colorWithCalibratedRed:0.000 green:0.145 blue:0.806 alpha:1.000];
+	if (!color2) color2 = [NSColor colorWithCalibratedRed:0.266 green:0.798 blue:0.049 alpha:1.000];
+	if (!color3) color3 = [NSColor colorWithCalibratedRed:0.386 green:0.000 blue:0.831 alpha:1.000];
+	if (!color4) color4 = [NSColor colorWithCalibratedRed:0.930 green:0.090 blue:0.750 alpha:1.000];
+	
+	_highlightColors = [@[color1, color2, color3, color4] mutableCopy];
 }
 
 #pragma mark Highlighting

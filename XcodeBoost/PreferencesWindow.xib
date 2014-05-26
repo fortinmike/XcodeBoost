@@ -4,7 +4,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-2" userLabel="File's Owner" customClass="MFPreferencesWindowController">
+            <connections>
+                <outlet property="colorWell1" destination="1XK-6M-lIt" id="r10-d0-B3t"/>
+                <outlet property="colorWell2" destination="TJd-vg-OPF" id="TMG-o4-6ih"/>
+                <outlet property="colorWell3" destination="5A6-sq-JXe" id="Gxr-QI-5h6"/>
+                <outlet property="colorWell4" destination="Nb7-V2-BBi" id="azg-RO-Kh7"/>
+            </connections>
+        </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
         <window title="XcodeBoost Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
@@ -27,21 +34,33 @@
                                     <rect key="frame" x="18" y="65" width="44" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="colorChanged:" target="-2" id="sTg-Jh-gch"/>
+                                    </connections>
                                 </colorWell>
                                 <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJd-vg-OPF">
                                     <rect key="frame" x="70" y="65" width="44" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="colorChanged:" target="-2" id="olY-LI-buO"/>
+                                    </connections>
                                 </colorWell>
                                 <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5A6-sq-JXe">
                                     <rect key="frame" x="122" y="65" width="44" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="colorChanged:" target="-2" id="0gF-hQ-tiO"/>
+                                    </connections>
                                 </colorWell>
                                 <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nb7-V2-BBi">
                                     <rect key="frame" x="174" y="65" width="44" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="colorChanged:" target="-2" id="byF-EU-Pl2"/>
+                                    </connections>
                                 </colorWell>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EGl-ZQ-yIS">
                                     <rect key="frame" x="21" y="24" width="194" height="28"/>

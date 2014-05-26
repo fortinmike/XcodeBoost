@@ -10,4 +10,11 @@
 
 @interface MFPreferencesWindowController : NSWindowController
 
+@property (weak) IBOutlet NSColorWell *colorWell1;
+@property (weak) IBOutlet NSColorWell *colorWell2;
+@property (weak) IBOutlet NSColorWell *colorWell3;
+@property (weak) IBOutlet NSColorWell *colorWell4;
+
+- (IBAction)colorChanged:(id)sender;
+
 @end

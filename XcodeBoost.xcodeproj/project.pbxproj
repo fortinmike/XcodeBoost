@@ -23,6 +23,14 @@
 		4C44F69318DAA7020061D68E /* NSObject+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */; };
 		4C482ECF1932C5B300926822 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C482ECE1932C5B300926822 /* PreferencesWindow.xib */; };
 		4C482ED21932C79B00926822 /* MFPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C482ED11932C79B00926822 /* MFPreferencesWindowController.m */; };
+		4C482ED51932CBB300926822 /* NSUserDefaults+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C482ED41932CBB300926822 /* NSUserDefaults+XcodeBoost.m */; };
+		4C482EE81932CC9B00926822 /* NSArray+Collector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C482EDB1932CC9B00926822 /* NSArray+Collector.m */; };
+		4C482EE91932CC9B00926822 /* NSArray+Contents.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C482EDD1932CC9B00926822 /* NSArray+Contents.m */; };
+		4C482EEA1932CC9B00926822 /* NSArray+Numbers.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C482EDF1932CC9B00926822 /* NSArray+Numbers.m */; };
+		4C482EEB1932CC9B00926822 /* NSArray+Sorting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C482EE11932CC9B00926822 /* NSArray+Sorting.m */; };
+		4C482EEC1932CC9B00926822 /* NSMutableArray+Collector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C482EE31932CC9B00926822 /* NSMutableArray+Collector.m */; };
+		4C482EED1932CC9B00926822 /* NSMutableArray+Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C482EE51932CC9B00926822 /* NSMutableArray+Queue.m */; };
+		4C482EEE1932CC9B00926822 /* NSMutableArray+Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C482EE71932CC9B00926822 /* NSMutableArray+Stack.m */; };
 		4C4A8DB218DD0F7200256B20 /* XcodeBoostFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */; };
 		4C7598FF191C70ED009AD0A4 /* MFMigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7598FE191C70ED009AD0A4 /* MFMigrationManager.m */; };
 		4C7C1CB0192DB7E3006BF8D9 /* XcodeBoostConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C1CAF192DB7E3006BF8D9 /* XcodeBoostConstants.m */; };
@@ -75,6 +83,24 @@
 		4C482ECE1932C5B300926822 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
 		4C482ED01932C79B00926822 /* MFPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPreferencesWindowController.h; sourceTree = "<group>"; };
 		4C482ED11932C79B00926822 /* MFPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPreferencesWindowController.m; sourceTree = "<group>"; };
+		4C482ED31932CBB300926822 /* NSUserDefaults+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+XcodeBoost.h"; sourceTree = "<group>"; };
+		4C482ED41932CBB300926822 /* NSUserDefaults+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+XcodeBoost.m"; sourceTree = "<group>"; };
+		4C482ED81932CC9B00926822 /* Collector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Collector.h; sourceTree = "<group>"; };
+		4C482ED91932CC9B00926822 /* CollectorBlockTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectorBlockTypes.h; sourceTree = "<group>"; };
+		4C482EDA1932CC9B00926822 /* NSArray+Collector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Collector.h"; sourceTree = "<group>"; };
+		4C482EDB1932CC9B00926822 /* NSArray+Collector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Collector.m"; sourceTree = "<group>"; };
+		4C482EDC1932CC9B00926822 /* NSArray+Contents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Contents.h"; sourceTree = "<group>"; };
+		4C482EDD1932CC9B00926822 /* NSArray+Contents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Contents.m"; sourceTree = "<group>"; };
+		4C482EDE1932CC9B00926822 /* NSArray+Numbers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Numbers.h"; sourceTree = "<group>"; };
+		4C482EDF1932CC9B00926822 /* NSArray+Numbers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Numbers.m"; sourceTree = "<group>"; };
+		4C482EE01932CC9B00926822 /* NSArray+Sorting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Sorting.h"; sourceTree = "<group>"; };
+		4C482EE11932CC9B00926822 /* NSArray+Sorting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Sorting.m"; sourceTree = "<group>"; };
+		4C482EE21932CC9B00926822 /* NSMutableArray+Collector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Collector.h"; sourceTree = "<group>"; };
+		4C482EE31932CC9B00926822 /* NSMutableArray+Collector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Collector.m"; sourceTree = "<group>"; };
+		4C482EE41932CC9B00926822 /* NSMutableArray+Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Queue.h"; sourceTree = "<group>"; };
+		4C482EE51932CC9B00926822 /* NSMutableArray+Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Queue.m"; sourceTree = "<group>"; };
+		4C482EE61932CC9B00926822 /* NSMutableArray+Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Stack.h"; sourceTree = "<group>"; };
+		4C482EE71932CC9B00926822 /* NSMutableArray+Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Stack.m"; sourceTree = "<group>"; };
 		4C4A8DB018DD0F7200256B20 /* XcodeBoostFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XcodeBoostFoundation.h; sourceTree = "<group>"; };
 		4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeBoostFoundation.m; sourceTree = "<group>"; };
 		4C7598FD191C70ED009AD0A4 /* MFMigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMigrationManager.h; sourceTree = "<group>"; };
@@ -139,9 +165,10 @@
 		4C1C38F819057C6F00EE3992 /* Third-Party */ = {
 			isa = PBXGroup;
 			children = (
+				4C482ED71932CC9B00926822 /* Collector */,
 				4C1C38F919057C6F00EE3992 /* JRSwizzle */,
-				4C39DE0C1914B1AF00F47703 /* Regexer */,
 				4C7598FC191C70ED009AD0A4 /* MFMigrationManager */,
+				4C39DE0C1914B1AF00F47703 /* Regexer */,
 			);
 			path = "Third-Party";
 			sourceTree = "<group>";
@@ -274,6 +301,29 @@
 			path = Regexer;
 			sourceTree = "<group>";
 		};
+		4C482ED71932CC9B00926822 /* Collector */ = {
+			isa = PBXGroup;
+			children = (
+				4C482ED81932CC9B00926822 /* Collector.h */,
+				4C482ED91932CC9B00926822 /* CollectorBlockTypes.h */,
+				4C482EDA1932CC9B00926822 /* NSArray+Collector.h */,
+				4C482EDB1932CC9B00926822 /* NSArray+Collector.m */,
+				4C482EDC1932CC9B00926822 /* NSArray+Contents.h */,
+				4C482EDD1932CC9B00926822 /* NSArray+Contents.m */,
+				4C482EDE1932CC9B00926822 /* NSArray+Numbers.h */,
+				4C482EDF1932CC9B00926822 /* NSArray+Numbers.m */,
+				4C482EE01932CC9B00926822 /* NSArray+Sorting.h */,
+				4C482EE11932CC9B00926822 /* NSArray+Sorting.m */,
+				4C482EE21932CC9B00926822 /* NSMutableArray+Collector.h */,
+				4C482EE31932CC9B00926822 /* NSMutableArray+Collector.m */,
+				4C482EE41932CC9B00926822 /* NSMutableArray+Queue.h */,
+				4C482EE51932CC9B00926822 /* NSMutableArray+Queue.m */,
+				4C482EE61932CC9B00926822 /* NSMutableArray+Stack.h */,
+				4C482EE71932CC9B00926822 /* NSMutableArray+Stack.m */,
+			);
+			path = Collector;
+			sourceTree = "<group>";
+		};
 		4C7598FC191C70ED009AD0A4 /* MFMigrationManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +361,8 @@
 				4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */,
 				4CBBA80318DA9CB600C48649 /* NSString+XcodeBoost.h */,
 				4CBBA80418DA9CB600C48649 /* NSString+XcodeBoost.m */,
+				4C482ED31932CBB300926822 /* NSUserDefaults+XcodeBoost.h */,
+				4C482ED41932CBB300926822 /* NSUserDefaults+XcodeBoost.m */,
 				4C87F33218EF99CF00D63FD0 /* NSView+XcodeBoost.h */,
 				4C87F33318EF99CF00D63FD0 /* NSView+XcodeBoost.m */,
 			);
@@ -418,10 +470,12 @@
 				4C2868B818D331B7006C780C /* XcodeBoost.m in Sources */,
 				4C9C725F1917305500C4BFA8 /* RXMatch.m in Sources */,
 				4C1E8CCE18EE488E006869D5 /* MFHighlighter.m in Sources */,
+				4C482EE91932CC9B00926822 /* NSArray+Contents.m in Sources */,
 				4C9C725D1917305500C4BFA8 /* NSString+Regexer.m in Sources */,
 				4C0A53BD18DCE7EE00E82F1C /* NSColor+XcodeBoost.m in Sources */,
 				4C7C1CB0192DB7E3006BF8D9 /* XcodeBoostConstants.m in Sources */,
 				4C4A8DB218DD0F7200256B20 /* XcodeBoostFoundation.m in Sources */,
+				4C482EE81932CC9B00926822 /* NSArray+Collector.m in Sources */,
 				4CD521EA18D384360025F2A1 /* NSMenu+XcodeBoost.m in Sources */,
 				4C9C72601917305500C4BFA8 /* RXRegexCache.m in Sources */,
 				4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m in Sources */,
@@ -429,12 +483,18 @@
 				4C9C725C1917305500C4BFA8 /* NSArray+Regexer.m in Sources */,
 				4C1C38FC19057C6F00EE3992 /* JRSwizzle.m in Sources */,
 				4CE9E9D1192DA474001573BE /* DVTLayoutManager+XcodeBoost.m in Sources */,
+				4C482EEC1932CC9B00926822 /* NSMutableArray+Collector.m in Sources */,
+				4C482EEA1932CC9B00926822 /* NSArray+Numbers.m in Sources */,
 				4C44F68D18DAA56C0061D68E /* MFSourceTextViewManipulator.m in Sources */,
+				4C482ED51932CBB300926822 /* NSUserDefaults+XcodeBoost.m in Sources */,
 				4C30388518E1AAC800F570E4 /* MFHighlightRegexWindowController.m in Sources */,
 				4C9C725E1917305500C4BFA8 /* RXCapture.m in Sources */,
+				4C482EED1932CC9B00926822 /* NSMutableArray+Queue.m in Sources */,
 				4C7598FF191C70ED009AD0A4 /* MFMigrationManager.m in Sources */,
 				4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */,
+				4C482EEE1932CC9B00926822 /* NSMutableArray+Stack.m in Sources */,
 				4CD521ED18D384EC0025F2A1 /* NSArray+XcodeBoost.m in Sources */,
+				4C482EEB1932CC9B00926822 /* NSArray+Sorting.m in Sources */,
 				4C82FF0C18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m in Sources */,
 				4C87F33418EF99CF00D63FD0 /* NSView+XcodeBoost.m in Sources */,
 				4CBBA80518DA9CB600C48649 /* NSString+XcodeBoost.m in Sources */,
