@@ -15,14 +15,17 @@
 	NSUserDefaults *_defaults;
 }
 
-- (id)initWithWindow:(NSWindow *)window
+#pragma mark Lifetime
+
+- (id)initWithBundle:(NSBundle *)bundle
 {
-    self = [super initWithWindow:window];
-    if (self)
+    NSString *nibPath = [bundle pathForResource:@"PreferencesWindow" ofType:@"nib"];
+	self = [super initWithWindowNibPath:nibPath owner:self];
+	if (self)
 	{
 		_defaults = [NSUserDefaults standardUserDefaults];
-    }
-    return self;
+	}
+	return self;
 }
 
 - (void)windowDidLoad

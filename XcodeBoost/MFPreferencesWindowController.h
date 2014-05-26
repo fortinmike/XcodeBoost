@@ -15,6 +15,12 @@
 @property (weak) IBOutlet NSColorWell *colorWell3;
 @property (weak) IBOutlet NSColorWell *colorWell4;
 
+#pragma mark Lifetime
+
+- (id)initWithBundle:(NSBundle *)bundle;
+
+#pragma mark Action Methods
+
 - (IBAction)colorChanged:(id)sender;
 
 @end
