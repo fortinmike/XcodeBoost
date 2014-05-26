@@ -21,6 +21,7 @@
 		4C44F68D18DAA56C0061D68E /* MFSourceTextViewManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68C18DAA56C0061D68E /* MFSourceTextViewManipulator.m */; };
 		4C44F69018DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m */; };
 		4C44F69318DAA7020061D68E /* NSObject+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */; };
+		4C482ECF1932C5B300926822 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C482ECE1932C5B300926822 /* PreferencesWindow.xib */; };
 		4C4A8DB218DD0F7200256B20 /* XcodeBoostFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */; };
 		4C7598FF191C70ED009AD0A4 /* MFMigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7598FE191C70ED009AD0A4 /* MFMigrationManager.m */; };
 		4C7C1CB0192DB7E3006BF8D9 /* XcodeBoostConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7C1CAF192DB7E3006BF8D9 /* XcodeBoostConstants.m */; };
@@ -70,6 +71,7 @@
 		4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DVTSourceTextView+XcodeBoost.m"; sourceTree = "<group>"; };
 		4C44F69118DAA7020061D68E /* NSObject+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+XcodeBoost.h"; sourceTree = "<group>"; };
 		4C44F69218DAA7020061D68E /* NSObject+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XcodeBoost.m"; sourceTree = "<group>"; };
+		4C482ECE1932C5B300926822 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
 		4C4A8DB018DD0F7200256B20 /* XcodeBoostFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XcodeBoostFoundation.h; sourceTree = "<group>"; };
 		4C4A8DB118DD0F7200256B20 /* XcodeBoostFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XcodeBoostFoundation.m; sourceTree = "<group>"; };
 		4C7598FD191C70ED009AD0A4 /* MFMigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMigrationManager.h; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				4C30388718E2304A00F570E4 /* HighlightRegexWindow.xib */,
+				4C482ECE1932C5B300926822 /* PreferencesWindow.xib */,
 			);
 			name = Xibs;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 			files = (
 				4C30388818E2304A00F570E4 /* HighlightRegexWindow.xib in Resources */,
 				4C2868B518D331B7006C780C /* InfoPlist.strings in Resources */,
+				4C482ECF1932C5B300926822 /* PreferencesWindow.xib in Resources */,
 				4C30388B18E2F89400F570E4 /* Defaults.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
