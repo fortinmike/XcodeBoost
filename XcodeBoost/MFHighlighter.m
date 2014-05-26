@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
+#import "NSUserDefaults+XcodeBoost.h"
 #import "MFHighlighter.h"
 #import "NSColor+XcodeBoost.h"
 

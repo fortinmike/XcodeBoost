@@ -11,12 +11,16 @@
 #import "MFPreferencesWindowController.h"
 
 @implementation MFPreferencesWindowController
+{
+	NSUserDefaults *_defaults;
+}
 
 - (id)initWithWindow:(NSWindow *)window
 {
     self = [super initWithWindow:window];
     if (self)
 	{
+		_defaults = [NSUserDefaults standardUserDefaults];
     }
     return self;
 }
@@ -32,22 +36,18 @@
 
 - (void)loadHighlightColors
 {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	
-	[self.colorWell1 setColor:[defaults xb_colorForKey:XBHighlightColor1Key]];
-	[self.colorWell2 setColor:[defaults xb_colorForKey:XBHighlightColor2Key]];
-	[self.colorWell3 setColor:[defaults xb_colorForKey:XBHighlightColor3Key]];
-	[self.colorWell4 setColor:[defaults xb_colorForKey:XBHighlightColor4Key]];
+	[self.colorWell1 setColor:[_defaults xb_colorForKey:XBHighlightColor1Key]];
+	[self.colorWell2 setColor:[_defaults xb_colorForKey:XBHighlightColor2Key]];
+	[self.colorWell3 setColor:[_defaults xb_colorForKey:XBHighlightColor3Key]];
+	[self.colorWell4 setColor:[_defaults xb_colorForKey:XBHighlightColor4Key]];
 }
 
 - (void)saveHighlightColors
 {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	
-	[defaults xb_setColor:self.colorWell1.color forKey:XBHighlightColor1Key];
-	[defaults xb_setColor:self.colorWell2.color forKey:XBHighlightColor2Key];
-	[defaults xb_setColor:self.colorWell3.color forKey:XBHighlightColor3Key];
-	[defaults xb_setColor:self.colorWell4.color forKey:XBHighlightColor4Key];
+	[_defaults xb_setColor:self.colorWell1.color forKey:XBHighlightColor1Key];
+	[_defaults xb_setColor:self.colorWell2.color forKey:XBHighlightColor2Key];
+	[_defaults xb_setColor:self.colorWell3.color forKey:XBHighlightColor3Key];
+	[_defaults xb_setColor:self.colorWell4.color forKey:XBHighlightColor4Key];
 }
 
 #pragma mark Action Methods
