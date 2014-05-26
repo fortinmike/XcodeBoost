@@ -38,8 +38,8 @@ static NSString *s_selectorPattern = @"@selector\\(.+?\\)";
 // Unescaped: (?<![a-zA-Z0-9_])_[a-zA-Z0-9_]+
 static NSString *s_fieldPattern = @"(?<![a-zA-Z0-9_])_[a-zA-Z0-9_]+";
 
-// Unescaped: (?<=\.)[a-zA-Z0-9_]+
-static NSString *s_propertyAccessPattern = @"(?<=\\.)[a-zA-Z0-9_]+";
+// Unescaped: (?:\\.)[a-zA-Z0-9_]+
+static NSString *s_propertyAccessPattern = @"(?:\\.)([a-zA-Z0-9_]+)";
 
 // Unescaped: //.+?(?=\n)|/\*.+?\*/
 static NSString *s_commentPattern = @"//.+?(?=\\n)|/\\*.+?\\*/";
@@ -129,13 +129,28 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9 \\(\\)_,\\*^:]+? [a-zA-Z0-9_]
 	return ranges;
 }
 
-- (NSArray *)xb_rangesOfSymbol:(NSString *)symbol
+- (NSArray *)xb_rangesOfSymbol:(MFSymbol *)symbol
 {
-	// Using negative look-behind and look-ahead so that we obtain the actual symbols
-	// and not all occurences of the string in the text. Enough for helpful results.
+	NSString *escapedSymbol = [[symbol matchText] xb_escapeForRegex];
+	BOOL isGenericSymbol = [[symbol matchText] rx_matchesPattern:[NSString stringWithFormat:@"^%@$", s_genericSymbolPattern]];
 	
-	NSString *symbolPattern = [NSString stringWithFormat:@"(?<!(%@))%@(?!(%@))", s_symbolCharacterPattern, symbol, s_symbolCharacterPattern];
-	NSArray *rawSymbolRanges = [self rx_rangesForMatchesWithPattern:symbolPattern];
+	NSString *pattern;
+	
+	if (isGenericSymbol)
+	{
+		// Using negative look-behind and look-ahead so that we obtain the actual symbols
+		// and not all occurences of the string in the text. Enough for helpful results.
+		
+		pattern = [NSString stringWithFormat:@"(?<!(%@))%@(?!(%@))",
+				   s_symbolCharacterPattern, escapedSymbol, s_symbolCharacterPattern];
+	}
+	else
+	{
+		// In case of a complex symbol pattern, we don't use look-behind and look-ahead.
+		pattern = escapedSymbol;
+	}
+	
+	NSArray *rawSymbolRanges = [self rx_rangesForMatchesWithPattern:pattern];
 	
 	// Simple, brute-force approach to removing symbols detected in strings, comments, ...
 	
@@ -258,9 +273,14 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9 \\(\\)_,\\*^:]+? [a-zA-Z0-9_]
 	NSMutableArray *symbols = [NSMutableArray array];
 	for (RXMatch *match in matches)
 	{
-		MFSymbol *symbol = [[MFSymbol alloc] initWithType:type];
-		[symbol setRange:[match range]];
-		[symbol setString:[match text]];
+		MFSymbol *symbol = [[MFSymbol alloc] initWithType:type matchRange:[match range] matchText:[match text]];
+		
+		if ([[match captures] count] == 2)
+		{
+			// Set the range and text to the "relevant" part of the symbol match
+			[symbol setRange:[match[1] range]];
+			[symbol setText:[match[1] text]];
+		}
 		
 		[symbols addObject:symbol];
 	}
@@ -284,6 +304,14 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9 \\(\\)_,\\*^:]+? [a-zA-Z0-9_]
 {
 	NSString *trimmedDeclaration = [declaration stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	return [trimmedDeclaration stringByAppendingString:@";"];
+}
+
+- (NSString *)xb_escapeForRegex
+{
+	NSString *escaped = [self stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
+	escaped = [escaped stringByReplacingOccurrencesOfString:@"." withString:@"\\."];
+	return escaped;
+	
 }
 
 @end

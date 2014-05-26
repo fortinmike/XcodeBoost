@@ -21,9 +21,13 @@ typedef NS_ENUM(NSUInteger, MFSymbolType)
 @interface MFSymbol : NSObject
 
 @property (assign) MFSymbolType type;
-@property (assign) NSRange range;
-@property (copy) NSString *string;
 
-- (id)initWithType:(MFSymbolType)type;
+@property (assign) NSRange range;
+@property (copy) NSString *text;
+
+@property (assign) NSRange matchRange;
+@property (copy) NSString *matchText;
+
+- (id)initWithType:(MFSymbolType)type matchRange:(NSRange)matchRange matchText:(NSString *)matchText;
 
 @end

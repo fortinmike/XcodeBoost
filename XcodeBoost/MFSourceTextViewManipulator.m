@@ -225,12 +225,12 @@
 	NSArray *symbols = [self.string xb_symbols];
 	NSArray *symbolsInSelection = [symbols ct_where:^BOOL(MFSymbol *symbol)
 	{
-		return [self.sourceTextView xb_rangeIsFullyOrPartiallyContainedInSelection:[symbol range] wholeLines:NO];
+		return [self.sourceTextView xb_rangeIsFullyOrPartiallyContainedInSelection:[symbol matchRange] wholeLines:NO];
 	}];
 	
 	for (MFSymbol *symbol in symbolsInSelection)
 	{
-		NSArray *symbolOccurenceRanges = [self.string xb_rangesOfSymbol:[symbol string]];
+		NSArray *symbolOccurenceRanges = [self.string xb_rangesOfSymbol:symbol];
 		
 		// Basic scope-checking
 		

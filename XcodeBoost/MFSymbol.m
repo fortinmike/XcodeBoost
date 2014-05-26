@@ -10,12 +10,19 @@
 
 @implementation MFSymbol
 
-- (id)initWithType:(MFSymbolType)type
+- (id)initWithType:(MFSymbolType)type matchRange:(NSRange)matchRange matchText:(NSString *)matchText
 {
     self = [super init];
     if (self)
     {
         _type = type;
+		
+		_matchRange = matchRange;
+		_matchText = matchText;
+		
+		// Unless manually specified, default to match range and text
+		_range = matchRange;
+		_text = matchText;
     }
     return self;
 }
@@ -26,7 +33,7 @@
 {
 	NSUInteger start = self.range.location;
 	NSUInteger end = self.range.location + self.range.length;
-	return [[super description] stringByAppendingFormat:@" %@ (type %d), %ld..%ld", self.string, (int)self.type, start, end];
+	return [[super description] stringByAppendingFormat:@" %@ (type %d), %ld..%ld", self.text, (int)self.type, start, end];
 }
 
 @end
