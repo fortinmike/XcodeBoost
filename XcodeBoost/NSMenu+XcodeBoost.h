@@ -6,13 +6,12 @@
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
+#import "Collector.h"
 #import <Cocoa/Cocoa.h>
-
-typedef BOOL (^BoolItemBlock)(NSMenuItem *item);
 
 @interface NSMenu (XcodeBoost)
 
-- (void)xb_insertItem:(NSMenuItem *)item beforeItem:(NSUInteger)itemIndexInMatches where:(BoolItemBlock)condition;
-- (void)xb_insertItems:(NSArray *)items beforeItem:(NSUInteger)itemIndexInMatches where:(BoolItemBlock)condition;
+- (void)xb_insertItem:(NSMenuItem *)item beforeItem:(NSUInteger)itemIndexInMatches where:(CollectorConditionBlock)condition;
+- (void)xb_insertItems:(NSArray *)items beforeItem:(NSUInteger)itemIndexInMatches where:(CollectorConditionBlock)condition;
 
 @end

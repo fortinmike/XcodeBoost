@@ -46,7 +46,6 @@
 		4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAC525018D380B800E88C70 /* MFPluginController.m */; };
 		4CBBA80518DA9CB600C48649 /* NSString+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBBA80418DA9CB600C48649 /* NSString+XcodeBoost.m */; };
 		4CD521EA18D384360025F2A1 /* NSMenu+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD521E918D384360025F2A1 /* NSMenu+XcodeBoost.m */; };
-		4CD521ED18D384EC0025F2A1 /* NSArray+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD521EC18D384EC0025F2A1 /* NSArray+XcodeBoost.m */; };
 		4CE2088218DA8E0F00070212 /* IDEKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088118DA8E0F00070212 /* IDEKit.framework */; };
 		4CE2088418DA8E2800070212 /* IDEFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088318DA8E2800070212 /* IDEFoundation.framework */; };
 		4CE2088618DA8E4800070212 /* DVTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088518DA8E4800070212 /* DVTKit.framework */; };
@@ -137,8 +136,6 @@
 		4CCAC8F218DA936600A1F908 /* IDESourceEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IDESourceEditor.h; path = "Class-Dumps/IDESourceEditor.h"; sourceTree = SOURCE_ROOT; };
 		4CD521E818D384360025F2A1 /* NSMenu+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMenu+XcodeBoost.h"; sourceTree = "<group>"; };
 		4CD521E918D384360025F2A1 /* NSMenu+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMenu+XcodeBoost.m"; sourceTree = "<group>"; };
-		4CD521EB18D384EC0025F2A1 /* NSArray+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+XcodeBoost.h"; sourceTree = "<group>"; };
-		4CD521EC18D384EC0025F2A1 /* NSArray+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+XcodeBoost.m"; sourceTree = "<group>"; };
 		4CE2088118DA8E0F00070212 /* IDEKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDEKit.framework; path = ../../../../../../Applications/Xcode.app/Contents/Frameworks/IDEKit.framework; sourceTree = "<group>"; };
 		4CE2088318DA8E2800070212 /* IDEFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDEFoundation.framework; path = ../../../../../../Applications/Xcode.app/Contents/Frameworks/IDEFoundation.framework; sourceTree = "<group>"; };
 		4CE2088518DA8E4800070212 /* DVTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DVTKit.framework; path = ../../../../../../Applications/Xcode.app/Contents/SharedFrameworks/DVTKit.framework; sourceTree = "<group>"; };
@@ -354,8 +351,6 @@
 			children = (
 				4C44F68E18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.h */,
 				4C44F68F18DAA6270061D68E /* DVTSourceTextView+XcodeBoost.m */,
-				4CD521EB18D384EC0025F2A1 /* NSArray+XcodeBoost.h */,
-				4CD521EC18D384EC0025F2A1 /* NSArray+XcodeBoost.m */,
 				4C0A53BB18DCE7EE00E82F1C /* NSColor+XcodeBoost.h */,
 				4C0A53BC18DCE7EE00E82F1C /* NSColor+XcodeBoost.m */,
 				4CD521E818D384360025F2A1 /* NSMenu+XcodeBoost.h */,
@@ -498,7 +493,6 @@
 				4C7598FF191C70ED009AD0A4 /* MFMigrationManager.m in Sources */,
 				4CAC525118D380B800E88C70 /* MFPluginController.m in Sources */,
 				4C482EEE1932CC9B00926822 /* NSMutableArray+Stack.m in Sources */,
-				4CD521ED18D384EC0025F2A1 /* NSArray+XcodeBoost.m in Sources */,
 				4C70ADF6193302B600FD3D2B /* MFSymbol.m in Sources */,
 				4C482EEB1932CC9B00926822 /* NSArray+Sorting.m in Sources */,
 				4C82FF0C18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m in Sources */,

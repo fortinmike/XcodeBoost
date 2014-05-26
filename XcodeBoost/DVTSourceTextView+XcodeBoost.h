@@ -22,5 +22,6 @@
 - (NSRange)xb_firstSelectedLineRange;
 - (NSString *)xb_firstSelectedLineRangeString;
 - (NSArray *)xb_rangesFullyOrPartiallyContainedInSelection:(NSArray *)rangesToFilter wholeLines:(BOOL)wholeLines;
+- (BOOL)xb_rangeIsFullyOrPartiallyContainedInSelection:(NSRange)range wholeLines:(BOOL)wholeLines;
 
 @end

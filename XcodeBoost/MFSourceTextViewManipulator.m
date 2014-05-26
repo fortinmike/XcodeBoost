@@ -11,7 +11,6 @@
 #import "XcodeBoostConstants.h"
 #import "DVTKit.h"
 #import "MFRangeHelper.h"
-#import "NSArray+XcodeBoost.h"
 #import "NSString+XcodeBoost.h"
 #import "NSColor+XcodeBoost.h"
 #import "NSView+XcodeBoost.h"
@@ -222,21 +221,22 @@
 
 - (void)highlightSelectedSymbols
 {
-	NSArray *symbols = [self.string xb_symbols];
 	NSArray *subroutineDefinitionRanges = [self.string xb_subroutineDefinitionRanges];
-	
-	NSArray *selectedSymbolRanges = [self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:symbolRanges wholeLines:NO];
-	
-	for (MFSymbol *symbol in symbols)
+	NSArray *symbols = [self.string xb_symbols];
+	NSArray *symbolsInSelection = [symbols ct_where:^BOOL(MFSymbol *symbol)
 	{
-		NSString *symbolString = [self.string substringWithRange:[symbol range]];
-		NSArray *occurenceRanges = [self.string xb_rangesOfSymbol:symbolString];
+		return [self.sourceTextView xb_rangeIsFullyOrPartiallyContainedInSelection:[symbol range] wholeLines:NO];
+	}];
+	
+	for (MFSymbol *symbol in symbolsInSelection)
+	{
+		NSArray *symbolOccurenceRanges = [self.string xb_rangesOfSymbol:[symbol string]];
 		
 		// Basic scope-checking
 		
-		NSArray *symbolsInSubroutineDefinitions = [MFRangeHelper ranges:occurenceRanges fullyOrPartiallyContainedInRanges:subroutineDefinitionRanges];
+		NSArray *symbolsInSubroutineDefinitions = [MFRangeHelper ranges:symbolOccurenceRanges fullyOrPartiallyContainedInRanges:subroutineDefinitionRanges];
 		
-		BOOL isGlobal = [symbolsInSubroutineDefinitions count] == [occurenceRanges count];
+		BOOL isGlobal = [symbolsInSubroutineDefinitions count] == [symbolOccurenceRanges count];
 		BOOL isField = [symbol type] == MFSymbolTypeField;
 		BOOL isPropertyAccess = [symbol type] == MFSymbolTypePropertyAccess;
 		
@@ -246,13 +246,13 @@
 			NSValue *currentSubroutineDefinitionRange = [[self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:subroutineDefinitionRanges wholeLines:YES] firstObject];
 			if (!currentSubroutineDefinitionRange) continue;
 			
-			[self highlightRanges:[MFRangeHelper ranges:occurenceRanges fullyOrPartiallyContainedInRanges:@[currentSubroutineDefinitionRange]]];
+			[self highlightRanges:[MFRangeHelper ranges:symbolOccurenceRanges fullyOrPartiallyContainedInRanges:@[currentSubroutineDefinitionRange]]];
 		}
 		else
 		{
 			// Some of the symbol occurences were found outside of subroutine definitions;
 			// consider symbol as global and highlight all occurences.
-			[self highlightRanges:occurenceRanges];
+			[self highlightRanges:symbolOccurenceRanges];
 		}
 	}
 }

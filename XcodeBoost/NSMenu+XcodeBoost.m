@@ -7,18 +7,17 @@
 //
 
 #import "NSMenu+XcodeBoost.h"
-#import "NSArray+XcodeBoost.h"
 
 @implementation NSMenu (XcodeBoost)
 
-- (void)xb_insertItem:(NSMenuItem *)item beforeItem:(NSUInteger)itemIndexInMatches where:(BoolItemBlock)condition
+- (void)xb_insertItem:(NSMenuItem *)item beforeItem:(NSUInteger)itemIndexInMatches where:(CollectorConditionBlock)condition
 {
 	[self xb_insertItems:@[item] beforeItem:itemIndexInMatches where:condition];
 }
 
-- (void)xb_insertItems:(NSArray *)items beforeItem:(NSUInteger)itemIndexInMatches where:(BoolItemBlock)condition
+- (void)xb_insertItems:(NSArray *)items beforeItem:(NSUInteger)itemIndexInMatches where:(CollectorConditionBlock)condition
 {
-	NSArray *matches = [[self itemArray] xb_where:condition];
+	NSArray *matches = [[self itemArray] ct_where:condition];
 	NSMenuItem *match = (itemIndexInMatches < [matches count] ? matches[itemIndexInMatches] : [matches lastObject]);
 	
 	if (match)

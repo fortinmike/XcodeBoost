@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
+#import "Collector.h"
 #import "NSString+Regexer.h"
 #import "NSString+XcodeBoost.h"
-#import "NSArray+XcodeBoost.h"
 
 @implementation NSString (XcodeBoost)
 
@@ -100,7 +100,7 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9 \\(\\)_,\\*^:]+? [a-zA-Z0-9_]
 
 - (NSArray *)xb_lineRangesForRanges:(NSArray *)ranges
 {
-	return [ranges xb_map:^id(NSValue *range)
+	return [ranges ct_map:^id(NSValue *range)
 	{
 		NSRange lineRange = [self lineRangeForRange:[range rangeValue]];
 		return [NSValue valueWithRange:lineRange];
@@ -146,7 +146,7 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9 \\(\\)_,\\*^:]+? [a-zA-Z0-9_]
 	NSMutableArray *symbolRanges = [NSMutableArray array];
 	for (NSValue *rawSymbolRange in rawSymbolRanges)
 	{
-		BOOL symbolIsInAnInvalidRange = [invalidRanges xb_any:^BOOL(NSValue *stringRange)
+		BOOL symbolIsInAnInvalidRange = [invalidRanges ct_any:^BOOL(NSValue *stringRange)
 		{
 			return NSIntersectionRange([stringRange rangeValue], [rawSymbolRange rangeValue]).length > 0;
 		}];
