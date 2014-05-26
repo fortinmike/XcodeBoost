@@ -7,6 +7,8 @@
 //
 
 #import "MFHighlighter.h"
+#import "NSUserDefaults+XcodeBoost.h"
+#import "XcodeBoostConstants.h"
 #import "NSColor+XcodeBoost.h"
 
 @implementation MFHighlighter
@@ -22,19 +24,19 @@
     self = [super init];
     if (self)
     {
-		[self setupHighlightColors];
+		[self updateHighlightColors];
     }
     return self;
 }
 
-- (void)setupHighlightColors
+- (void)updateHighlightColors
 {
-	NSColor *blueColor = [NSColor colorWithCalibratedRed:0.000 green:0.145 blue:0.806 alpha:1.000];
-	NSColor *greenColor = [NSColor colorWithCalibratedRed:0.266 green:0.798 blue:0.049 alpha:1.000];
-	NSColor *purpleColor = [NSColor colorWithCalibratedRed:0.386 green:0.000 blue:0.831 alpha:1.000];
-	NSColor *pinkColor = [NSColor colorWithCalibratedRed:0.930 green:0.090 blue:0.750 alpha:1.000];
+	NSColor *color1 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:XBHighlightColor1Key];
+	NSColor *color2 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:XBHighlightColor2Key];
+	NSColor *color3 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:XBHighlightColor3Key];
+	NSColor *color4 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:XBHighlightColor4Key];
 	
-	_highlightColors = [@[blueColor, greenColor, purpleColor, pinkColor] mutableCopy];
+	_highlightColors = [@[color1, color2, color3, color4] mutableCopy];
 }
 
 #pragma mark Highlighting
@@ -45,6 +47,8 @@
 	
 	if (_highlightCount < [_highlightColors count])
 	{
+		[self updateHighlightColors];
+		
 		color = _highlightColors[_highlightCount];
 	}
 	else

@@ -9,3 +9,8 @@
 #import <Foundation/Foundation.h>
 
 FOUNDATION_EXPORT NSString *const XBHighlightColorAttributeName;
+
+FOUNDATION_EXPORT NSString *const XBHighlightColor1Key;
+FOUNDATION_EXPORT NSString *const XBHighlightColor2Key;
+FOUNDATION_EXPORT NSString *const XBHighlightColor3Key;
+FOUNDATION_EXPORT NSString *const XBHighlightColor4Key;

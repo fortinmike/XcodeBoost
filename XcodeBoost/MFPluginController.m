@@ -8,6 +8,7 @@
 
 #import "MFPluginController.h"
 #import "NSMenu+XcodeBoost.h"
+#import "MFPreferencesWindowController.h"
 #import "DVTSourceTextView+XcodeBoost.h"
 #import "MFHighlightRegexWindowController.h"
 #import "IDEKit.h"
@@ -18,6 +19,7 @@
 	NSBundle *_pluginBundle;
 	NSTextView *_activeTextView;
 	
+	MFPreferencesWindowController *_preferencesWindowController;
 	MFHighlightRegexWindowController *_highlightRegexWindowController;
 }
 
@@ -86,6 +88,8 @@
 	[submenu addItem:[self createMenuItemWithTitle:@"Highlight Regex Matches" action:@selector(highlightRegexMatches_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove Most Recently Added Highlight" action:@selector(removeMostRecentlyAddedHighlight_clicked:)]];
 	[submenu addItem:[self createMenuItemWithTitle:@"Remove All Highlighting" action:@selector(removeAllHighlighting_clicked:)]];
+	[submenu addItem:[NSMenuItem separatorItem]];
+	[submenu addItem:[self createMenuItemWithTitle:@"Preferences..." action:@selector(preferences_clicked:)]];
 	
 	NSMenuItem *textToolsMenuItem = [[NSMenuItem alloc] initWithTitle:@"XcodeBoost" action:NULL keyEquivalent:@""];
 	[textToolsMenuItem setSubmenu:submenu];
@@ -201,6 +205,16 @@
 - (void)removeAllHighlighting_clicked:(id)sender
 {
 	[[[self currentSourceTextView] xb_manipulator] removeAllHighlighting];
+}
+
+#pragma mark Preferences
+
+- (void)preferences_clicked:(id)sender
+{
+	if (!_preferencesWindowController)
+		_preferencesWindowController = [[MFPreferencesWindowController alloc] initWithBundle:_pluginBundle];
+	
+	[_preferencesWindowController showWindow:self];
 }
 
 #pragma mark Implementation
