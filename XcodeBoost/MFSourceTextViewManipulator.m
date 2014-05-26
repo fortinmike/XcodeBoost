@@ -236,11 +236,11 @@
 		
 		NSArray *symbolsInSubroutineDefinitions = [MFRangeHelper ranges:symbolOccurenceRanges fullyOrPartiallyContainedInRanges:subroutineDefinitionRanges];
 		
-		BOOL isGlobal = ([symbolsInSubroutineDefinitions count] != [symbolOccurenceRanges count]);
+		BOOL isFoundInGlobalScope = ([symbolsInSubroutineDefinitions count] != [symbolOccurenceRanges count]);
 		BOOL isField = [symbol type] == MFSymbolTypeField;
 		BOOL isPropertyAccess = [symbol type] == MFSymbolTypePropertyAccess;
 		
-		if (isGlobal || isField || isPropertyAccess)
+		if (isFoundInGlobalScope || isField || isPropertyAccess)
 		{
 			// Some of the symbol occurences were found outside of subroutine definitions;
 			// consider symbol as global and highlight all occurences.
