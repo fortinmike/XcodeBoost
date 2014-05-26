@@ -11,6 +11,7 @@
 @interface MFRangeHelper : NSObject
 
 + (NSArray *)ranges:(NSArray *)rangesToFilter fullyOrPartiallyContainedInRanges:(NSArray *)targetRanges;
++ (BOOL)range:(NSRange)range isFullyOrPartiallyContainedInRanges:(NSArray *)containerRanges;
 + (NSRange)unionRangeWithRanges:(NSArray *)ranges;
 
 @end

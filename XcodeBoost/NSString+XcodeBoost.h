@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MFSymbol.h"
 
 @interface NSString (XcodeBoost)
 
@@ -25,7 +26,7 @@
 - (NSRange)xb_range;
 - (NSArray *)xb_lineRangesForRanges:(NSArray *)ranges;
 - (NSArray *)xb_rangesOfString:(NSString *)string;
-- (NSArray *)xb_rangesOfSymbol:(NSString *)symbol;
+- (NSArray *)xb_rangesOfSymbol:(MFSymbol *)symbol;
 
 #pragma mark Code Patterns - Subroutines
 
@@ -48,8 +49,6 @@
 
 #pragma mark Code Patterns - Other
 
-- (NSArray *)xb_symbolRanges;
-- (NSArray *)xb_commentRanges;
-- (NSArray *)xb_stringRanges;
+- (NSArray *)xb_symbols;
 
 @end

@@ -13,16 +13,25 @@
 + (NSArray *)ranges:(NSArray *)rangesToFilter fullyOrPartiallyContainedInRanges:(NSArray *)targetRanges
 {
 	NSMutableArray *rangesOverlappingSelection = [NSMutableArray array];
+	
 	for (NSValue *range in rangesToFilter)
 	{
-		for (NSValue *selectedRange in targetRanges)
-		{
-			if (MFRangeOverlaps([range rangeValue], [selectedRange rangeValue]))
-				[rangesOverlappingSelection addObject:range];
-		}
+		if ([self range:[range rangeValue] isFullyOrPartiallyContainedInRanges:targetRanges])
+			[rangesOverlappingSelection addObject:range];
 	}
 	
 	return rangesOverlappingSelection;
+}
+
++ (BOOL)range:(NSRange)range isFullyOrPartiallyContainedInRanges:(NSArray *)containerRanges
+{
+	for (NSValue *containerRange in containerRanges)
+	{
+		if (MFRangeOverlaps(range, [containerRange rangeValue]))
+			return YES;
+	}
+	
+	return NO;
 }
 
 + (NSRange)unionRangeWithRanges:(NSArray *)ranges
