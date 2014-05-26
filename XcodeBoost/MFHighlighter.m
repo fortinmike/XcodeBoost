@@ -29,12 +29,12 @@
 
 - (void)setupHighlightColors
 {
-	NSColor *purpleColor = [NSColor colorWithCalibratedRed:0.58 green:0.09 blue:0.93 alpha:1];
-	NSColor *redColor = [NSColor colorWithCalibratedRed:0.69 green:0.07 blue:0.14 alpha:1];
-	NSColor *blueColor = [NSColor colorWithCalibratedRed:0.05 green:0.24 blue:1 alpha:1];
-	NSColor *yellowColor = [NSColor colorWithCalibratedRed:0.91 green:0.74 blue:0.14 alpha:1];
+	NSColor *blueColor = [NSColor colorWithCalibratedRed:0.000 green:0.145 blue:0.806 alpha:1.000];
+	NSColor *greenColor = [NSColor colorWithCalibratedRed:0.266 green:0.798 blue:0.049 alpha:1.000];
+	NSColor *purpleColor = [NSColor colorWithCalibratedRed:0.386 green:0.000 blue:0.831 alpha:1.000];
+	NSColor *pinkColor = [NSColor colorWithCalibratedRed:0.930 green:0.090 blue:0.750 alpha:1.000];
 	
-	_highlightColors = [@[purpleColor, redColor, blueColor, yellowColor] mutableCopy];
+	_highlightColors = [@[blueColor, greenColor, purpleColor, pinkColor] mutableCopy];
 }
 
 #pragma mark Highlighting
