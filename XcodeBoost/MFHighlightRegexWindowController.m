@@ -54,12 +54,12 @@
 
 - (NSRegularExpressionOptions)options
 {
-	NSRegularExpressionOptions options = [self boolValue:@"XCTTRegexCaseSensitive"] ? 0 : NSRegularExpressionCaseInsensitive;
-	options |= [self boolValue:@"XCTTRegexIgnoreMetacharacters"] ? NSRegularExpressionIgnoreMetacharacters : 0;
-	options |= [self boolValue:@"XCTTRegexDotMatchesLineSeparators"] ? NSRegularExpressionDotMatchesLineSeparators : 0;
-	options |= [self boolValue:@"XCTTRegexAnchorsMatchLines"] ? NSRegularExpressionAnchorsMatchLines : 0;
-	options |= [self boolValue:@"XCTTRegexUseUnixLineSeparators"] ? NSRegularExpressionUseUnixLineSeparators : 0;
-	options |= [self boolValue:@"XCTTRegexUseUnicodeWordBoundaries"] ? NSRegularExpressionUseUnicodeWordBoundaries : 0;
+	NSRegularExpressionOptions options = [self boolValue:@"XBRegexCaseSensitive"] ? 0 : NSRegularExpressionCaseInsensitive;
+	options |= [self boolValue:@"XBRegexIgnoreMetacharacters"] ? NSRegularExpressionIgnoreMetacharacters : 0;
+	options |= [self boolValue:@"XBRegexDotMatchesLineSeparators"] ? NSRegularExpressionDotMatchesLineSeparators : 0;
+	options |= [self boolValue:@"XBRegexAnchorsMatchLines"] ? NSRegularExpressionAnchorsMatchLines : 0;
+	options |= [self boolValue:@"XBRegexUseUnixLineSeparators"] ? NSRegularExpressionUseUnixLineSeparators : 0;
+	options |= [self boolValue:@"XBRegexUseUnicodeWordBoundaries"] ? NSRegularExpressionUseUnicodeWordBoundaries : 0;
 	return options;
 }
 

@@ -2,19 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>XCTTRegexCaseSensitive</key>
+	<key>XBRegexCaseSensitive</key>
 	<true/>
-	<key>XCTTRegexAllowCommentsAndWhitespace</key>
+	<key>XBRegexAllowCommentsAndWhitespace</key>
 	<false/>
-	<key>XCTTRegexIgnoreMetacharacters</key>
+	<key>XBRegexIgnoreMetacharacters</key>
 	<false/>
-	<key>XCTTRegexDotMatchesLineSeparators</key>
+	<key>XBRegexDotMatchesLineSeparators</key>
 	<false/>
-	<key>XCTTRegexAnchorsMatchLines</key>
+	<key>XBRegexAnchorsMatchLines</key>
 	<false/>
-	<key>XCTTRegexUseUnixLineSeparators</key>
+	<key>XBRegexUseUnixLineSeparators</key>
 	<false/>
-	<key>XCTTRegexUseUnicodeWordBoundaries</key>
+	<key>XBRegexUseUnicodeWordBoundaries</key>
 	<false/>
 </dict>
 </plist>

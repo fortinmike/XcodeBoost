@@ -13,17 +13,17 @@
 
 @implementation DVTSourceTextView (XcodeBoost)
 
-static NSString *kXCTTManipulatorKey = @"XCTTManipulator";
+static NSString *kXBManipulatorKey = @"XBManipulator";
 
 #pragma mark Obtaining the Manipulator Instance
 
 - (MFSourceTextViewManipulator *)xb_manipulator
 {
-	MFSourceTextViewManipulator *manipulator = [self xb_associatedObjectForKey:kXCTTManipulatorKey];
+	MFSourceTextViewManipulator *manipulator = [self xb_associatedObjectForKey:kXBManipulatorKey];
 	if (!manipulator)
 	{
 		manipulator = [[MFSourceTextViewManipulator alloc] initWithSourceTextView:self];
-		[self xb_setAssociatedObject:manipulator forKey:kXCTTManipulatorKey];
+		[self xb_setAssociatedObject:manipulator forKey:kXBManipulatorKey];
 	}
 	return manipulator;
 }
