@@ -10,14 +10,23 @@
 
 @implementation MFSymbol
 
-- (id)init
+- (id)initWithType:(MFSymbolType)type
 {
     self = [super init];
     if (self)
     {
-        _type = MFSymbolTypeUnknown;
+        _type = type;
     }
     return self;
+}
+
+#pragma mark NSObject Overrides
+
+- (NSString *)description
+{
+	NSUInteger start = self.range.location;
+	NSUInteger end = self.range.location + self.range.length;
+	return [[super description] stringByAppendingFormat:@" %@ (type %d), %ld..%ld", self.string, (int)self.type, start, end];
 }
 
 @end

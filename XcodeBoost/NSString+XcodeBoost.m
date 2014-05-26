@@ -238,9 +238,34 @@ static NSString *s_functionPattern = @"([a-zA-Z0-9 \\(\\)_,\\*^:]+? [a-zA-Z0-9_]
 
 - (NSArray *)xb_symbols
 {
-	NSString *symbolPattern = [NSString stringWithFormat:@"%@|%@|%@|%@", s_genericSymbolPattern, s_stringLiteralPattern,
-																		 s_numberLiteralPattern, s_selectorPattern];
-	return [self rx_rangesForMatchesWithPattern:symbolPattern];
+	NSMutableArray *symbols = [NSMutableArray array];
+	
+	[symbols addObjectsFromArray:[self xb_symbolsOfType:MFSymbolTypeStringLiteral withPattern:s_stringLiteralPattern]];
+	[symbols addObjectsFromArray:[self xb_symbolsOfType:MFSymbolTypeNumberLiteral withPattern:s_numberLiteralPattern]];
+	[symbols addObjectsFromArray:[self xb_symbolsOfType:MFSymbolTypeSelector withPattern:s_selectorPattern]];
+	[symbols addObjectsFromArray:[self xb_symbolsOfType:MFSymbolTypeField withPattern:s_fieldPattern]];
+	[symbols addObjectsFromArray:[self xb_symbolsOfType:MFSymbolTypePropertyAccess withPattern:s_propertyAccessPattern]];
+	[symbols addObjectsFromArray:[self xb_symbolsOfType:MFSymbolTypeUnknown withPattern:s_genericSymbolPattern]];
+	
+	// Eliminate potential duplicates and return the distinct symbols
+	return [symbols ct_distinct:^id(MFSymbol *symbol) { return [NSValue valueWithRange:[symbol range]]; }];
+}
+
+- (NSArray *)xb_symbolsOfType:(MFSymbolType)type withPattern:(NSString *)symbolPattern
+{
+	NSArray *matches = [self rx_matchesWithPattern:symbolPattern];
+	
+	NSMutableArray *symbols = [NSMutableArray array];
+	for (RXMatch *match in matches)
+	{
+		MFSymbol *symbol = [[MFSymbol alloc] initWithType:type];
+		[symbol setRange:[match range]];
+		[symbol setString:[match text]];
+		
+		[symbols addObject:symbol];
+	}
+	
+	return symbols;
 }
 
 - (NSArray *)xb_commentRanges

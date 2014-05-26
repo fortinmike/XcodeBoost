@@ -236,23 +236,23 @@
 		
 		NSArray *symbolsInSubroutineDefinitions = [MFRangeHelper ranges:symbolOccurenceRanges fullyOrPartiallyContainedInRanges:subroutineDefinitionRanges];
 		
-		BOOL isGlobal = [symbolsInSubroutineDefinitions count] == [symbolOccurenceRanges count];
+		BOOL isGlobal = ([symbolsInSubroutineDefinitions count] != [symbolOccurenceRanges count]);
 		BOOL isField = [symbol type] == MFSymbolTypeField;
 		BOOL isPropertyAccess = [symbol type] == MFSymbolTypePropertyAccess;
 		
-		if (isGlobal && !isField && !isPropertyAccess)
-		{
-			// All symbol occurences were found in subroutine definitions; consider symbol as local
-			NSValue *currentSubroutineDefinitionRange = [[self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:subroutineDefinitionRanges wholeLines:YES] firstObject];
-			if (!currentSubroutineDefinitionRange) continue;
-			
-			[self highlightRanges:[MFRangeHelper ranges:symbolOccurenceRanges fullyOrPartiallyContainedInRanges:@[currentSubroutineDefinitionRange]]];
-		}
-		else
+		if (isGlobal || isField || isPropertyAccess)
 		{
 			// Some of the symbol occurences were found outside of subroutine definitions;
 			// consider symbol as global and highlight all occurences.
 			[self highlightRanges:symbolOccurenceRanges];
+		}
+		else
+		{
+			// Else consider symbol as local
+			NSValue *currentSubroutineDefinitionRange = [[self.sourceTextView xb_rangesFullyOrPartiallyContainedInSelection:subroutineDefinitionRanges wholeLines:YES] firstObject];
+			if (!currentSubroutineDefinitionRange) continue;
+			
+			[self highlightRanges:[MFRangeHelper ranges:symbolOccurenceRanges fullyOrPartiallyContainedInRanges:@[currentSubroutineDefinitionRange]]];
 		}
 	}
 }

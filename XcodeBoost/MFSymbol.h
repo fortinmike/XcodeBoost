@@ -24,4 +24,6 @@ typedef NS_ENUM(NSUInteger, MFSymbolType)
 @property (assign) NSRange range;
 @property (copy) NSString *string;
 
+- (id)initWithType:(MFSymbolType)type;
+
 @end
