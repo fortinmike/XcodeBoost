@@ -140,6 +140,7 @@
 		4CEE9EC11933D32900092F6A /* RXMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RXMatch.m; path = Submodules/Regexer/Regexer/Source/RXMatch.m; sourceTree = SOURCE_ROOT; };
 		4CEE9EC21933D32900092F6A /* RXRegexCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RXRegexCache.h; path = Submodules/Regexer/Regexer/Source/RXRegexCache.h; sourceTree = SOURCE_ROOT; };
 		4CEE9EC31933D32900092F6A /* RXRegexCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RXRegexCache.m; path = Submodules/Regexer/Regexer/Source/RXRegexCache.m; sourceTree = SOURCE_ROOT; };
+		4CEE9EC91933D94C00092F6A /* Collector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Collector.h; path = Submodules/Collector/Collector/Source/Collector.h; sourceTree = SOURCE_ROOT; };
 		534B2E341B6C46478E20E400 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -344,6 +345,7 @@
 		4CEE9E9B1933D2C800092F6A /* Collector */ = {
 			isa = PBXGroup;
 			children = (
+				4CEE9EC91933D94C00092F6A /* Collector.h */,
 				4CEE9E9C1933D2DA00092F6A /* CollectorBlockTypes.h */,
 				4CEE9E9D1933D2DA00092F6A /* NSArray+Collector.h */,
 				4CEE9E9E1933D2DA00092F6A /* NSArray+Collector.m */,
