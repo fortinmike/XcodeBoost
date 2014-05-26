@@ -16,5 +16,13 @@
 	<false/>
 	<key>XBRegexUseUnicodeWordBoundaries</key>
 	<false/>
+	<key>XBHighlightColor1</key>
+	<string>color(0.000, 0.145, 0.806, 1.000)</string>
+	<key>XBHighlightColor2</key>
+	<string>color(0.266, 0.798, 0.049, 1.000)</string>
+	<key>XBHighlightColor3</key>
+	<string>color(0.386, 0.000, 0.831, 1.000)</string>
+	<key>XBHighlightColor4</key>
+	<string>color(0.930, 0.090, 0.750, 1.000)</string>
 </dict>
 </plist>

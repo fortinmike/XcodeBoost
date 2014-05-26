@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 Michaël Fortin. All rights reserved.
 //
 
-#import "NSUserDefaults+XcodeBoost.h"
 #import "MFHighlighter.h"
+#import "NSUserDefaults+XcodeBoost.h"
+#import "XcodeBoostConstants.h"
 #import "NSColor+XcodeBoost.h"
 
 @implementation MFHighlighter
@@ -30,15 +31,10 @@
 
 - (void)setupHighlightColors
 {
-	NSColor *color1 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:@"XcodeBoostHighlightColor1"];
-	NSColor *color2 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:@"XcodeBoostHighlightColor2"];
-	NSColor *color3 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:@"XcodeBoostHighlightColor3"];
-	NSColor *color4 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:@"XcodeBoostHighlightColor4"];
-	
-	if (!color1) color1 = [NSColor colorWithCalibratedRed:0.000 green:0.145 blue:0.806 alpha:1.000];
-	if (!color2) color2 = [NSColor colorWithCalibratedRed:0.266 green:0.798 blue:0.049 alpha:1.000];
-	if (!color3) color3 = [NSColor colorWithCalibratedRed:0.386 green:0.000 blue:0.831 alpha:1.000];
-	if (!color4) color4 = [NSColor colorWithCalibratedRed:0.930 green:0.090 blue:0.750 alpha:1.000];
+	NSColor *color1 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:XBHighlightColor1Key];
+	NSColor *color2 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:XBHighlightColor2Key];
+	NSColor *color3 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:XBHighlightColor3Key];
+	NSColor *color4 = [[NSUserDefaults standardUserDefaults] xb_colorForKey:XBHighlightColor4Key];
 	
 	_highlightColors = [@[color1, color2, color3, color4] mutableCopy];
 }
