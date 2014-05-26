@@ -1,0 +1,12 @@
+[submodule "Submodules/Regexer"]
+	path = Submodules/Regexer
+	url = https://github.com/fortinmike/Regexer.git
+[submodule "Submodules/MFMigrationManager"]
+	path = Submodules/MFMigrationManager
+	url = https://github.com/fortinmike/MFMigrationManager.git
+[submodule "Submodules/Collector"]
+	path = Submodules/Collector
+	url = https://github.com/fortinmike/Collector.git
+[submodule "Submodules/jrswizzle"]
+	path = Submodules/jrswizzle
+	url = https://github.com/rentzsch/jrswizzle.git
