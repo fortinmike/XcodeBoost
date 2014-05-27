@@ -1,0 +1,3 @@
+language: objective-c
+xcode_workspace: XcodeBoost.xcworkspace
+xcode_scheme: XcodeBoost
