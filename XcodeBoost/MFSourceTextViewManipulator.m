@@ -272,15 +272,15 @@
 	NSTextStorage *textStorage = self.textStorage;
 	NSRange documentRange = NSMakeRange(0, [[textStorage string] length]);
 	
-    [textStorage beginEditing];
-    
+	[textStorage beginEditing];
+	
 	[textStorage enumerateAttribute:XBHighlightColorAttributeName inRange:documentRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop)
 	{
 		if ([value isEqual:highlightColorToRemove])
 			[textStorage removeAttribute:XBHighlightColorAttributeName range:range];
 	}];
-    
-    [textStorage endEditing];
+	
+	[textStorage endEditing];
 }
 
 - (void)highlightRanges:(NSArray *)ranges
@@ -288,7 +288,7 @@
 	NSColor *highlightColor = [_highlighter pushHighlightColor];
 	DVTMarkedScroller *scroller = self.scroller;
 	
-    [self.textStorage beginEditing];
+	[self.textStorage beginEditing];
 	
 	for (NSValue *range in ranges)
 	{
@@ -307,8 +307,8 @@
 		// the text view won't update to show the newly added highlighting.
 		[self.sourceTextView setNeedsDisplay:YES];
 	}
-    
-    [self.textStorage endEditing];
+	
+	[self.textStorage endEditing];
 }
 
 - (void)highlightRange:(NSRange)range withColor:(NSColor *)color
@@ -323,14 +323,14 @@
 	
 	[self.scroller xb_removeAllMarks];
 	
-    [textStorage beginEditing];
-    
+	[textStorage beginEditing];
+	
 	[textStorage enumerateAttribute:XBHighlightColorAttributeName inRange:documentRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop)
 	{
 		[textStorage removeAttribute:XBHighlightColorAttributeName range:range];
 	}];
-    
-    [textStorage endEditing];
+	
+	[textStorage endEditing];
 	
 	[_highlighter popAllHighlightColors];
 }
