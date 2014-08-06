@@ -210,6 +210,8 @@
 
 - (void)highlightSelectedStrings
 {
+	[self.textStorage beginEditing];
+	
 	for (NSValue *range in [self.sourceTextView selectedRanges])
 	{
 		NSString *string = [self.string substringWithRange:[range rangeValue]];
@@ -217,6 +219,8 @@
 		
 		[self highlightRanges:stringRanges];
 	}
+	
+	[self.textStorage endEditing];
 }
 
 - (void)highlightSelectedSymbols
@@ -227,6 +231,8 @@
 	{
 		return [self.sourceTextView xb_rangeIsFullyOrPartiallyContainedInSelection:[symbol matchRange] wholeLines:NO];
 	}];
+	
+	[self.textStorage beginEditing];
 	
 	for (MFSymbol *symbol in symbolsInSelection)
 	{
@@ -255,11 +261,17 @@
 			[self highlightRanges:[MFRangeHelper ranges:symbolOccurenceRanges fullyOrPartiallyContainedInRanges:@[currentSubroutineDefinitionRange]]];
 		}
 	}
+	
+	[self.textStorage endEditing];
 }
 
 - (void)highlightRegexMatchesWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options
 {
+	[self.textStorage beginEditing];
+	
 	[self highlightRanges:[self.string rx_rangesForMatchesWithPattern:pattern options:options]];
+	
+	[self.textStorage endEditing];
 }
 
 - (void)removeMostRecentlyAddedHighlight
@@ -283,12 +295,24 @@
 	[textStorage endEditing];
 }
 
+- (void)removeAllHighlighting
+{
+	NSRange documentRange = NSMakeRange(0, [[self.textStorage string] length]);
+	
+	[self.textStorage beginEditing];
+	[self.textStorage removeAttribute:XBHighlightColorAttributeName range:documentRange];
+	[self.textStorage endEditing];
+	
+	[self.scroller xb_removeAllMarks];
+	[_highlighter popAllHighlightColors];
+}
+
+#pragma mark Highlighting Core
+
 - (void)highlightRanges:(NSArray *)ranges
 {
 	NSColor *highlightColor = [_highlighter pushHighlightColor];
 	DVTMarkedScroller *scroller = self.scroller;
-	
-	[self.textStorage beginEditing];
 	
 	for (NSValue *range in ranges)
 	{
@@ -307,32 +331,11 @@
 		// the text view won't update to show the newly added highlighting.
 		[self.sourceTextView setNeedsDisplay:YES];
 	}
-	
-	[self.textStorage endEditing];
 }
 
 - (void)highlightRange:(NSRange)range withColor:(NSColor *)color
 {
 	[self.textStorage addAttribute:XBHighlightColorAttributeName value:color range:range];
-}
-
-- (void)removeAllHighlighting
-{
-	NSTextStorage *textStorage = self.textStorage;
-	NSRange documentRange = NSMakeRange(0, [[textStorage string] length]);
-	
-	[self.scroller xb_removeAllMarks];
-	
-	[textStorage beginEditing];
-	
-	[textStorage enumerateAttribute:XBHighlightColorAttributeName inRange:documentRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop)
-	{
-		[textStorage removeAttribute:XBHighlightColorAttributeName range:range];
-	}];
-	
-	[textStorage endEditing];
-	
-	[_highlighter popAllHighlightColors];
 }
 
 #pragma mark Accessor Overrides
