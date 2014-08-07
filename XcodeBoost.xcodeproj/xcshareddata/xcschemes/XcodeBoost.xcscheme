@@ -28,6 +28,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4C908696199318FF00267CB9"
+               BuildableName = "XcodeBoost Tests.xctest"
+               BlueprintName = "XcodeBoost Tests"
+               ReferencedContainer = "container:XcodeBoost.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

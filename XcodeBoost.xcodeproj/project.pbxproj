@@ -38,6 +38,8 @@
 		4C82FF0C18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82FF0B18F0A7E7000C0E8D /* DVTMarkedScroller+XcodeBoost.m */; };
 		4C82FF1318F0ABD4000C0E8D /* MFScrollerMark.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C82FF1218F0ABD4000C0E8D /* MFScrollerMark.m */; };
 		4C87F33418EF99CF00D63FD0 /* NSView+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87F33318EF99CF00D63FD0 /* NSView+XcodeBoost.m */; };
+		4C908699199318FF00267CB9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C908698199318FF00267CB9 /* XCTest.framework */; };
+		4C90869F199318FF00267CB9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C90869D199318FF00267CB9 /* InfoPlist.strings */; };
 		4C9C725C1917305500C4BFA8 /* NSArray+Regexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C72531917305500C4BFA8 /* NSArray+Regexer.m */; };
 		4C9C725D1917305500C4BFA8 /* NSString+Regexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C72551917305500C4BFA8 /* NSString+Regexer.m */; };
 		4C9C725E1917305500C4BFA8 /* RXCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C72571917305500C4BFA8 /* RXCapture.m */; };
@@ -52,6 +54,16 @@
 		4CE2088818DA8E5400070212 /* DVTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE2088718DA8E5400070212 /* DVTFoundation.framework */; };
 		4CE9E9D1192DA474001573BE /* DVTLayoutManager+XcodeBoost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9E9D0192DA474001573BE /* DVTLayoutManager+XcodeBoost.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4C9086A3199318FF00267CB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C2868A118D331B7006C780C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C2868A818D331B7006C780C;
+			remoteInfo = XcodeBoost;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4C0A53BB18DCE7EE00E82F1C /* NSColor+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+XcodeBoost.h"; sourceTree = "<group>"; };
@@ -115,6 +127,11 @@
 		4C82FF1218F0ABD4000C0E8D /* MFScrollerMark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFScrollerMark.m; sourceTree = "<group>"; };
 		4C87F33218EF99CF00D63FD0 /* NSView+XcodeBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+XcodeBoost.h"; sourceTree = "<group>"; };
 		4C87F33318EF99CF00D63FD0 /* NSView+XcodeBoost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+XcodeBoost.m"; sourceTree = "<group>"; };
+		4C908697199318FF00267CB9 /* XcodeBoost Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "XcodeBoost Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C908698199318FF00267CB9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		4C90869C199318FF00267CB9 /* XcodeBoost Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XcodeBoost Tests-Info.plist"; sourceTree = "<group>"; };
+		4C90869E199318FF00267CB9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4C9086A2199318FF00267CB9 /* XcodeBoost Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XcodeBoost Tests-Prefix.pch"; sourceTree = "<group>"; };
 		4C9C72521917305500C4BFA8 /* NSArray+Regexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Regexer.h"; sourceTree = "<group>"; };
 		4C9C72531917305500C4BFA8 /* NSArray+Regexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Regexer.m"; sourceTree = "<group>"; };
 		4C9C72541917305500C4BFA8 /* NSString+Regexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Regexer.h"; sourceTree = "<group>"; };
@@ -159,6 +176,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4C908694199318FF00267CB9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C908699199318FF00267CB9 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -195,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				4C2868B018D331B7006C780C /* XcodeBoost */,
+				4C90869A199318FF00267CB9 /* XcodeBoost Tests */,
 				4C1C38F819057C6F00EE3992 /* Third-Party */,
 				4C2868AB18D331B7006C780C /* Frameworks */,
 				4C2868AA18D331B7006C780C /* Products */,
@@ -205,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				4C2868A918D331B7006C780C /* XcodeBoost.xcplugin */,
+				4C908697199318FF00267CB9 /* XcodeBoost Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -219,6 +246,7 @@
 				4C2868AC18D331B7006C780C /* AppKit.framework */,
 				4C2868AE18D331B7006C780C /* Foundation.framework */,
 				534B2E341B6C46478E20E400 /* libPods.a */,
+				4C908698199318FF00267CB9 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -333,6 +361,24 @@
 			path = MFMigrationManager;
 			sourceTree = "<group>";
 		};
+		4C90869A199318FF00267CB9 /* XcodeBoost Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4C90869B199318FF00267CB9 /* Supporting Files */,
+			);
+			path = "XcodeBoost Tests";
+			sourceTree = "<group>";
+		};
+		4C90869B199318FF00267CB9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C90869C199318FF00267CB9 /* XcodeBoost Tests-Info.plist */,
+				4C90869D199318FF00267CB9 /* InfoPlist.strings */,
+				4C9086A2199318FF00267CB9 /* XcodeBoost Tests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		4CAC524E18D380A000E88C70 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,6 +467,24 @@
 			productReference = 4C2868A918D331B7006C780C /* XcodeBoost.xcplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
+		4C908696199318FF00267CB9 /* XcodeBoost Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C9086A7199318FF00267CB9 /* Build configuration list for PBXNativeTarget "XcodeBoost Tests" */;
+			buildPhases = (
+				4C908693199318FF00267CB9 /* Sources */,
+				4C908694199318FF00267CB9 /* Frameworks */,
+				4C908695199318FF00267CB9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4C9086A4199318FF00267CB9 /* PBXTargetDependency */,
+			);
+			name = "XcodeBoost Tests";
+			productName = "XcodeBoost Tests";
+			productReference = 4C908697199318FF00267CB9 /* XcodeBoost Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -429,6 +493,11 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Michaël Fortin";
+				TargetAttributes = {
+					4C908696199318FF00267CB9 = {
+						TestTargetID = 4C2868A818D331B7006C780C;
+					};
+				};
 			};
 			buildConfigurationList = 4C2868A418D331B7006C780C /* Build configuration list for PBXProject "XcodeBoost" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -443,6 +512,7 @@
 			projectRoot = "";
 			targets = (
 				4C2868A818D331B7006C780C /* XcodeBoost */,
+				4C908696199318FF00267CB9 /* XcodeBoost Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -456,6 +526,14 @@
 				4C2868B518D331B7006C780C /* InfoPlist.strings in Resources */,
 				4C482ECF1932C5B300926822 /* PreferencesWindow.xib in Resources */,
 				4C30388B18E2F89400F570E4 /* Defaults.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C908695199318FF00267CB9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C90869F199318FF00267CB9 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,13 +581,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4C908693199318FF00267CB9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4C9086A4199318FF00267CB9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C2868A818D331B7006C780C /* XcodeBoost */;
+			targetProxy = 4C9086A3199318FF00267CB9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4C2868B318D331B7006C780C /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				4C2868B418D331B7006C780C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4C90869D199318FF00267CB9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C90869E199318FF00267CB9 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -635,6 +736,40 @@
 			};
 			name = Release;
 		};
+		4C9086A5199318FF00267CB9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XcodeBoost Tests/XcodeBoost Tests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "XcodeBoost Tests/XcodeBoost Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		4C9086A6199318FF00267CB9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XcodeBoost Tests/XcodeBoost Tests-Prefix.pch";
+				INFOPLIST_FILE = "XcodeBoost Tests/XcodeBoost Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -655,6 +790,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		4C9086A7199318FF00267CB9 /* Build configuration list for PBXNativeTarget "XcodeBoost Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C9086A5199318FF00267CB9 /* Debug */,
+				4C9086A6199318FF00267CB9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
