@@ -33,7 +33,9 @@
 		_pluginBundle = pluginBundle;
 		
 		[self registerDefaults];
-		[self insertMenuItems];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self insertMenuItems];
+        }];
 		[self showNewVersionWarningIfAppropriate];
     }
     return self;
