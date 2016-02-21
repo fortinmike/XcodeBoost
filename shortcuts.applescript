@@ -106,7 +106,7 @@ tell application "System Events"
 		click button 1 of group 1 of tab group 1 of window "Keyboard"
 		set value of text field 1 of sheet 1 of window "Keyboard" to "Duplicate Lines"
 		keystroke tab
-		key code 7 using {shift down, command down}
+		key code 2 using {shift down, command down}
 		click button "Add" of sheet 1 of window "Keyboard"
 		
 		click button 1 of group 1 of tab group 1 of window "Keyboard"
