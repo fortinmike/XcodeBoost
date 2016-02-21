@@ -43,10 +43,9 @@ Notice the indicators in the scrollbar. They show where the symbols have been fo
 	- Suggested keyboard shortcuts:
 	
 	![image](Images/menu.png)
+  
   Automatically:
-  Run `osascript shortcuts.applescript` in the folder of this repo. The
-suggested keyboard shortcuts would be added automatically. Please wait until the
-System Preferences' *Keyboard Shortcuts* panel automatically disappears.
+	- Run `osascript shortcuts.applescript` in the folder of this repo. The suggested keyboard shortcuts would be added automatically. Please wait until the System Preferences' *Keyboard Shortcuts* panel automatically disappears.
 	
 ## Like the color theme in those screenshots?
 
