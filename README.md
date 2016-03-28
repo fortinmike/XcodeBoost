@@ -34,18 +34,17 @@ Notice the indicators in the scrollbar. They show where the symbols have been fo
 
 1. Install through [Alcatraz](https://github.com/supermarin/Alcatraz) or download the source and build the XcodeBoost target, then restart Xcode.
 2. Assign keyboard shortcuts to XcodeBoost's menu items through System Preferences' *Keyboard Shortcuts* panel.
-  Manually:
-	- Add Xcode.app in "App Shortcuts" if not already present.
-	- For each XcodeBoost menu item that you wish to trigger using the keyboard, add a shortcut and fill the "Menu Title" field with the exact name of the menu item, like so:
+    - **Manually:**
+	    - Add Xcode.app in "App Shortcuts" if not already present.
+	    - For each XcodeBoost menu item that you wish to trigger using the keyboard, add a shortcut and fill the "Menu Title" field with the exact name of the menu item, like so:
 	
-	![image](Images/shortcuts.png)
+	    ![image](Images/shortcuts.png)
 	
-	- Suggested keyboard shortcuts:
+	    - Suggested keyboard shortcuts:
 	
-	![image](Images/menu.png)
+	    ![image](Images/menu.png)
   
-  Automatically:
-	- Run `osascript shortcuts.applescript` in the folder of this repo. The suggested keyboard shortcuts would be added automatically. Please wait until the System Preferences' *Keyboard Shortcuts* panel automatically disappears.
+    - **Automatically:** Run `osascript Shortcuts.applescript` (which can be found in the root of this repo). The suggested keyboard shortcuts will be added automatically. Please wait until System Preferences' *Keyboard Shortcuts* panel automatically disappears.
 	
 ## Like the color theme in those screenshots?
 
